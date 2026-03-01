@@ -1109,28 +1109,31 @@ function renderPreview(schedule,func,empresa){
 // (PyMuPDF → pdf-lib coordinate conversion)
 // ================================================================
 
-// Y de cada número de dia na tabela (coordenadas pdf-lib: origem canto inferior esq.)
-// Período 26/mês1 → 25/mês2: dias 26–31 ficam no topo, depois dias 1–25
+// Y de cada dia — centro vertical da linha (coordenadas pdf-lib)
+// Medido diretamente do PDF original com PyMuPDF
 const DAY_Y_BASE = {
-   1:552.5,  2:534.2,  3:518.3,  4:502.4,  5:486.5,
-   6:470.5,  7:456.2,  8:439.6,  9:421.2, 10:405.4,
-  11:389.4, 12:373.4, 13:357.6, 14:343.2, 15:326.5,
-  16:308.3, 17:293.9, 18:275.6, 19:259.7, 20:243.7,
-  21:229.4, 22:212.8, 23:194.4, 24:178.6, 25:162.6,
-  26:647.2, 27:631.3, 28:615.4, 29:599.5, 30:583.6, 31:569.3
+   1:555.1,  2:537.7,  3:521.7,  4:505.9,  5:489.9,
+   6:474.5,  7:459.4,  8:442.1,  9:424.7, 10:408.8,
+  11:392.8, 12:376.9, 13:361.6, 14:346.4, 15:329.1,
+  16:312.2, 17:296.5, 18:279.1, 19:263.1, 20:247.7,
+  21:232.6, 22:215.3, 23:197.9, 24:182.0, 25:166.0,
+  26:650.6, 27:634.7, 28:618.8, 29:602.9, 30:587.6, 31:572.7
 };
 
-// X de cada coluna (medido diretamente dos vetores do PDF)
+// X de cada coluna — centralizado na célula (medido dos vetores do PDF)
+// Células entre linhas verticais: 44|93|143|194|244|296|350|562
 const COL_X = {
-  e1:  96,   // 1º Turno Entrada
-  s1: 146,   // 1º Turno Saída
-  e2: 197,   // 2º Turno Entrada
-  s2: 247,   // 2º Turno Saída
-  assinatura: 353  // coluna Assinatura (Extra Saída / Assinatura)
+  e1:   58,  // 1º Turno Entrada  (entre x=44 e x=93)
+  s1:  108,  // 1º Turno Saída    (entre x=93 e x=143)
+  e2:  158,  // 2º Turno Entrada  (entre x=143 e x=194)
+  s2:  209,  // 2º Turno Saída    (entre x=194 e x=244)
+  extra_e: 260,
+  extra_s: 313,
+  assinatura: 356
 };
 
-const FONT_SIZE_HORA = 7.5;
-const FONT_SIZE_OBS  = 6.5;
+const FONT_SIZE_HORA = 8;    // um pouco mais grosso
+const FONT_SIZE_OBS  = 7;
 
 async function preencherPDFOriginal(pdfB64, schedule, func){
   const {PDFDocument, rgb, StandardFonts} = PDFLib;
@@ -1184,13 +1187,13 @@ async function preencherPDFOriginal(pdfB64, schedule, func){
     if(!day.e1) continue;
 
     // 1º Turno
-    page.drawText(day.e1, {x: colX('e1'), y, size: FONT_SIZE_HORA, font, color: colorBlack});
-    page.drawText(day.s1, {x: colX('s1'), y, size: FONT_SIZE_HORA, font, color: colorBlack});
+    page.drawText(day.e1, {x: colX('e1'), y, size: FONT_SIZE_HORA, font: fontB, color: colorBlack});
+    page.drawText(day.s1, {x: colX('s1'), y, size: FONT_SIZE_HORA, font: fontB, color: colorBlack});
 
     // 2º Turno (só se tiver)
     if(day.e2){
-      page.drawText(day.e2, {x: colX('e2'), y, size: FONT_SIZE_HORA, font, color: colorBlack});
-      page.drawText(day.s2, {x: colX('s2'), y, size: FONT_SIZE_HORA, font, color: colorBlack});
+      page.drawText(day.e2, {x: colX('e2'), y, size: FONT_SIZE_HORA, font: fontB, color: colorBlack});
+      page.drawText(day.s2, {x: colX('s2'), y, size: FONT_SIZE_HORA, font: fontB, color: colorBlack});
     }
   }
 
