@@ -6,7 +6,6 @@
 <title>Folha de Ponto — Sistema Automático</title>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
 <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@400;600;700;800&display=swap');
@@ -148,7 +147,7 @@ tr:hover td{background:rgba(255,255,255,.02);}
     </div>
     <div class="modal-footer">
       <button class="btn sec" onclick="closeModal()">Cancelar</button>
-      <button class="btn" onclick="saveModal()">💾 Confirmar e Salvar</button>
+      <button class="btn" id="modal-save-btn" onclick="saveModal()">💾 Confirmar e Salvar</button>
     </div>
   </div>
 </div>
@@ -158,14 +157,13 @@ tr:hover td{background:rgba(255,255,255,.02);}
   <div class="section-title">⚙️ <span>Configurações</span></div>
   <div class="card">
     <div class="card-title">Firebase</div>
-    <div class="notice">Credenciais já pré-configuradas. Só altere se precisar trocar de projeto Firebase.</div>
+    <div class="notice">✅ Sistema configurado para usar apenas <strong>Firestore</strong> (gratuito). Firebase Storage <strong>não é necessário</strong> — os PDFs são gerados e baixados localmente.</div>
     <div class="row2">
       <div class="field"><label>API Key</label><input type="password" id="cfg-apiKey"></div>
       <div class="field"><label>Auth Domain</label><input type="text" id="cfg-authDomain"></div>
     </div>
     <div class="row2">
       <div class="field"><label>Project ID</label><input type="text" id="cfg-projectId"></div>
-      <div class="field"><label>Storage Bucket</label><input type="text" id="cfg-storageBucket"></div>
     </div>
     <div class="row2">
       <div class="field"><label>Messaging Sender ID</label><input type="text" id="cfg-messagingSenderId"></div>
@@ -292,7 +290,7 @@ const FIREBASE_DEFAULT = {
   appId:"1:649390161434:web:cf1bfb5a15c3a5f2d49ba3"
 };
 
-let db=null, storage=null, fbApp=null;
+let db=null, fbApp=null;
 let chamadaState={};
 let modalPendingFile=null;
 let fileQueue=[];
@@ -314,7 +312,6 @@ function initFirebase(cfg){
     if(fbApp){try{fbApp.delete();}catch(_){}}
     fbApp=firebase.initializeApp(cfg,'app-'+Date.now());
     db=firebase.firestore(fbApp);
-    storage=firebase.storage(fbApp);
     const b=document.getElementById('cfg-badge');
     b.textContent='✓ Firebase OK';b.className='ok';
   }catch(e){
@@ -349,7 +346,7 @@ function nav(page,btn){
 function getSavedConfig(){try{return JSON.parse(localStorage.getItem('fb_cfg')||'null');}catch{return null;}}
 function loadConfigUI(){
   const cfg=getSavedConfig()||FIREBASE_DEFAULT;
-  ['apiKey','authDomain','projectId','storageBucket','messagingSenderId','appId'].forEach(k=>{
+  ['apiKey','authDomain','projectId','messagingSenderId','appId'].forEach(k=>{
     const el=document.getElementById('cfg-'+k);
     if(el)el.value=cfg[k]||'';
   });
@@ -363,7 +360,7 @@ function loadConfigUI(){
 }
 function saveFirebaseConfig(){
   const cfg={};
-  ['apiKey','authDomain','projectId','storageBucket','messagingSenderId','appId'].forEach(k=>{cfg[k]=document.getElementById('cfg-'+k).value.trim();});
+  ['apiKey','authDomain','projectId','messagingSenderId','appId'].forEach(k=>{cfg[k]=document.getElementById('cfg-'+k).value.trim();});
   if(!cfg.apiKey||!cfg.projectId){toast('Preencha API Key e Project ID','error');return;}
   localStorage.setItem('fb_cfg',JSON.stringify(cfg));
   initFirebase(cfg);
@@ -596,6 +593,12 @@ async function saveModal(){
   if(!func){toast('Nome do funcionário é obrigatório','error');return;}
   if(!checkFirebase())return;
 
+  // Feedback visual no botão
+  const saveBtn=document.getElementById('modal-save-btn');
+  const originalText=saveBtn.innerHTML;
+  saveBtn.disabled=true;
+  saveBtn.innerHTML='<span class=\'spin\'></span> Salvando...';
+
   let file=modalPendingFile;
   if(!file){
     const inp=document.getElementById('m-file');
@@ -609,22 +612,26 @@ async function saveModal(){
     if(times&&times.length>=2){horarioEntrada=times[0];horarioSaida=times[times.length-1];}
   }
 
+  // PASSO 1: Salva no Firestore primeiro (não depende do Storage)
   try{
-    let pdfURL='';
-    if(file){
-      const path=`originais/${slugify(empresa)}/${slugify(func)}_${Date.now()}.pdf`;
-      pdfURL=await uploadPDF(file,path);
-    }
-    await saveFuncionario({empresa,cnpj,funcionario:func,periodo,horario,horarioEntrada,horarioSaida},pdfURL);
-    toast(`✅ ${func} salvo!`,'success');
-    document.getElementById('modal-bg').classList.remove('open');
-    loadEmpresasList();
-    const nextLog=_modalLog;
-    modalPendingFile=null;_modalLog=null;
-    if(nextLog&&fileQueue.length>0)processNextFile(nextLog);
+    await saveFuncionario({empresa,cnpj,funcionario:func,periodo,horario,horarioEntrada,horarioSaida},'');
+    console.log('Firestore: salvo');
   }catch(e){
-    toast('Erro ao salvar: '+e.message,'error');
+    console.error('Firestore falhou:',e);
+    toast('Erro Firestore: '+e.message,'error');
+    saveBtn.disabled=false;saveBtn.innerHTML=originalText;
+    return;
   }
+
+  // PDF fica disponível apenas para download local (sem Storage)
+  toast('✅ '+func+' salvo com sucesso!','success');
+
+  saveBtn.disabled=false;saveBtn.innerHTML=originalText;
+  document.getElementById('modal-bg').classList.remove('open');
+  loadEmpresasList();
+  const nextLog=_modalLog;
+  modalPendingFile=null;_modalLog=null;
+  if(nextLog&&fileQueue.length>0)processNextFile(nextLog);
 }
 
 // ============================================================
@@ -636,11 +643,7 @@ function slugify(str){
     .toLowerCase().replace(/[^a-z0-9]+/g,'-')
     .replace(/^-|-$/g,'').slice(0,80)||'item';
 }
-async function uploadPDF(file,path){
-  const ref=storage.ref(path);
-  await ref.put(file);
-  return await ref.getDownloadURL();
-}
+// uploadPDF removido — sem Firebase Storage (gratuito)
 async function saveFuncionario(data,pdfURL){
   const eId=slugify(data.empresa);
   const fId=slugify(data.funcionario);
@@ -829,16 +832,7 @@ async function gerarPDF(){
     const blob=new Blob([pdfBytes],{type:'application/pdf'});
     const url=URL.createObjectURL(blob);
 
-    try{
-      const spath=`preenchidos/${eId}/${fId}_${Date.now()}.pdf`;
-      const sRef=storage.ref(spath);
-      await sRef.put(blob);
-      const dlURL=await sRef.getDownloadURL();
-      await db.collection('empresas').doc(eId).collection('funcionarios').doc(fId).update({
-        pdfPreenchidoURL:dlURL,
-        pdfPreenchidoEm:firebase.firestore.FieldValue.serverTimestamp(),
-      });
-    }catch(e){}
+    // PDF disponível apenas para download local
 
     const link=document.getElementById('ger-link');
     link.href=url;
@@ -1086,32 +1080,59 @@ async function loadArquivos(){
       fs.forEach(fd=>rows.push({emp,func:fd.data(),eId:ed.id,fId:fd.id}));
     }
     if(rows.length===0){el.innerHTML='<div class="empty"><div class="empty-icon">📂</div>Nenhum registro</div>';return;}
-    el.innerHTML='<div class="table-wrap"><table><thead><tr><th>Empresa</th><th>Funcionário</th><th>Período</th><th>PDF Original</th><th>PDF Preenchido</th><th>Ação</th></tr></thead><tbody id="arq-tbody"></tbody></table></div>';
+    el.innerHTML='<div class="table-wrap"><table><thead><tr><th>Empresa</th><th>Funcionário</th><th>Horário</th><th>Período</th><th>Gerar PDF</th><th>Excluir</th></tr></thead><tbody id="arq-tbody"></tbody></table></div>';
     const tbody=document.getElementById('arq-tbody');
     for(const r of rows){
       const tr=document.createElement('tr');
       tr.innerHTML=`
-        <td>${r.emp.nome}</td>
+        <td>
+          <div style="font-size:.8rem;font-weight:600;">${r.emp.nome}</div>
+          <div style="font-size:.68rem;color:var(--muted);">${r.emp.cnpj||''}</div>
+        </td>
         <td>${r.func.nome}</td>
+        <td style="font-size:.72rem;color:var(--accent2)">${r.func.horarioEntrada||'?'}–${r.func.horarioSaida||'?'}</td>
         <td style="font-size:.72rem;color:var(--muted)">${r.func.periodo||'—'}</td>
-        <td>${r.func.pdfOriginalURL?`<a class="btn sec" style="font-size:.7rem;padding:.28rem .65rem" href="${r.func.pdfOriginalURL}" target="_blank">📄 Ver</a>`:'—'}</td>
-        <td>${r.func.pdfPreenchidoURL?`<a class="btn ok" style="font-size:.7rem;padding:.28rem .65rem" href="${r.func.pdfPreenchidoURL}" target="_blank">⬇️ Baixar</a>`:'—'}</td>
-        <td><button class="btn danger" style="font-size:.7rem;padding:.28rem .65rem" onclick="excluir('${r.eId}','${r.fId}')">🗑 Excluir</button></td>
+        <td><button class="btn ok" style="font-size:.7rem;padding:.28rem .75rem" onclick="gerarPDFDireto('${r.eId}','${r.fId}',this)">⚡ Gerar</button></td>
+        <td><button class="btn danger" style="font-size:.7rem;padding:.28rem .65rem" onclick="excluir('${r.eId}','${r.fId}')">🗑</button></td>
       `;
       tbody.appendChild(tr);
     }
   }catch(e){el.innerHTML=`<div class="empty">Erro: ${e.message}</div>`;}
 }
 
+// Gera e baixa PDF direto da lista de arquivos
+async function gerarPDFDireto(eId, fId, btn){
+  const orig=btn.innerHTML;
+  btn.disabled=true;btn.innerHTML='<span class="spin"></span>';
+  try{
+    const fDoc=await db.collection('empresas').doc(eId).collection('funcionarios').doc(fId).get();
+    const func=fDoc.data();
+    const eDoc=await db.collection('empresas').doc(eId).get();
+    const empresa=eDoc.data();
+    const cSnap=await db.collection('chamadas').doc(eId).collection(fId).get();
+    const chamadas={};
+    cSnap.forEach(d=>{chamadas[d.id]=d.data();});
+    const period=parsePeriod(func.periodo);
+    const schedule=buildSchedule(period,chamadas,func);
+    const pdfBytes=await buildPDF(schedule,func,empresa);
+    const blob=new Blob([pdfBytes],{type:'application/pdf'});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a');
+    a.href=url;
+    a.download='folha_'+(func.nome||'func').replace(/\s+/g,'_')+'.pdf';
+    a.click();
+    setTimeout(()=>URL.revokeObjectURL(url),5000);
+    toast('PDF gerado e baixado!','success');
+  }catch(e){
+    toast('Erro: '+e.message,'error');
+  }
+  btn.disabled=false;btn.innerHTML=orig;
+}
+
 async function excluir(eId,fId){
   if(!confirm('Excluir este funcionário e todos os seus dados?'))return;
   try{
-    try{
-      const fd=await db.collection('empresas').doc(eId).collection('funcionarios').doc(fId).get();
-      const f=fd.data();
-      if(f.pdfOriginalURL)await storage.refFromURL(f.pdfOriginalURL).delete().catch(()=>{});
-      if(f.pdfPreenchidoURL)await storage.refFromURL(f.pdfPreenchidoURL).delete().catch(()=>{});
-    }catch(_){}
+    // Sem Storage — nada para deletar de lá
     try{
       const cs=await db.collection('chamadas').doc(eId).collection(fId).get();
       for(const d of cs.docs)await d.ref.delete();
