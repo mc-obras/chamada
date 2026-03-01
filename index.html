@@ -18,95 +18,104 @@
 body{background:var(--bg);color:var(--text);font-family:'DM Mono',monospace;min-height:100vh;}
 header{background:var(--surface);border-bottom:1px solid var(--border);padding:0 1.5rem;display:flex;align-items:center;gap:1.5rem;height:58px;position:sticky;top:0;z-index:100;}
 .logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;color:var(--accent);white-space:nowrap;}
-nav{display:flex;gap:.2rem;flex:1;}
-.nav-btn{background:none;border:none;color:var(--muted);font-family:'DM Mono',monospace;font-size:.75rem;padding:.38rem .85rem;border-radius:6px;cursor:pointer;transition:all .15s;}
+nav{display:flex;gap:.15rem;flex:1;}
+.nav-btn{background:none;border:none;color:var(--muted);font-family:'DM Mono',monospace;font-size:.73rem;padding:.35rem .8rem;border-radius:6px;cursor:pointer;transition:all .15s;}
 .nav-btn:hover{color:var(--text);background:var(--border);}
 .nav-btn.active{color:var(--accent);background:rgba(232,255,71,.08);}
-#cfg-badge{font-size:.68rem;padding:.22rem .65rem;border-radius:20px;white-space:nowrap;background:rgba(255,71,71,.15);color:var(--danger);border:1px solid rgba(255,71,71,.3);}
+#cfg-badge{font-size:.67rem;padding:.2rem .6rem;border-radius:20px;white-space:nowrap;background:rgba(255,71,71,.15);color:var(--danger);border:1px solid rgba(255,71,71,.3);}
 #cfg-badge.ok{background:rgba(46,213,115,.1);color:var(--success);border-color:rgba(46,213,115,.3);}
 .page{display:none;padding:2rem;max-width:1100px;margin:0 auto;}
 .page.active{display:block;}
-.section-title{font-family:'Syne',sans-serif;font-size:1.35rem;font-weight:700;margin-bottom:1.5rem;}
-.section-title span{color:var(--accent);}
-.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.4rem;margin-bottom:1.2rem;}
-.card-title{font-family:'Syne',sans-serif;font-size:.8rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:1rem;}
-input[type=text],input[type=password],input[type=date],select,textarea{background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:'DM Mono',monospace;font-size:.8rem;padding:.5rem .75rem;width:100%;outline:none;transition:border-color .15s;}
+.sec-title{font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:700;margin-bottom:1.4rem;}
+.sec-title span{color:var(--accent);}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.4rem;margin-bottom:1.1rem;}
+.card-title{font-family:'Syne',sans-serif;font-size:.78rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:.9rem;}
+input[type=text],input[type=password],input[type=date],select,textarea{background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:'DM Mono',monospace;font-size:.79rem;padding:.48rem .72rem;width:100%;outline:none;transition:border-color .15s;}
 input:focus,select:focus,textarea:focus{border-color:var(--accent);}
 select option{background:var(--surface);}
-label{display:block;font-size:.72rem;color:var(--muted);margin-bottom:.3rem;letter-spacing:.4px;}
-.field{margin-bottom:.9rem;}
-.row2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
-.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;}
+label{display:block;font-size:.7rem;color:var(--muted);margin-bottom:.28rem;letter-spacing:.4px;}
+.field{margin-bottom:.85rem;}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.9rem;}
 .row4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:.8rem;}
-.btn{display:inline-flex;align-items:center;gap:.45rem;background:var(--accent);color:#0d0f14;border:none;border-radius:6px;font-family:'Syne',sans-serif;font-weight:700;font-size:.8rem;padding:.5rem 1.1rem;cursor:pointer;transition:all .15s;text-decoration:none;white-space:nowrap;}
+.btn{display:inline-flex;align-items:center;gap:.4rem;background:var(--accent);color:#0d0f14;border:none;border-radius:6px;font-family:'Syne',sans-serif;font-weight:700;font-size:.78rem;padding:.48rem 1rem;cursor:pointer;transition:all .15s;text-decoration:none;white-space:nowrap;}
 .btn:hover{filter:brightness(1.1);transform:translateY(-1px);}
 .btn:active{transform:none;}
 .btn.sec{background:var(--border);color:var(--text);}
 .btn.danger{background:rgba(255,71,87,.12);color:var(--danger);border:1px solid rgba(255,71,87,.3);}
 .btn.danger:hover{background:rgba(255,71,87,.22);}
 .btn.ok{background:var(--success);color:#0d0f14;}
-.btn:disabled{opacity:.4;cursor:not-allowed;transform:none;}
-.upload-zone{border:2px dashed var(--border);border-radius:var(--radius);padding:2.5rem 2rem;text-align:center;cursor:pointer;transition:all .2s;position:relative;}
+.btn.blue{background:var(--accent2);color:#0d0f14;}
+.btn:disabled{opacity:.4;cursor:not-allowed;transform:none;filter:none;}
+.upload-zone{border:2px dashed var(--border);border-radius:var(--radius);padding:2.2rem 2rem;text-align:center;cursor:pointer;transition:all .2s;position:relative;}
 .upload-zone:hover,.upload-zone.drag-over{border-color:var(--accent);background:rgba(232,255,71,.03);}
 .upload-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
-.upload-icon{font-size:2.2rem;margin-bottom:.6rem;}
-.upload-text{color:var(--muted);font-size:.83rem;}
+.upload-icon{font-size:2rem;margin-bottom:.5rem;}
+.upload-text{color:var(--muted);font-size:.82rem;}
 .upload-text strong{color:var(--accent);}
-.log{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:.9rem;font-size:.73rem;max-height:240px;overflow-y:auto;line-height:1.8;}
+.log{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:.85rem;font-size:.71rem;max-height:260px;overflow-y:auto;line-height:1.85;}
 .lok{color:var(--success);}.lerr{color:var(--danger);}.linfo{color:var(--accent2);}.lwarn{color:var(--warn);}
 .table-wrap{overflow-x:auto;}
-table{width:100%;border-collapse:collapse;font-size:.78rem;}
-th{text-align:left;padding:.55rem .75rem;color:var(--muted);font-size:.68rem;letter-spacing:.8px;text-transform:uppercase;border-bottom:1px solid var(--border);}
-td{padding:.65rem .75rem;border-bottom:1px solid rgba(37,41,51,.6);vertical-align:middle;}
-tr:hover td{background:rgba(255,255,255,.02);}
-.s-btns{display:flex;gap:.35rem;flex-wrap:wrap;}
-.s-btn{border:1px solid var(--border);background:transparent;color:var(--muted);font-family:'DM Mono',monospace;font-size:.7rem;padding:.25rem .6rem;border-radius:4px;cursor:pointer;transition:all .15s;}
+table{width:100%;border-collapse:collapse;font-size:.77rem;}
+th{text-align:left;padding:.52rem .72rem;color:var(--muted);font-size:.67rem;letter-spacing:.8px;text-transform:uppercase;border-bottom:1px solid var(--border);}
+td{padding:.6rem .72rem;border-bottom:1px solid rgba(37,41,51,.6);vertical-align:middle;}
+tr:hover td{background:rgba(255,255,255,.018);}
+.s-btns{display:flex;gap:.3rem;flex-wrap:wrap;}
+.s-btn{border:1px solid var(--border);background:transparent;color:var(--muted);font-family:'DM Mono',monospace;font-size:.68rem;padding:.22rem .55rem;border-radius:4px;cursor:pointer;transition:all .15s;}
 .s-btn:hover{color:var(--text);}
 .s-btn.ap{background:rgba(46,213,115,.15);color:var(--success);border-color:var(--success);}
 .s-btn.af{background:rgba(255,71,87,.15);color:var(--danger);border-color:var(--danger);}
 .s-btn.aa{background:rgba(255,165,2,.15);color:var(--warn);border-color:var(--warn);}
-.acheck{display:flex;align-items:center;gap:.35rem;font-size:.72rem;color:var(--muted);cursor:pointer;}
+.s-btn.disabled-day{opacity:.4;cursor:default;pointer-events:none;}
+.acheck{display:flex;align-items:center;gap:.3rem;font-size:.7rem;color:var(--muted);cursor:pointer;}
 .acheck input{width:auto;}
-.badge{display:inline-flex;align-items:center;font-size:.68rem;padding:.18rem .55rem;border-radius:100px;}
+.badge{display:inline-flex;align-items:center;font-size:.66rem;padding:.16rem .52rem;border-radius:100px;}
 .bs{background:rgba(46,213,115,.12);color:var(--success);}
 .bd{background:rgba(255,71,87,.12);color:var(--danger);}
 .bw{background:rgba(255,165,2,.12);color:var(--warn);}
 .bi{background:rgba(71,200,255,.12);color:var(--accent2);}
-.empty{text-align:center;padding:2.5rem 1rem;color:var(--muted);font-size:.83rem;}
-.empty-icon{font-size:2.2rem;margin-bottom:.6rem;}
+.bp{background:rgba(180,100,255,.12);color:#c084fc;}
+.empty{text-align:center;padding:2.2rem 1rem;color:var(--muted);font-size:.82rem;}
+.empty-icon{font-size:2rem;margin-bottom:.55rem;}
 @keyframes spin{to{transform:rotate(360deg);}}
-.spin{width:16px;height:16px;border:2px solid transparent;border-top-color:currentColor;border-radius:50%;animation:spin .6s linear infinite;display:inline-block;}
-#toast-wrap{position:fixed;bottom:1.2rem;right:1.2rem;z-index:9999;display:flex;flex-direction:column;gap:.5rem;}
-.toast{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:.7rem 1.1rem;font-size:.78rem;max-width:320px;line-height:1.5;}
+.spin{width:15px;height:15px;border:2px solid transparent;border-top-color:currentColor;border-radius:50%;animation:spin .6s linear infinite;display:inline-block;vertical-align:middle;}
+#toast-wrap{position:fixed;bottom:1.1rem;right:1.1rem;z-index:9999;display:flex;flex-direction:column;gap:.45rem;}
+.toast{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:.65rem 1rem;font-size:.76rem;max-width:320px;line-height:1.45;}
 .toast.success{border-color:var(--success);color:var(--success);}
 .toast.error{border-color:var(--danger);color:var(--danger);}
 .toast.info{border-color:var(--accent2);color:var(--accent2);}
-.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:500;display:none;align-items:center;justify-content:center;}
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.82);z-index:500;display:none;align-items:center;justify-content:center;padding:1rem;}
 .modal-bg.open{display:flex;}
-.modal{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.8rem;width:min(580px,96vw);max-height:92vh;overflow-y:auto;}
-.modal h3{font-family:'Syne',sans-serif;font-size:1.05rem;margin-bottom:.35rem;color:var(--accent);}
-.modal-sub{font-size:.73rem;color:var(--muted);margin-bottom:1rem;line-height:1.55;}
-.modal-footer{display:flex;gap:.6rem;justify-content:flex-end;margin-top:1.2rem;}
-.ocr-raw{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:.75rem;font-size:.67rem;max-height:140px;overflow-y:auto;white-space:pre-wrap;color:var(--muted);margin-bottom:1rem;line-height:1.5;}
-.flex-bar{display:flex;gap:.7rem;align-items:flex-end;flex-wrap:wrap;margin-bottom:1.3rem;}
-.flex-bar .field{margin-bottom:0;min-width:180px;}
-.notice{background:rgba(71,200,255,.07);border:1px solid rgba(71,200,255,.2);border-radius:8px;padding:.85rem 1rem;font-size:.77rem;color:var(--accent2);margin-bottom:1rem;line-height:1.6;}
-.parsed-preview{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:1rem;margin-bottom:1rem;}
-.parsed-preview .row{display:flex;gap:.5rem;margin-bottom:.4rem;font-size:.78rem;}
-.parsed-preview .lbl{color:var(--muted);min-width:110px;font-size:.7rem;}
-.parsed-preview .val{color:var(--accent);font-weight:500;}
-.parsed-preview .val.ok{color:var(--success);}
-.parsed-preview .val.err{color:var(--danger);}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.6rem;width:min(580px,96vw);max-height:90vh;overflow-y:auto;}
+.modal h3{font-family:'Syne',sans-serif;font-size:1rem;margin-bottom:.3rem;color:var(--accent);}
+.modal-sub{font-size:.71rem;color:var(--muted);margin-bottom:.9rem;line-height:1.55;}
+.modal-footer{display:flex;gap:.55rem;justify-content:flex-end;margin-top:1.1rem;}
+.parsed-preview{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:.9rem;margin-bottom:.9rem;}
+.prow{display:flex;gap:.5rem;margin-bottom:.35rem;font-size:.76rem;align-items:flex-start;}
+.plbl{color:var(--muted);min-width:120px;font-size:.68rem;flex-shrink:0;}
+.pval{color:var(--success);font-weight:500;word-break:break-word;}
+.pval.err{color:var(--danger);}
+.special-days-preview{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:.7rem;margin-bottom:.9rem;font-size:.7rem;}
+.special-days-preview .sd-title{color:var(--muted);margin-bottom:.4rem;font-size:.68rem;letter-spacing:.5px;text-transform:uppercase;}
+.special-days-list{display:flex;flex-wrap:wrap;gap:.3rem;}
+.notice{background:rgba(71,200,255,.07);border:1px solid rgba(71,200,255,.2);border-radius:8px;padding:.8rem .95rem;font-size:.75rem;color:var(--accent2);margin-bottom:.95rem;line-height:1.6;}
+.progress-wrap{background:var(--border);border-radius:100px;height:5px;overflow:hidden;margin:.4rem 0;}
+.progress-fill{height:100%;background:var(--accent);border-radius:100px;transition:width .3s;}
+.flex-bar{display:flex;gap:.65rem;align-items:flex-end;flex-wrap:wrap;margin-bottom:1.2rem;}
+.flex-bar .field{margin-bottom:0;min-width:175px;}
+.func-card{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:.8rem 1rem;margin-bottom:.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;}
+.func-info .name{font-size:.85rem;font-weight:600;font-family:'Syne',sans-serif;}
+.func-info .sub{font-size:.68rem;color:var(--muted);margin-top:.1rem;}
+.func-actions{display:flex;gap:.4rem;flex-shrink:0;}
 @media(max-width:680px){
   .row2,.row3,.row4{grid-template-columns:1fr;}
   .flex-bar{flex-direction:column;align-items:stretch;}
-  nav{gap:0;}.nav-btn{font-size:.68rem;padding:.32rem .55rem;}
+  nav{gap:0;}.nav-btn{font-size:.67rem;padding:.3rem .5rem;}
   .page{padding:1rem;}
 }
 </style>
 </head>
 <body>
-
 <header>
   <div class="logo">⏱ FOLHA.AUTO</div>
   <nav>
@@ -118,35 +127,29 @@ tr:hover td{background:rgba(255,255,255,.02);}
   </nav>
   <div id="cfg-badge">⚠ Firebase</div>
 </header>
-
 <div id="toast-wrap"></div>
 
-<!-- MODAL REVISÃO -->
+<!-- MODAL REVISÃO FUNCIONÁRIO -->
 <div class="modal-bg" id="modal-bg">
   <div class="modal">
-    <h3>📋 Confirmar dados lidos pelo OCR</h3>
-    <p class="modal-sub">Verifique os dados abaixo. Corrija qualquer campo errado antes de salvar. Campos marcados com <span style="color:var(--danger)">✗</span> precisam de atenção.</p>
-
-    <!-- Preview do que foi lido -->
-    <div class="parsed-preview" id="modal-parsed-preview"></div>
-
-    <div id="modal-ocr-raw" class="ocr-raw" style="display:none;"></div>
-
+    <h3>📋 Confirmar dados do funcionário</h3>
+    <p class="modal-sub">Verifique os dados lidos pelo OCR. Corrija qualquer campo errado antes de salvar.</p>
+    <div class="parsed-preview" id="modal-preview"></div>
+    <div class="special-days-preview" id="modal-special" style="display:none">
+      <div class="sd-title">Dias especiais detectados no PDF</div>
+      <div class="special-days-list" id="modal-special-list"></div>
+    </div>
     <div class="row2">
       <div class="field"><label>Nome da Empresa *</label><input type="text" id="m-empresa"></div>
       <div class="field"><label>CNPJ</label><input type="text" id="m-cnpj"></div>
     </div>
     <div class="field"><label>Nome do Funcionário *</label><input type="text" id="m-func"></div>
     <div class="row2">
-      <div class="field"><label>Período (ex: 26/01/2026 à 25/02/2026)</label><input type="text" id="m-periodo" placeholder="dd/mm/aaaa à dd/mm/aaaa"></div>
-      <div class="field"><label>Horário base (ex: 08:00 às 14:00)</label><input type="text" id="m-horario" placeholder="08:00 às 17:00"></div>
-    </div>
-    <div class="field" id="m-file-field" style="display:none;">
-      <label>PDF Original (opcional)</label>
-      <input type="file" id="m-file" accept=".pdf" style="background:var(--bg);border:1px solid var(--border);padding:.4rem;border-radius:6px;color:var(--text);">
+      <div class="field"><label>Período</label><input type="text" id="m-periodo" placeholder="dd/mm/aaaa à dd/mm/aaaa"></div>
+      <div class="field"><label>Horário lido</label><input type="text" id="m-horario" placeholder="07:00 às 17:00"></div>
     </div>
     <div class="modal-footer">
-      <button class="btn sec" onclick="closeModal()">Cancelar</button>
+      <button class="btn sec" onclick="skipModal()">Pular</button>
       <button class="btn" id="modal-save-btn" onclick="saveModal()">💾 Confirmar e Salvar</button>
     </div>
   </div>
@@ -154,20 +157,20 @@ tr:hover td{background:rgba(255,255,255,.02);}
 
 <!-- CONFIG -->
 <div id="page-config" class="page">
-  <div class="section-title">⚙️ <span>Configurações</span></div>
+  <div class="sec-title">⚙️ <span>Configurações</span></div>
   <div class="card">
     <div class="card-title">Firebase</div>
-    <div class="notice">✅ Sistema configurado para usar apenas <strong>Firestore</strong> (gratuito). Firebase Storage <strong>não é necessário</strong> — os PDFs são gerados e baixados localmente.</div>
+    <div class="notice">✅ Sistema usa apenas <strong>Firestore</strong> (gratuito). PDFs são salvos em base64 no banco. Storage não é necessário.</div>
     <div class="row2">
       <div class="field"><label>API Key</label><input type="password" id="cfg-apiKey"></div>
       <div class="field"><label>Auth Domain</label><input type="text" id="cfg-authDomain"></div>
     </div>
     <div class="row2">
       <div class="field"><label>Project ID</label><input type="text" id="cfg-projectId"></div>
+      <div class="field"><label>App ID</label><input type="text" id="cfg-appId"></div>
     </div>
     <div class="row2">
       <div class="field"><label>Messaging Sender ID</label><input type="text" id="cfg-messagingSenderId"></div>
-      <div class="field"><label>App ID</label><input type="text" id="cfg-appId"></div>
     </div>
     <button class="btn" onclick="saveFirebaseConfig()">💾 Salvar e Reconectar</button>
   </div>
@@ -183,50 +186,54 @@ tr:hover td{background:rgba(255,255,255,.02);}
   </div>
   <div class="card">
     <div class="card-title">Horários Padrão (variação ±5 min automática)</div>
-    <p style="font-size:.77rem;color:var(--muted);margin-bottom:.9rem;">Estes são os horários padrão globais. Cada funcionário pode ter horário próprio definido no momento do upload.</p>
     <div class="row4">
-      <div class="field"><label>Entrada 1</label><input type="text" id="ht-e1" value="07:00"></div>
-      <div class="field"><label>Saída 1</label><input type="text" id="ht-s1" value="12:00"></div>
-      <div class="field"><label>Entrada 2</label><input type="text" id="ht-e2" value="13:00"></div>
-      <div class="field"><label>Saída 2</label><input type="text" id="ht-s2" value="17:00"></div>
+      <div class="field"><label>Seg–Qui Entrada 1</label><input type="text" id="ht-e1" value="07:00"></div>
+      <div class="field"><label>Seg–Qui Saída 1</label><input type="text" id="ht-s1" value="12:00"></div>
+      <div class="field"><label>Seg–Qui Entrada 2</label><input type="text" id="ht-e2" value="13:00"></div>
+      <div class="field"><label>Seg–Qui Saída 2</label><input type="text" id="ht-s2" value="17:00"></div>
     </div>
     <div class="row4">
-      <div class="field"><label>Sexta — Saída 2</label><input type="text" id="ht-sf" value="16:00"></div>
+      <div class="field"><label>Sex Saída 2</label><input type="text" id="ht-sf" value="16:00"></div>
     </div>
-    <button class="btn sec" onclick="saveHorarios()">💾 Salvar Horários</button>
+    <button class="btn sec" onclick="saveHorarios()">💾 Salvar</button>
   </div>
 </div>
 
 <!-- UPLOAD -->
 <div id="page-upload" class="page active">
-  <div class="section-title">📁 <span>Upload de Folhas</span></div>
+  <div class="sec-title">📁 <span>Upload de Folhas</span></div>
   <div class="card">
     <div class="card-title">Enviar PDFs</div>
     <div class="notice">
-      ✓ O sistema lê: <strong>Empresa, CNPJ, nome do funcionário, período e horário base</strong> do PDF.<br>
-      ✓ Após leitura, abre <strong>tela de revisão</strong> para você confirmar ou corrigir antes de salvar.
+      ✓ Aceita PDFs com <strong>múltiplos funcionários</strong> (uma página por funcionário) ou PDFs individuais.<br>
+      ✓ OCR lê automaticamente: empresa, funcionário, período, horário e dias especiais (DSR, Feriado, etc).<br>
+      ✓ PDF original é salvo no Firestore para preenchimento posterior.
     </div>
     <div class="upload-zone" id="upload-zone">
       <input type="file" id="file-input" multiple accept=".pdf" onchange="handleFiles(this.files)">
       <div class="upload-icon">📄</div>
-      <div class="upload-text"><strong>Clique ou arraste</strong> os PDFs aqui — múltiplos arquivos permitidos</div>
+      <div class="upload-text"><strong>Clique ou arraste</strong> os PDFs aqui — múltiplos arquivos e multi-página suportados</div>
     </div>
-    <div id="upload-log" class="log" style="margin-top:1rem;display:none;"></div>
+    <div id="upload-progress" style="display:none;margin-top:.8rem;">
+      <div style="font-size:.72rem;color:var(--muted);margin-bottom:.3rem;" id="upload-progress-label"></div>
+      <div class="progress-wrap"><div class="progress-fill" id="upload-progress-bar" style="width:0%"></div></div>
+    </div>
+    <div id="upload-log" class="log" style="margin-top:.9rem;display:none;"></div>
   </div>
   <div class="card">
     <div class="card-title">Cadastro Manual</div>
-    <p style="font-size:.77rem;color:var(--muted);margin-bottom:.9rem;">Se o OCR falhar ou quiser cadastrar sem PDF, use este botão.</p>
+    <p style="font-size:.75rem;color:var(--muted);margin-bottom:.8rem;">Cadastre um funcionário manualmente sem precisar de PDF.</p>
     <button class="btn sec" onclick="openManualModal()">➕ Cadastrar Manualmente</button>
   </div>
   <div class="card">
-    <div class="card-title">Empresas Cadastradas</div>
+    <div class="card-title">Empresas & Funcionários Cadastrados</div>
     <div id="empresas-list"><div class="empty"><div class="empty-icon">🏢</div>Nenhuma empresa ainda</div></div>
   </div>
 </div>
 
 <!-- CHAMADA -->
 <div id="page-chamada" class="page">
-  <div class="section-title">✅ <span>Chamada Diária</span></div>
+  <div class="sec-title">✅ <span>Chamada Diária</span></div>
   <div class="card">
     <div class="flex-bar">
       <div class="field"><label>Empresa</label>
@@ -236,7 +243,7 @@ tr:hover td{background:rgba(255,255,255,.02);}
     </div>
   </div>
   <div class="card">
-    <div class="card-title">Funcionários</div>
+    <div class="card-title" id="ch-list-title">Funcionários</div>
     <div id="chamada-list"><div class="empty"><div class="empty-icon">👥</div>Selecione empresa e data</div></div>
   </div>
   <div id="ch-save-bar" style="display:none;text-align:right;margin-top:.3rem;">
@@ -246,62 +253,65 @@ tr:hover td{background:rgba(255,255,255,.02);}
 
 <!-- GERAR PDF -->
 <div id="page-gerar" class="page">
-  <div class="section-title">📋 <span>Gerar Folha Preenchida</span></div>
+  <div class="sec-title">📋 <span>Gerar Folha Preenchida</span></div>
   <div class="card">
+    <div class="notice">O sistema preenche o <strong>PDF original</strong> com os horários gerados, detectando automaticamente as células da tabela pelo grid.</div>
     <div class="flex-bar">
       <div class="field"><label>Empresa</label>
         <select id="ger-emp" onchange="loadFuncGerar()"><option value="">Selecione...</option></select></div>
       <div class="field"><label>Funcionário</label>
         <select id="ger-func"><option value="">Selecione...</option></select></div>
-      <button class="btn" id="ger-btn" onclick="gerarPDF()">⚡ Gerar PDF</button>
+      <button class="btn" id="ger-btn" onclick="gerarPDF()">⚡ Gerar PDF Preenchido</button>
     </div>
   </div>
   <div class="card" id="ger-preview" style="display:none;">
     <div class="card-title">Preview das marcações</div>
     <div id="ger-preview-content"></div>
     <div id="ger-download" style="margin-top:1rem;display:none;">
-      <a id="ger-link" class="btn ok" target="_blank">⬇️ Baixar PDF Preenchido</a>
+      <a id="ger-link" class="btn ok">⬇️ Baixar PDF Preenchido</a>
     </div>
   </div>
 </div>
 
 <!-- ARQUIVOS -->
 <div id="page-arquivos" class="page">
-  <div class="section-title">🗂 <span>Arquivos Armazenados</span></div>
+  <div class="sec-title">🗂 <span>Arquivos & Funcionários</span></div>
   <div class="card">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
-      <span class="card-title" style="margin-bottom:0;">Funcionários & PDFs</span>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.9rem;">
+      <span class="card-title" style="margin-bottom:0;">Registros no Firestore</span>
       <button class="btn sec" onclick="loadArquivos()">🔄 Atualizar</button>
     </div>
-    <div id="arq-list"><div class="empty"><div class="empty-icon">📂</div>Nenhum arquivo</div></div>
+    <div id="arq-list"><div class="empty"><div class="empty-icon">📂</div>Nenhum registro</div></div>
   </div>
 </div>
 
 <script>
-// ============================================================
-// FIREBASE — suas credenciais
-// ============================================================
-const FIREBASE_DEFAULT = {
+// ================================================================
+// FIREBASE CONFIG
+// ================================================================
+const FB_DEFAULT = {
   apiKey:"AIzaSyASPAnm7GUm0EQzBpewZJg-PL8rd5coWuA",
   authDomain:"chamada-teste.firebaseapp.com",
   projectId:"chamada-teste",
-  storageBucket:"chamada-teste.firebasestorage.app",
   messagingSenderId:"649390161434",
   appId:"1:649390161434:web:cf1bfb5a15c3a5f2d49ba3"
 };
 
+// ================================================================
+// STATE
+// ================================================================
 let db=null, fbApp=null;
 let chamadaState={};
-let modalPendingFile=null;
-let fileQueue=[];
-let _modalLog=null;
+let modalQueue=[];       // fila de funcionários para revisar
+let modalCurrent=null;   // funcionário atual no modal
+let uploadLog=null;
 
-// ============================================================
+// ================================================================
 // INIT
-// ============================================================
+// ================================================================
 window.addEventListener('load',()=>{
   const saved=getSavedConfig();
-  initFirebase((saved&&saved.apiKey)?saved:FIREBASE_DEFAULT);
+  initFirebase((saved&&saved.apiKey)?saved:FB_DEFAULT);
   loadConfigUI();
   loadEmpresasList();
   setDefaultDate();
@@ -312,6 +322,8 @@ function initFirebase(cfg){
     if(fbApp){try{fbApp.delete();}catch(_){}}
     fbApp=firebase.initializeApp(cfg,'app-'+Date.now());
     db=firebase.firestore(fbApp);
+    // Aumenta timeout para uploads grandes
+    db.settings({experimentalForceLongPolling:false});
     const b=document.getElementById('cfg-badge');
     b.textContent='✓ Firebase OK';b.className='ok';
   }catch(e){
@@ -321,13 +333,13 @@ function initFirebase(cfg){
   }
 }
 function checkFirebase(){
-  if(!db){toast('Firebase não conectado — vá em Config','error');return false;}
+  if(!db){toast('Firebase não conectado','error');return false;}
   return true;
 }
 
-// ============================================================
+// ================================================================
 // NAV
-// ============================================================
+// ================================================================
 function nav(page,btn){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
@@ -340,13 +352,13 @@ function nav(page,btn){
   if(page==='config')   loadConfigUI();
 }
 
-// ============================================================
+// ================================================================
 // CONFIG
-// ============================================================
+// ================================================================
 function getSavedConfig(){try{return JSON.parse(localStorage.getItem('fb_cfg')||'null');}catch{return null;}}
 function loadConfigUI(){
-  const cfg=getSavedConfig()||FIREBASE_DEFAULT;
-  ['apiKey','authDomain','projectId','messagingSenderId','appId'].forEach(k=>{
+  const cfg=getSavedConfig()||FB_DEFAULT;
+  ['apiKey','authDomain','projectId','appId','messagingSenderId'].forEach(k=>{
     const el=document.getElementById('cfg-'+k);
     if(el)el.value=cfg[k]||'';
   });
@@ -360,7 +372,7 @@ function loadConfigUI(){
 }
 function saveFirebaseConfig(){
   const cfg={};
-  ['apiKey','authDomain','projectId','messagingSenderId','appId'].forEach(k=>{cfg[k]=document.getElementById('cfg-'+k).value.trim();});
+  ['apiKey','authDomain','projectId','appId','messagingSenderId'].forEach(k=>{cfg[k]=document.getElementById('cfg-'+k).value.trim();});
   if(!cfg.apiKey||!cfg.projectId){toast('Preencha API Key e Project ID','error');return;}
   localStorage.setItem('fb_cfg',JSON.stringify(cfg));
   initFirebase(cfg);
@@ -372,66 +384,105 @@ function saveOcr(){
   toast('OCR salvo!','success');
 }
 function saveHorarios(){
-  const ht={e1:document.getElementById('ht-e1').value,s1:document.getElementById('ht-s1').value,e2:document.getElementById('ht-e2').value,s2:document.getElementById('ht-s2').value,sf:document.getElementById('ht-sf').value};
+  const ht={e1:document.getElementById('ht-e1').value,s1:document.getElementById('ht-s1').value,
+    e2:document.getElementById('ht-e2').value,s2:document.getElementById('ht-s2').value,sf:document.getElementById('ht-sf').value};
   localStorage.setItem('horarios',JSON.stringify(ht));
   toast('Horários salvos!','success');
 }
 function getHorarios(){
-  try{const h=JSON.parse(localStorage.getItem('horarios')||'{}');return{e1:h.e1||'07:00',s1:h.s1||'12:00',e2:h.e2||'13:00',s2:h.s2||'17:00',sf:h.sf||'16:00'};}
+  try{const h=JSON.parse(localStorage.getItem('horarios')||'{}');
+    return{e1:h.e1||'07:00',s1:h.s1||'12:00',e2:h.e2||'13:00',s2:h.s2||'17:00',sf:h.sf||'16:00'};}
   catch{return{e1:'07:00',s1:'12:00',e2:'13:00',s2:'17:00',sf:'16:00'};}
 }
 
-// ============================================================
+// ================================================================
 // DRAG & DROP
-// ============================================================
+// ================================================================
 const zone=document.getElementById('upload-zone');
 zone.addEventListener('dragover',e=>{e.preventDefault();zone.classList.add('drag-over');});
 zone.addEventListener('dragleave',()=>zone.classList.remove('drag-over'));
 zone.addEventListener('drop',e=>{e.preventDefault();zone.classList.remove('drag-over');handleFiles(e.dataTransfer.files);});
 
-// ============================================================
-// HANDLE FILES
-// ============================================================
+// ================================================================
+// HANDLE FILES — lê PDF completo, OCR por página
+// ================================================================
 async function handleFiles(files){
   if(!checkFirebase())return;
   const log=document.getElementById('upload-log');
   log.style.display='block';
-  fileQueue=[...files].filter(f=>f.type==='application/pdf');
-  const skipped=files.length-fileQueue.length;
-  if(skipped>0)logM(log,`⚠ ${skipped} arquivo(s) ignorado(s) — não são PDF`,'lwarn');
-  if(fileQueue.length===0)return;
-  processNextFile(log);
-}
+  log.innerHTML='';
+  uploadLog=log;
 
-async function processNextFile(log){
-  if(fileQueue.length===0){logM(log,'✅ Todos os arquivos processados!','lok');return;}
-  const file=fileQueue.shift();
-  logM(log,`📄 Lendo: ${file.name}...`,'linfo');
-  try{
-    const raw=await runOCR(file);
-    logM(log,`✓ OCR concluído — ${raw.length} caracteres lidos`,'lok');
-    const parsed=parseOCR(raw);
-    logM(log,`🏢 Empresa: "${parsed.empresa}"`,'linfo');
-    logM(log,`👤 Funcionário: "${parsed.funcionario}"`,'linfo');
-    logM(log,`📅 Período: "${parsed.periodo}" | ⏰ Horário: "${parsed.horario}"`,'linfo');
-    openReviewModal(parsed,raw,file,log);
-  }catch(e){
-    logM(log,`❌ Erro OCR: ${e.message}`,'lerr');
-    openReviewModal({empresa:'',cnpj:'',funcionario:'',periodo:'',horario:''},'',file,log);
+  const pdfs=[...files].filter(f=>f.type==='application/pdf');
+  if(!pdfs.length){logM(log,'Nenhum PDF encontrado','lwarn');return;}
+
+  modalQueue=[];
+
+  for(const file of pdfs){
+    logM(log,`📄 Processando: ${file.name}`,'linfo');
+
+    // Converte PDF para base64
+    const b64=await fileToBase64(file);
+    logM(log,`✓ PDF lido (${Math.round(b64.length*0.75/1024)}KB)`,'lok');
+
+    // Envia para OCR — usa OCR.space que suporta múltiplas páginas
+    logM(log,'🔍 Enviando para OCR (pode demorar)...','linfo');
+    setProgress(0,'Enviando para OCR...');
+
+    try{
+      const pages=await runOCRMultiPage(file,b64,log);
+      logM(log,`✓ OCR concluído — ${pages.length} página(s) detectada(s)`,'lok');
+      setProgress(50,'Analisando dados...');
+
+      for(let i=0;i<pages.length;i++){
+        const pageText=pages[i];
+        const parsed=parseOCR(pageText);
+        parsed.pdfBase64=b64;
+        parsed.pageIndex=i;
+        parsed.totalPages=pages.length;
+        parsed.fileName=file.name;
+        logM(log,`  📑 Página ${i+1}: ${parsed.funcionario||'?'} — ${parsed.empresa||'?'}`,'linfo');
+        modalQueue.push(parsed);
+      }
+      setProgress(80,'Abrindo revisão...');
+    }catch(e){
+      logM(log,`❌ OCR falhou: ${e.message}`,'lerr');
+      // Abre modal manual com o arquivo
+      modalQueue.push({empresa:'',cnpj:'',funcionario:'',periodo:'',horario:'',diasEspeciais:{},pdfBase64:b64,fileName:file.name,pageIndex:0,totalPages:1});
+    }
+  }
+
+  setProgress(100,'Pronto!');
+  setTimeout(()=>document.getElementById('upload-progress').style.display='none',1500);
+
+  if(modalQueue.length>0){
+    logM(log,`\n📋 Abrindo revisão para ${modalQueue.length} funcionário(s)...`,'linfo');
+    processModalQueue();
   }
 }
 
-function logM(el,msg,cls){
-  const d=document.createElement('div');d.className=cls;d.textContent=msg;
-  el.appendChild(d);el.scrollTop=el.scrollHeight;
+function setProgress(pct,label){
+  document.getElementById('upload-progress').style.display='block';
+  document.getElementById('upload-progress-bar').style.width=pct+'%';
+  document.getElementById('upload-progress-label').textContent=label;
 }
 
-// ============================================================
-// OCR.space
-// ============================================================
-async function runOCR(file){
+function fileToBase64(file){
+  return new Promise((res,rej)=>{
+    const r=new FileReader();
+    r.onload=()=>res(r.result.split(',')[1]);
+    r.onerror=()=>rej(new Error('Falha ao ler arquivo'));
+    r.readAsDataURL(file);
+  });
+}
+
+// ================================================================
+// OCR — Multi-page via OCR.space
+// ================================================================
+async function runOCRMultiPage(file,b64,log){
   const key=localStorage.getItem('ocr_key')||'helloworld';
   const lang=localStorage.getItem('ocr_lang')||'por';
+
   const fd=new FormData();
   fd.append('file',file);
   fd.append('apikey',key);
@@ -441,145 +492,139 @@ async function runOCR(file){
   fd.append('OCREngine','2');
   fd.append('scale','true');
   fd.append('isTable','true');
+
   const r=await fetch('https://api.ocr.space/parse/image',{method:'POST',body:fd});
   if(!r.ok)throw new Error('HTTP '+r.status);
   const data=await r.json();
   if(data.IsErroredOnProcessing)throw new Error(data.ErrorMessage?.[0]||'OCR falhou');
-  return data.ParsedResults?.map(x=>x.ParsedText).join('\n')||'';
+
+  // Cada ParsedResult geralmente corresponde a uma página
+  const results=data.ParsedResults||[];
+  if(!results.length)throw new Error('OCR não retornou resultados');
+
+  return results.map(pr=>pr.ParsedText||'');
 }
 
-// ============================================================
-// PARSER OCR — ESPECÍFICO PARA O FORMATO DA FOLHA
-// ============================================================
-/*
-  Formato real identificado no PDF:
-  
-  Linha 1: "Registro de Frequência De:26/01/2026 à 25/02/2026"
-  Linha 2: "Empresa: 3 CONSTRUTORA FERREIRA SANTOS LTDA CNPJ: 24.439.931/0001-59"
-  Linha 3: "Endereço: ..."
-  Linha 4: "Contrato do Empregado: 231 DIEGO ALMEIDA DA SILVA CTPS: 1244052 - 0780 ES"
-  Linha 5: "Horário: segunda-feira à sexta-feira das 08:00 às 14:00 e sábado compensado."
-*/
+// ================================================================
+// PARSER OCR — específico para o modelo da folha
+// ================================================================
 function parseOCR(text){
-  const result={empresa:'',cnpj:'',funcionario:'',periodo:'',horario:''};
+  const r={empresa:'',cnpj:'',funcionario:'',periodo:'',horario:'',
+           horarioEntrada:'',horarioSaida:'',diasEspeciais:{}};
   const norm=text.replace(/\r/g,'').replace(/\t/g,' ');
-  const lines=norm.split('\n').map(l=>l.trim()).filter(l=>l.length>1);
+  const lines=norm.split('\n').map(l=>l.trim()).filter(l=>l.length>0);
 
-  // ── CNPJ ────────────────────────────────────────────────────────
-  // Formato: XX.XXX.XXX/XXXX-XX
-  const cnpjRx=/\d{2}[\.\s]?\d{3}[\.\s]?\d{3}[\s\/]\d{4}[\-\s]\d{2}/g;
-  const cnpjMatches=norm.match(cnpjRx);
-  if(cnpjMatches&&cnpjMatches.length>0){
-    result.cnpj=cnpjMatches[0].replace(/\s/g,'');
+  // CNPJ
+  const cnpjM=norm.match(/\d{2}[\.\s]?\d{3}[\.\s]?\d{3}[\s\/]\d{4}[\-\s]\d{2}/);
+  if(cnpjM)r.cnpj=cnpjM[0].replace(/\s/g,'');
+
+  // PERÍODO
+  const perM=norm.match(/(?:de:|de\s)?(\d{2}[\/\-]\d{2}[\/\-]\d{4})\s*[àaA\-–]\s*(\d{2}[\/\-]\d{2}[\/\-]\d{4})/i);
+  if(perM)r.periodo=`${perM[1]} à ${perM[2]}`;
+
+  // EMPRESA — entre "Empresa:" e "CNPJ:"
+  const empM=norm.match(/empresa[:\s]+(.+?)(?:\s+cnpj|\s+\d{2}[\.\s]\d{3}|$)/i);
+  if(empM)r.empresa=empM[1].trim().replace(/^\d+\s+/,'').trim();
+
+  // FUNCIONÁRIO — entre "Contrato do Empregado:" e "CTPS:"
+  const funcM=norm.match(/contrato\s+do\s+empregado[:\s]+\d*\s*([A-ZÀ-Ú][A-ZÀ-Úa-zà-ú\s]{3,60}?)(?:\s+CTPS|\s+CPF|\s*\n)/i);
+  if(funcM)r.funcionario=funcM[1].trim().replace(/^\d+\s+/,'').trim();
+
+  // HORÁRIO
+  const horM=norm.match(/horário[:\s]+(.+?)(?:\n|de conformidade)/i);
+  if(horM)r.horario=horM[1].trim().replace(/\s+/g,' ');
+
+  // Extrai horários do texto
+  if(r.horario){
+    const times=r.horario.match(/\d{2}:\d{2}/g)||[];
+    if(times.length>=2){r.horarioEntrada=times[0];r.horarioSaida=times[times.length-1];}
   }
 
-  // ── PERÍODO ─────────────────────────────────────────────────────
-  // "De:26/01/2026 à 25/02/2026" ou "De: 26/01/2026 à 25/02/2026"
-  const perRx=/(?:de:|de\s+)?(\d{2}[\/\-]\d{2}[\/\-]\d{4})\s*[àaA\-–]\s*(\d{2}[\/\-]\d{2}[\/\-]\d{4})/i;
-  const perM=norm.match(perRx);
-  if(perM)result.periodo=`${perM[1]} à ${perM[2]}`;
-
-  // ── EMPRESA ─────────────────────────────────────────────────────
-  // "Empresa: 3 CONSTRUTORA FERREIRA SANTOS LTDA CNPJ: ..."
-  // → Captura tudo entre "Empresa:" e "CNPJ:" (ou fim da linha)
-  const empRx=/empresa[:\s]+(.+?)(?:\s+cnpj[\s:]+|\s+\d{2}[\.\s]\d{3}|$)/i;
-  const empM=norm.match(empRx);
-  if(empM){
-    // Remove número do início: "3 CONSTRUTORA..." → "CONSTRUTORA..."
-    result.empresa=empM[1].trim().replace(/^\d+\s+/,'').trim();
-  }
-
-  // ── FUNCIONÁRIO ─────────────────────────────────────────────────
-  // "Contrato do Empregado: 231 DIEGO ALMEIDA DA SILVA CTPS: ..."
-  // → Captura tudo entre o número e "CTPS:" (ou "MATRICULA:" ou "CPF:")
-  const funcRx=/(?:contrato\s+do\s+empregado|empregado|funcionário|colaborador|nome)[:\s]+(?:\d+\s+)?(.+?)(?:\s+ctps[\s:]+|\s+cpf[\s:]+|\s+matric|\s+\d{4,}|$)/i;
-  const funcM=norm.match(funcRx);
-  if(funcM){
-    result.funcionario=funcM[1].trim().replace(/^\d+\s+/,'').trim();
-  }
-  // Fallback: regex mais amplo — captura nome em maiúsculas após número de contrato
-  if(!result.funcionario||result.funcionario.length<4){
-    const funcFallback=norm.match(/contrato\s+do\s+empregado[:\s]+\d+\s+([A-ZÀ-Ú][A-ZÀ-Úa-zà-ú\s]{5,60}?)(?:\s+CTPS|\s+CPF|\s*\n)/i);
-    if(funcFallback)result.funcionario=funcFallback[1].trim();
-  }
-
-  // ── HORÁRIO ─────────────────────────────────────────────────────
-  // "Horário: segunda-feira à sexta-feira das 08:00 às 14:00 e sábado compensado."
-  const horRx=/horário[:\s]+(.+?)(?:\.|$)/i;
-  const horM=norm.match(horRx);
-  if(horM)result.horario=horM[1].trim().slice(0,120);
-
-  // ── EXTRAIR HORÁRIOS DO TEXTO DO HORÁRIO ─────────────────────────
-  // "das 08:00 às 14:00" → { e1:"08:00", s2:"14:00" }
-  if(result.horario){
-    const times=result.horario.match(/\d{2}:\d{2}/g);
-    if(times&&times.length>=2){
-      result.horarioEntrada=times[0];
-      result.horarioSaida=times[times.length-1];
+  // DIAS ESPECIAIS — lê tabela linha por linha
+  // Formato: "31 Compensado" / "01 DSR" / "17 Feriado" / "26 Licença Maternidade"
+  const specialRx=/^(\d{1,2})\s+(Compensado|DSR|Feriado|Licen[çc]a Maternidade|Licença|Folga|Abono|Férias|Ferias)/i;
+  for(const line of lines){
+    const m=line.match(specialRx);
+    if(m){
+      const dia=parseInt(m[1]);
+      const tipo=m[2].trim();
+      // Mapeia para o tipo normalizado
+      let tipoNorm='especial';
+      const tl=tipo.toLowerCase();
+      if(tl.includes('compensado'))tipoNorm='COMPENSADO';
+      else if(tl.includes('dsr')||tl.includes('folga'))tipoNorm='DSR';
+      else if(tl.includes('feriado'))tipoNorm='FERIADO';
+      else if(tl.includes('licen'))tipoNorm='LICENÇA MATERNIDADE';
+      else if(tl.includes('férias')||tl.includes('ferias'))tipoNorm='FÉRIAS';
+      else tipoNorm=tipo.toUpperCase();
+      r.diasEspeciais[dia]=tipoNorm;
     }
   }
 
-  return result;
+  return r;
 }
 
-// ============================================================
-// MODAL
-// ============================================================
-function openReviewModal(parsed,rawOcr,file,log){
-  // Preenche campos
-  document.getElementById('m-empresa').value=parsed.empresa||'';
-  document.getElementById('m-cnpj').value=parsed.cnpj||'';
-  document.getElementById('m-func').value=parsed.funcionario||'';
-  document.getElementById('m-periodo').value=parsed.periodo||'';
-  document.getElementById('m-horario').value=parsed.horario||'';
-  document.getElementById('m-file-field').style.display='none';
+// ================================================================
+// MODAL QUEUE — processa um funcionário por vez
+// ================================================================
+function processModalQueue(){
+  if(modalQueue.length===0){
+    loadEmpresasList();
+    toast('Todos os funcionários processados!','success');
+    return;
+  }
+  modalCurrent=modalQueue.shift();
+  openReviewModal(modalCurrent);
+}
 
-  // Preview do que foi lido
-  const preview=document.getElementById('modal-parsed-preview');
-  const check=v=>v&&v.length>2
-    ?`<span class="val ok">✓ ${v}</span>`
-    :`<span class="val err">✗ Não detectado — preencha manualmente</span>`;
-  preview.innerHTML=`
-    <div class="row"><span class="lbl">Empresa:</span>${check(parsed.empresa)}</div>
-    <div class="row"><span class="lbl">CNPJ:</span>${check(parsed.cnpj)}</div>
-    <div class="row"><span class="lbl">Funcionário:</span>${check(parsed.funcionario)}</div>
-    <div class="row"><span class="lbl">Período:</span>${check(parsed.periodo)}</div>
-    <div class="row"><span class="lbl">Horário lido:</span>${check(parsed.horario)}</div>
+function openReviewModal(data){
+  // Preview
+  const prev=document.getElementById('modal-preview');
+  const chk=v=>v&&v.length>2?`<span class="pval">✓ ${v}</span>`:`<span class="pval err">✗ Não detectado</span>`;
+  prev.innerHTML=`
+    <div class="prow"><span class="plbl">Empresa:</span>${chk(data.empresa)}</div>
+    <div class="prow"><span class="plbl">CNPJ:</span>${chk(data.cnpj)}</div>
+    <div class="prow"><span class="plbl">Funcionário:</span>${chk(data.funcionario)}</div>
+    <div class="prow"><span class="plbl">Período:</span>${chk(data.periodo)}</div>
+    <div class="prow"><span class="plbl">Horário:</span>${chk(data.horario)}</div>
+    <div class="prow"><span class="plbl">Dias especiais:</span><span class="pval">${Object.keys(data.diasEspeciais||{}).length} detectados</span></div>
+    ${data.totalPages>1?`<div class="prow"><span class="plbl">Arquivo:</span><span class="pval">${data.fileName} (pág ${data.pageIndex+1}/${data.totalPages})</span></div>`:''}
   `;
 
-  // Texto bruto OCR (colapsado)
-  const rawDiv=document.getElementById('modal-ocr-raw');
-  if(rawOcr&&rawOcr.length>0){
-    rawDiv.style.display='block';
-    rawDiv.textContent='── Texto lido pelo OCR (primeiros 700 chars) ──\n'+rawOcr.slice(0,700)+(rawOcr.length>700?'\n...(truncado)':'');
+  // Dias especiais
+  const specEl=document.getElementById('modal-special');
+  const specList=document.getElementById('modal-special-list');
+  const dias=data.diasEspeciais||{};
+  if(Object.keys(dias).length>0){
+    specEl.style.display='block';
+    specList.innerHTML=Object.entries(dias).map(([d,t])=>{
+      const cls=t==='DSR'?'bi':t==='COMPENSADO'?'bp':t==='FERIADO'?'bw':t.includes('LICENÇA')?'bd':'bw';
+      return`<span class="badge ${cls}">Dia ${d}: ${t}</span>`;
+    }).join('');
   }else{
-    rawDiv.style.display='none';
+    specEl.style.display='none';
   }
 
-  modalPendingFile=file||null;
-  _modalLog=log||null;
+  // Preenche campos
+  document.getElementById('m-empresa').value=data.empresa||'';
+  document.getElementById('m-cnpj').value=data.cnpj||'';
+  document.getElementById('m-func').value=data.funcionario||'';
+  document.getElementById('m-periodo').value=data.periodo||'';
+  document.getElementById('m-horario').value=data.horario||'';
+
   document.getElementById('modal-bg').classList.add('open');
 }
 
 function openManualModal(){
-  document.getElementById('m-empresa').value='';
-  document.getElementById('m-cnpj').value='';
-  document.getElementById('m-func').value='';
-  document.getElementById('m-periodo').value='';
-  document.getElementById('m-horario').value='';
-  document.getElementById('modal-ocr-raw').style.display='none';
-  document.getElementById('modal-parsed-preview').innerHTML='<span style="color:var(--muted);font-size:.75rem;">Preencha os campos abaixo.</span>';
-  document.getElementById('m-file-field').style.display='block';
-  document.getElementById('m-file').value='';
-  modalPendingFile=null;_modalLog=null;
-  document.getElementById('modal-bg').classList.add('open');
+  const empty={empresa:'',cnpj:'',funcionario:'',periodo:'',horario:'',diasEspeciais:{},pdfBase64:'',fileName:'manual',pageIndex:0,totalPages:1};
+  modalQueue.unshift(empty);
+  processModalQueue();
 }
 
-function closeModal(){
+function skipModal(){
   document.getElementById('modal-bg').classList.remove('open');
-  modalPendingFile=null;
-  if(_modalLog&&fileQueue.length>0)processNextFile(_modalLog);
-  _modalLog=null;
+  modalCurrent=null;
+  processModalQueue();
 }
 
 async function saveModal(){
@@ -593,76 +638,106 @@ async function saveModal(){
   if(!func){toast('Nome do funcionário é obrigatório','error');return;}
   if(!checkFirebase())return;
 
-  // Feedback visual no botão
-  const saveBtn=document.getElementById('modal-save-btn');
-  const originalText=saveBtn.innerHTML;
-  saveBtn.disabled=true;
-  saveBtn.innerHTML='<span class=\'spin\'></span> Salvando...';
+  const btn=document.getElementById('modal-save-btn');
+  btn.disabled=true;
+  btn.innerHTML='<span class="spin"></span> Salvando...';
 
-  let file=modalPendingFile;
-  if(!file){
-    const inp=document.getElementById('m-file');
-    if(inp.files&&inp.files.length>0)file=inp.files[0];
-  }
-
-  // Extrai horários do campo texto
-  let horarioEntrada='',horarioSaida='';
+  let horarioEntrada=modalCurrent?.horarioEntrada||'';
+  let horarioSaida=modalCurrent?.horarioSaida||'';
   if(horario){
-    const times=horario.match(/\d{2}:\d{2}/g);
-    if(times&&times.length>=2){horarioEntrada=times[0];horarioSaida=times[times.length-1];}
+    const times=horario.match(/\d{2}:\d{2}/g)||[];
+    if(times.length>=2){horarioEntrada=times[0];horarioSaida=times[times.length-1];}
   }
 
-  // PASSO 1: Salva no Firestore primeiro (não depende do Storage)
+  const diasEspeciais=modalCurrent?.diasEspeciais||{};
+  const pdfBase64=modalCurrent?.pdfBase64||'';
+
   try{
-    await saveFuncionario({empresa,cnpj,funcionario:func,periodo,horario,horarioEntrada,horarioSaida},'');
-    console.log('Firestore: salvo');
+    await saveFuncionarioComPDF({empresa,cnpj,funcionario:func,periodo,horario,horarioEntrada,horarioSaida,diasEspeciais},pdfBase64);
+    toast(`✅ ${func} salvo!`,'success');
+    if(uploadLog)logM(uploadLog,`  ✅ ${func} salvo no Firestore`,'lok');
   }catch(e){
-    console.error('Firestore falhou:',e);
-    toast('Erro Firestore: '+e.message,'error');
-    saveBtn.disabled=false;saveBtn.innerHTML=originalText;
-    return;
+    toast('Erro: '+e.message,'error');
+    if(uploadLog)logM(uploadLog,`  ❌ Erro ao salvar ${func}: ${e.message}`,'lerr');
   }
 
-  // PDF fica disponível apenas para download local (sem Storage)
-  toast('✅ '+func+' salvo com sucesso!','success');
-
-  saveBtn.disabled=false;saveBtn.innerHTML=originalText;
+  btn.disabled=false;
+  btn.innerHTML='💾 Confirmar e Salvar';
   document.getElementById('modal-bg').classList.remove('open');
-  loadEmpresasList();
-  const nextLog=_modalLog;
-  modalPendingFile=null;_modalLog=null;
-  if(nextLog&&fileQueue.length>0)processNextFile(nextLog);
+  modalCurrent=null;
+  processModalQueue();
 }
 
-// ============================================================
-// FIREBASE CRUD
-// ============================================================
+// ================================================================
+// FIRESTORE — salvar funcionário com PDF em chunks
+// ================================================================
 function slugify(str){
-  return(str||'item')
-    .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
-    .toLowerCase().replace(/[^a-z0-9]+/g,'-')
-    .replace(/^-|-$/g,'').slice(0,80)||'item';
+  return(str||'item').normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+    .toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,80)||'item';
 }
-// uploadPDF removido — sem Firebase Storage (gratuito)
-async function saveFuncionario(data,pdfURL){
+
+const CHUNK_SIZE=600000; // 600KB por chunk (base64)
+
+async function saveFuncionarioComPDF(data,pdfBase64){
   const eId=slugify(data.empresa);
   const fId=slugify(data.funcionario);
+
+  // 1. Salva empresa
   await db.collection('empresas').doc(eId).set(
     {nome:data.empresa,cnpj:data.cnpj||'',id:eId},{merge:true}
   );
+
+  // 2. Salva funcionário (sem o PDF ainda)
   await db.collection('empresas').doc(eId).collection('funcionarios').doc(fId).set({
-    id:fId,nome:data.funcionario,periodo:data.periodo||'',
+    id:fId,
+    nome:data.funcionario,
+    periodo:data.periodo||'',
     horario:data.horario||'',
     horarioEntrada:data.horarioEntrada||'',
     horarioSaida:data.horarioSaida||'',
-    pdfOriginalURL:pdfURL,empresaId:eId,
+    diasEspeciais:data.diasEspeciais||{},
+    empresaId:eId,
     criadoEm:firebase.firestore.FieldValue.serverTimestamp(),
   },{merge:true});
+
+  // 3. Salva PDF em chunks (se existir)
+  if(pdfBase64&&pdfBase64.length>0){
+    const chunks=[];
+    for(let i=0;i<pdfBase64.length;i+=CHUNK_SIZE){
+      chunks.push(pdfBase64.slice(i,i+CHUNK_SIZE));
+    }
+    // Salva número de chunks no documento principal
+    await db.collection('empresas').doc(eId).collection('funcionarios').doc(fId).update({
+      pdfTotalChunks:chunks.length,
+      pdfSize:pdfBase64.length,
+    });
+    // Salva cada chunk
+    const batch=db.batch();
+    for(let i=0;i<chunks.length;i++){
+      const ref=db.collection('empresas').doc(eId).collection('funcionarios').doc(fId).collection('pdfChunks').doc(String(i));
+      batch.set(ref,{data:chunks[i],index:i});
+    }
+    await batch.commit();
+  }
 }
 
-// ============================================================
+// Recupera PDF completo do Firestore
+async function loadPDFFromFirestore(eId,fId){
+  const fDoc=await db.collection('empresas').doc(eId).collection('funcionarios').doc(fId).get();
+  const func=fDoc.data();
+  if(!func.pdfTotalChunks||func.pdfTotalChunks===0)return null;
+
+  const chunks=[];
+  for(let i=0;i<func.pdfTotalChunks;i++){
+    const cDoc=await db.collection('empresas').doc(eId).collection('funcionarios').doc(fId).collection('pdfChunks').doc(String(i)).get();
+    if(cDoc.exists)chunks.push(cDoc.data().data);
+  }
+  return chunks.join('');
+}
+
+// ================================================================
 // LISTA EMPRESAS
-// ============================================================
+// ================================================================
 async function loadEmpresasList(){
   const el=document.getElementById('empresas-list');
   if(!db)return;
@@ -674,26 +749,31 @@ async function loadEmpresasList(){
     for(const doc of snap.docs){
       const emp=doc.data();
       const fs=await db.collection('empresas').doc(doc.id).collection('funcionarios').get();
-      const wrap=document.createElement('div');
-      wrap.style.cssText='margin-bottom:.6rem;';
-      const card=document.createElement('div');
-      card.style.cssText='background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:.85rem 1.1rem;display:flex;align-items:center;justify-content:space-between;';
-      card.innerHTML=`
-        <div>
-          <div style="font-family:Syne,sans-serif;font-weight:600;font-size:.88rem;">${emp.nome}</div>
-          <div style="color:var(--muted);font-size:.7rem;margin-top:.1rem;">${emp.cnpj||'CNPJ não informado'}</div>
+      const section=document.createElement('div');
+      section.style.cssText='margin-bottom:1rem;';
+      section.innerHTML=`
+        <div style="font-family:Syne,sans-serif;font-weight:700;font-size:.9rem;color:var(--accent2);margin-bottom:.4rem;padding:.3rem 0;border-bottom:1px solid var(--border);">
+          🏢 ${emp.nome} <span style="font-size:.68rem;color:var(--muted);font-weight:400;">${emp.cnpj||''} — ${fs.size} funcionário(s)</span>
         </div>
-        <span style="font-size:.72rem;color:var(--accent2);">${fs.size} func.</span>
       `;
-      wrap.appendChild(card);
       fs.forEach(fd=>{
         const f=fd.data();
-        const row=document.createElement('div');
-        row.style.cssText='padding:.35rem 1.1rem .35rem 2rem;font-size:.76rem;display:flex;gap:.6rem;align-items:center;color:var(--muted);';
-        row.innerHTML=`<span>👤</span><span style="color:var(--text);">${f.nome}</span><span style="font-size:.67rem;">${f.periodo||''}</span>${f.horario?`<span style="font-size:.65rem;color:var(--accent2);">⏰ ${f.horario.slice(0,40)}</span>`:''}`;
-        wrap.appendChild(row);
+        const hasPDF=f.pdfTotalChunks&&f.pdfTotalChunks>0;
+        const card=document.createElement('div');
+        card.className='func-card';
+        card.innerHTML=`
+          <div class="func-info">
+            <div class="name">👤 ${f.nome}</div>
+            <div class="sub">${f.periodo||''} · ⏰ ${f.horarioEntrada||'?'}–${f.horarioSaida||'?'} · ${hasPDF?'📄 PDF salvo':'📄 Sem PDF'}</div>
+          </div>
+          <div class="func-actions">
+            <button class="btn ok" style="font-size:.68rem;padding:.25rem .6rem" onclick="gerarRapido('${doc.id}','${fd.id}',this)">⚡ Gerar</button>
+            <button class="btn danger" style="font-size:.68rem;padding:.25rem .6rem" onclick="excluir('${doc.id}','${fd.id}')">🗑</button>
+          </div>
+        `;
+        section.appendChild(card);
       });
-      el.appendChild(wrap);
+      el.appendChild(section);
     }
   }catch(e){el.innerHTML=`<div class="empty">Erro: ${e.message}</div>`;}
 }
@@ -710,9 +790,9 @@ async function fillEmpSel(selId){
   }catch(_){}
 }
 
-// ============================================================
+// ================================================================
 // CHAMADA
-// ============================================================
+// ================================================================
 function setDefaultDate(){
   const el=document.getElementById('ch-data');
   if(el&&!el.value)el.value=new Date().toISOString().split('T')[0];
@@ -720,34 +800,80 @@ function setDefaultDate(){
 
 async function loadFuncChamada(){
   const eId=document.getElementById('ch-emp').value;
-  const data=document.getElementById('ch-data').value;
+  const dataStr=document.getElementById('ch-data').value;
   const el=document.getElementById('chamada-list');
   chamadaState={};
-  if(!eId||!data){
+
+  if(!eId||!dataStr){
     el.innerHTML='<div class="empty"><div class="empty-icon">👥</div>Selecione empresa e data</div>';
     document.getElementById('ch-save-bar').style.display='none';
     return;
   }
   el.innerHTML='<div class="empty"><span class="spin"></span> Carregando...</div>';
+
+  const dateObj=new Date(dataStr+'T12:00:00');
+  const diaN=dateObj.getDate();
+  const dow=dateObj.getDay();
+
   try{
     const fs=await db.collection('empresas').doc(eId).collection('funcionarios').get();
     if(fs.empty){el.innerHTML='<div class="empty">Nenhum funcionário</div>';return;}
+
+    // Carrega chamadas salvas
     const existing={};
     for(const fd of fs.docs){
-      try{
-        const cs=await db.collection('chamadas').doc(eId).collection(fd.id).doc(data).get();
-        if(cs.exists)existing[fd.id]=cs.data();
-      }catch(_){}
+      try{const cs=await db.collection('chamadas').doc(eId).collection(fd.id).doc(dataStr).get();
+        if(cs.exists)existing[fd.id]=cs.data();}catch(_){}
     }
+
     el.innerHTML='';
-    const table=document.createElement('table');
-    table.innerHTML='<thead><tr><th>Funcionário</th><th>Horário</th><th>Status</th><th>Atraso</th></tr></thead><tbody id="ch-tbody"></tbody>';
-    el.appendChild(table);
+    const tbl=document.createElement('table');
+    tbl.innerHTML='<thead><tr><th>Funcionário</th><th>Horário</th><th>Status</th><th>Atraso</th></tr></thead><tbody id="ch-tbody"></tbody>';
+    el.appendChild(tbl);
     const tbody=document.getElementById('ch-tbody');
+
+    let anyFree=false;
     fs.forEach(fd=>{
       const f=fd.data();
+      const dias=f.diasEspeciais||{};
+      const especial=dias[diaN];
+
+      // Dia especial detectado no PDF
+      if(especial){
+        chamadaState[fd.id]={status:especial.toLowerCase().replace(/\s+/g,'_'),atrasado:false,bloqueado:true};
+        const tr=document.createElement('tr');
+        const cls=especial==='DSR'?'bi':especial==='COMPENSADO'?'bp':especial==='FERIADO'?'bw':'bd';
+        tr.innerHTML=`
+          <td><strong>${f.nome}</strong></td>
+          <td style="font-size:.7rem;color:var(--muted)">${f.horarioEntrada||'?'}–${f.horarioSaida||'?'}</td>
+          <td><span class="badge ${cls}">${especial}</span></td>
+          <td><span style="font-size:.7rem;color:var(--muted)">—</span></td>
+        `;
+        tbody.appendChild(tr);
+        return;
+      }
+
+      // Domingo = DSR automático
+      if(dow===0){
+        chamadaState[fd.id]={status:'dsr',atrasado:false,bloqueado:true};
+        const tr=document.createElement('tr');
+        tr.innerHTML=`<td><strong>${f.nome}</strong></td><td style="font-size:.7rem;color:var(--muted)">${f.horarioEntrada||'?'}–${f.horarioSaida||'?'}</td><td><span class="badge bi">DSR</span></td><td>—</td>`;
+        tbody.appendChild(tr);
+        return;
+      }
+
+      // Sábado = Compensado automático
+      if(dow===6){
+        chamadaState[fd.id]={status:'compensado',atrasado:false,bloqueado:true};
+        const tr=document.createElement('tr');
+        tr.innerHTML=`<td><strong>${f.nome}</strong></td><td style="font-size:.7rem;color:var(--muted)">${f.horarioEntrada||'?'}–${f.horarioSaida||'?'}</td><td><span class="badge bp">COMPENSADO</span></td><td>—</td>`;
+        tbody.appendChild(tr);
+        return;
+      }
+
+      anyFree=true;
       const sv=existing[fd.id]||{status:'presente',atrasado:false};
-      chamadaState[fd.id]={status:sv.status,atrasado:sv.atrasado};
+      chamadaState[fd.id]={status:sv.status,atrasado:sv.atrasado||false,bloqueado:false};
       const st=chamadaState[fd.id].status;
       const tr=document.createElement('tr');
       tr.innerHTML=`
@@ -758,10 +884,11 @@ async function loadFuncChamada(){
           <button class="s-btn ${st==='falta'?'af':''}" onclick="setStatus('${fd.id}','falta',this)">✗ Falta</button>
           <button class="s-btn ${st==='atestado'?'aa':''}" onclick="setStatus('${fd.id}','atestado',this)">📋 Atestado</button>
         </div></td>
-        <td><label class="acheck"><input type="checkbox" ${sv.atrasado?'checked':''} onchange="chamadaState['${fd.id}'].atrasado=this.checked"> Chegou atrasado</label></td>
+        <td><label class="acheck"><input type="checkbox" ${sv.atrasado?'checked':''} onchange="chamadaState['${fd.id}'].atrasado=this.checked"> Atrasado</label></td>
       `;
       tbody.appendChild(tr);
     });
+
     document.getElementById('ch-save-bar').style.display='block';
   }catch(e){el.innerHTML=`<div class="empty">Erro: ${e.message}</div>`;}
 }
@@ -774,19 +901,21 @@ function setStatus(fId,status,btn){
 
 async function salvarChamada(){
   const eId=document.getElementById('ch-emp').value;
-  const data=document.getElementById('ch-data').value;
-  if(!eId||!data)return;
+  const dataStr=document.getElementById('ch-data').value;
+  if(!eId||!dataStr)return;
   try{
     for(const[fId,state]of Object.entries(chamadaState)){
-      await db.collection('chamadas').doc(eId).collection(fId).doc(data).set(state);
+      await db.collection('chamadas').doc(eId).collection(fId).doc(dataStr).set({
+        status:state.status,atrasado:state.atrasado||false
+      });
     }
     toast('✅ Chamada salva!','success');
   }catch(e){toast('Erro: '+e.message,'error');}
 }
 
-// ============================================================
+// ================================================================
 // GERAR PDF
-// ============================================================
+// ================================================================
 async function loadFuncGerar(){
   const eId=document.getElementById('ger-emp').value;
   const sel=document.getElementById('ger-func');
@@ -804,17 +933,14 @@ async function gerarPDF(){
   const eId=document.getElementById('ger-emp').value;
   const fId=document.getElementById('ger-func').value;
   if(!eId||!fId){toast('Selecione empresa e funcionário','error');return;}
-  if(!checkFirebase())return;
-
   const btn=document.getElementById('ger-btn');
   btn.disabled=true;btn.innerHTML='<span class="spin"></span> Gerando...';
   const pCard=document.getElementById('ger-preview');
   const pContent=document.getElementById('ger-preview-content');
   const dlDiv=document.getElementById('ger-download');
   pCard.style.display='block';
-  pContent.innerHTML='<div class="empty"><span class="spin"></span> Calculando marcações...</div>';
+  pContent.innerHTML='<div class="empty"><span class="spin"></span> Carregando dados...</div>';
   dlDiv.style.display='none';
-
   try{
     const fDoc=await db.collection('empresas').doc(eId).collection('funcionarios').doc(fId).get();
     const func=fDoc.data();
@@ -828,118 +954,132 @@ async function gerarPDF(){
     const schedule=buildSchedule(period,chamadas,func);
     pContent.innerHTML=renderPreview(schedule,func,empresa);
 
-    const pdfBytes=await buildPDF(schedule,func,empresa);
+    btn.innerHTML='<span class="spin"></span> Preenchendo PDF...';
+
+    // Tenta carregar PDF original
+    const pdfB64=await loadPDFFromFirestore(eId,fId);
+    let pdfBytes;
+
+    if(pdfB64){
+      // Preenche o PDF original
+      pdfBytes=await preencherPDFOriginal(pdfB64,schedule,func);
+    }else{
+      // Gera PDF novo com layout similar
+      pdfBytes=await buildPDFNovo(schedule,func,empresa);
+    }
+
     const blob=new Blob([pdfBytes],{type:'application/pdf'});
     const url=URL.createObjectURL(blob);
-
-    // PDF disponível apenas para download local
-
     const link=document.getElementById('ger-link');
     link.href=url;
-    link.download=`folha_${(func.nome||'func').replace(/\s+/g,'_')}.pdf`;
+    link.download='folha_'+(func.nome||'func').replace(/\s+/g,'_')+'.pdf';
+    link.onclick=()=>setTimeout(()=>URL.revokeObjectURL(url),5000);
     dlDiv.style.display='block';
     toast('PDF gerado!','success');
   }catch(e){
     pContent.innerHTML=`<div class="empty">❌ Erro: ${e.message}</div>`;
     toast('Erro: '+e.message,'error');
+    console.error(e);
   }
-  btn.disabled=false;btn.textContent='⚡ Gerar PDF';
+  btn.disabled=false;btn.textContent='⚡ Gerar PDF Preenchido';
 }
 
+// Gerar direto da lista de upload/arquivos
+async function gerarRapido(eId,fId,btn){
+  const orig=btn.innerHTML;btn.disabled=true;btn.innerHTML='<span class="spin"></span>';
+  try{
+    const fDoc=await db.collection('empresas').doc(eId).collection('funcionarios').doc(fId).get();
+    const func=fDoc.data();
+    const eDoc=await db.collection('empresas').doc(eId).get();
+    const empresa=eDoc.data();
+    const cSnap=await db.collection('chamadas').doc(eId).collection(fId).get();
+    const chamadas={};cSnap.forEach(d=>{chamadas[d.id]=d.data();});
+    const period=parsePeriod(func.periodo);
+    const schedule=buildSchedule(period,chamadas,func);
+    const pdfB64=await loadPDFFromFirestore(eId,fId);
+    let pdfBytes;
+    if(pdfB64)pdfBytes=await preencherPDFOriginal(pdfB64,schedule,func);
+    else pdfBytes=await buildPDFNovo(schedule,func,empresa);
+    const blob=new Blob([pdfBytes],{type:'application/pdf'});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a');
+    a.href=url;a.download='folha_'+(func.nome||'func').replace(/\s+/g,'_')+'.pdf';
+    a.click();setTimeout(()=>URL.revokeObjectURL(url),5000);
+    toast('PDF baixado!','success');
+  }catch(e){toast('Erro: '+e.message,'error');}
+  btn.disabled=false;btn.innerHTML=orig;
+}
+
+// ================================================================
+// SCHEDULE — gera horários por dia
+// ================================================================
 function parsePeriod(periodo){
-  if(!periodo){
-    const now=new Date();
-    return{start:new Date(now.getFullYear(),now.getMonth(),1),end:new Date(now.getFullYear(),now.getMonth()+1,0)};
+  if(!periodo){const now=new Date();return{start:new Date(now.getFullYear(),now.getMonth(),1),end:new Date(now.getFullYear(),now.getMonth()+1,0)};}
+  // Tenta formato DD/MM/YYYY
+  const matches=[...periodo.matchAll(/(\d{2})[\/\-](\d{2})[\/\-](\d{4})/g)];
+  if(matches.length>=2){
+    const toD=m=>new Date(+m[3],+m[2]-1,+m[1]);
+    return{start:toD(matches[0]),end:toD(matches[1])};
   }
-  const ms=[...(periodo.match(/(\d{2})[\/\-](\d{2})[\/\-](\d{4})/g)||[])];
-  if(ms.length>=2){
-    const toD=s=>{const p=s.replace(/-/g,'/').split('/');return new Date(+p[2],+p[1]-1,+p[0]);};
-    return{start:toD(ms[0]),end:toD(ms[1])};
-  }
-  const now=new Date();
-  return{start:new Date(now.getFullYear(),now.getMonth(),1),end:new Date(now.getFullYear(),now.getMonth()+1,0)};
+  const now=new Date();return{start:new Date(now.getFullYear(),now.getMonth(),1),end:new Date(now.getFullYear(),now.getMonth()+1,0)};
 }
 
-// ============================================================
-// BUILD SCHEDULE — Respeita horários do funcionário
-// ============================================================
-function buildSchedule(period, chamadas, func){
-  // Horário do funcionário (lido do PDF) ou global
-  const globalHt=getHorarios();
+function parseMin(s){const[h,m]=(s||'00:00').split(':').map(Number);return h*60+m;}
+function fmtTime(mins){const mm=((mins%60)+60)%60,hh=Math.floor(((mins+1440)%1440)/60);return`${String(hh).padStart(2,'0')}:${String(mm).padStart(2,'0')}`;}
 
-  // Se o funcionário tem horário próprio (ex: 08:00 às 14:00 = turno único)
-  // Detecta se é turno único ou duplo
-  const entStr=func.horarioEntrada||'';
-  const saiStr=func.horarioSaida||'';
-  const hasFuncHorario=entStr&&saiStr;
-
-  let E1='',S1='',E2='',S2='';
-  if(hasFuncHorario){
-    // Turno único: entrada X, saída Y, sem almoço registrado
-    // mas pode ter pausa — definimos pausa de 1h no meio
-    const eMin=parseMin(entStr);
-    const sMin=parseMin(saiStr);
-    const durMin=sMin-eMin;
-    if(durMin<=360){
-      // 6h ou menos = turno único sem intervalo registrado
-      E1=entStr; S1=saiStr; E2=''; S2='';
-    }else{
-      // Mais de 6h = tem intervalo
-      E1=entStr;
-      S1=fmtTime(eMin+Math.round(durMin/2)-30);
-      E2=fmtTime(eMin+Math.round(durMin/2)+30);
-      S2=saiStr;
-    }
-  }else{
-    E1=globalHt.e1;S1=globalHt.s1;E2=globalHt.e2;S2=globalHt.s2;
-  }
-
+function buildSchedule(period,chamadas,func){
+  const ht=getHorarios();
+  const dias=func.diasEspeciais||{};
   const days=[];
   const cur=new Date(period.start);
+  const hasFuncHor=func.horarioEntrada&&func.horarioSaida;
+
+  // Define horários base a partir do funcionário ou padrão
+  let E1=ht.e1,S1=ht.s1,E2=ht.e2,S2=ht.s2,SF=ht.sf;
+  if(hasFuncHor){
+    E1=func.horarioEntrada;
+    // Se o funcionário tem horário duplo (7h–12h / 13h–17h), usa padrão do config
+    // mas substitui entrada e saída finais
+    S2=func.horarioSaida;
+  }
+
+  const rand=()=>Math.floor(Math.random()*11)-5;
 
   while(cur<=period.end){
     const dow=cur.getDay();
     const dateStr=cur.toISOString().split('T')[0];
+    const diaN=cur.getDate();
     const ch=chamadas[dateStr]||{status:'presente',atrasado:false};
-    const day={
-      date:dateStr,
-      display:cur.toLocaleDateString('pt-BR'),
-      dow,isSat:dow===6,isSun:dow===0,
-      status:ch.status,atrasado:ch.atrasado,
-      e1:'',s1:'',e2:'',s2:'',obs:''
-    };
 
-    if(day.isSun)             {day.obs='DSR';}
-    else if(day.isSat)        {day.obs='COMPENSADO';}
-    else if(ch.status==='falta')    {day.obs='FALTA';}
-    else if(ch.status==='atestado') {day.obs='ATESTADO';}
-    else{
+    const day={date:dateStr,display:cur.toLocaleDateString('pt-BR'),dow,diaN,
+      isSat:dow===6,isSun:dow===0,status:ch.status,atrasado:ch.atrasado,e1:'',s1:'',e2:'',s2:'',obs:''};
+
+    // Prioridade: dias especiais do PDF > chamada manual > padrão
+    const especial=dias[diaN];
+    if(especial){
+      day.obs=especial;
+    }else if(day.isSun){
+      day.obs='DSR';
+    }else if(day.isSat){
+      day.obs='COMPENSADO';
+    }else if(ch.status==='falta'){
+      day.obs='FALTA';
+    }else if(ch.status==='atestado'){
+      day.obs='ATESTADO';
+    }else{
+      // Dia útil — gera horários com variação
       const isFri=dow===5;
-      const rand=()=>Math.floor(Math.random()*11)-5;
-
       let e1m=parseMin(E1)+rand();
       if(ch.atrasado)e1m+=Math.floor(Math.random()*6)+3;
-
-      if(E2){
-        // Duplo turno
-        let s1m=parseMin(S1)+rand();
-        let e2m=parseMin(E2)+rand();
-        // Sexta: saída mais cedo se horário padrão
-        const s2base=(!hasFuncHorario&&isFri)?globalHt.sf:S2;
-        let s2m=parseMin(s2base)+rand();
-        // Coerência
-        if(s1m<=e1m+60)s1m=e1m+230+Math.abs(rand());
-        if(e2m<=s1m)e2m=s1m+55+Math.abs(rand());
-        if(s2m<=e2m+60)s2m=e2m+160+Math.abs(rand());
-        day.e1=fmtTime(e1m);day.s1=fmtTime(s1m);
-        day.e2=fmtTime(e2m);day.s2=fmtTime(s2m);
-      }else{
-        // Turno único
-        let s2m=parseMin(S1)+rand();
-        if(s2m<=e1m+60)s2m=e1m+300+Math.abs(rand());
-        day.e1=fmtTime(e1m);day.s1=fmtTime(s2m);
-        day.e2='';day.s2='';
-      }
+      let s1m=parseMin(S1)+rand();
+      let e2m=parseMin(E2)+rand();
+      let s2m=parseMin(isFri?SF:S2)+rand();
+      // Coerência
+      if(s1m<=e1m+60)s1m=e1m+235+Math.abs(rand());
+      if(e2m<=s1m)e2m=s1m+55+Math.abs(rand());
+      if(s2m<=e2m+60)s2m=e2m+175+Math.abs(rand());
+      day.e1=fmtTime(e1m);day.s1=fmtTime(s1m);
+      day.e2=fmtTime(e2m);day.s2=fmtTime(s2m);
     }
     days.push(day);
     cur.setDate(cur.getDate()+1);
@@ -947,126 +1087,183 @@ function buildSchedule(period, chamadas, func){
   return days;
 }
 
-function parseMin(s){const[h,m]=(s||'00:00').split(':').map(Number);return h*60+m;}
-function fmtTime(mins){
-  const mm=((mins%60)+60)%60,hh=Math.floor(((mins+1440)%1440)/60);
-  return`${String(hh).padStart(2,'0')}:${String(mm).padStart(2,'0')}`;
-}
-
 function renderPreview(schedule,func,empresa){
   const DN=['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
-  let h=`<div style="margin-bottom:.9rem;font-size:.83rem;">
+  let h=`<div style="margin-bottom:.8rem;font-size:.82rem;">
     <strong>${func.nome}</strong> — ${empresa.nome}<br>
     <span style="color:var(--muted)">Período: ${func.periodo||'não informado'}</span><br>
-    <span style="color:var(--accent2);font-size:.75rem;">⏰ ${func.horario||'horário padrão'}</span>
+    <span style="color:var(--accent2);font-size:.73rem;">⏰ ${func.horario||'horário padrão'}</span>
   </div><div class="table-wrap"><table>
   <thead><tr><th>Data</th><th>Dia</th><th>Ent 1</th><th>Saí 1</th><th>Ent 2</th><th>Saí 2</th><th>Status</th></tr></thead><tbody>`;
   for(const d of schedule){
     const obs=d.obs;
-    const badge=obs?`<span class="badge ${obs==='FALTA'?'bd':obs==='ATESTADO'?'bw':'bi'}">${obs}</span>`:'<span class="badge bs">✓</span>';
+    const badge=obs?`<span class="badge ${obs==='FALTA'?'bd':obs==='ATESTADO'?'bw':obs==='DSR'?'bi':obs==='COMPENSADO'?'bp':'bw'}">${obs}</span>`:'<span class="badge bs">✓</span>';
     h+=`<tr><td>${d.display}</td><td>${DN[d.dow]}</td><td>${d.e1||'—'}</td><td>${d.s1||'—'}</td><td>${d.e2||'—'}</td><td>${d.s2||'—'}</td><td>${badge}</td></tr>`;
   }
   return h+'</tbody></table></div>';
 }
 
-// ============================================================
-// PDF BUILD (pdf-lib)
-// ============================================================
-async function buildPDF(schedule,func,empresa){
+// ================================================================
+// PREENCHER PDF ORIGINAL
+// Coordenadas calibradas a partir da medição real do PDF
+// (PyMuPDF → pdf-lib coordinate conversion)
+// ================================================================
+
+// Y de cada número de dia na tabela (coordenadas pdf-lib: origem canto inferior esq.)
+// Período 26/mês1 → 25/mês2: dias 26–31 ficam no topo, depois dias 1–25
+const DAY_Y_BASE = {
+   1:552.5,  2:534.2,  3:518.3,  4:502.4,  5:486.5,
+   6:470.5,  7:456.2,  8:439.6,  9:421.2, 10:405.4,
+  11:389.4, 12:373.4, 13:357.6, 14:343.2, 15:326.5,
+  16:308.3, 17:293.9, 18:275.6, 19:259.7, 20:243.7,
+  21:229.4, 22:212.8, 23:194.4, 24:178.6, 25:162.6,
+  26:647.2, 27:631.3, 28:615.4, 29:599.5, 30:583.6, 31:569.3
+};
+
+// X de cada coluna (medido diretamente dos vetores do PDF)
+const COL_X = {
+  e1:  96,   // 1º Turno Entrada
+  s1: 146,   // 1º Turno Saída
+  e2: 197,   // 2º Turno Entrada
+  s2: 247,   // 2º Turno Saída
+  assinatura: 353  // coluna Assinatura (Extra Saída / Assinatura)
+};
+
+const FONT_SIZE_HORA = 7.5;
+const FONT_SIZE_OBS  = 6.5;
+
+async function preencherPDFOriginal(pdfB64, schedule, func){
+  const {PDFDocument, rgb, StandardFonts} = PDFLib;
+
+  // Decodifica base64
+  const binary = atob(pdfB64);
+  const bytes = new Uint8Array(binary.length);
+  for(let i=0;i<binary.length;i++) bytes[i] = binary.charCodeAt(i);
+
+  const pdfDoc = await PDFDocument.load(bytes, {ignoreEncryption:true});
+  const font   = await pdfDoc.embedFont(StandardFonts.Helvetica);
+  const fontB  = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
+  const pages  = pdfDoc.getPages();
+  const page   = pages[0];
+
+  const {width, height} = page.getSize();
+
+  // Escala — caso o PDF tenha dimensões diferentes de 595x842
+  // (mesmo layout mas tamanho diferente de exportação)
+  const scaleY = height / 842.0;
+  const scaleX = width  / 595.0;
+
+  function dayY(diaN){
+    const y = DAY_Y_BASE[diaN];
+    if(y === undefined) return null;
+    return y * scaleY;
+  }
+  function colX(name){
+    return COL_X[name] * scaleX;
+  }
+
+  const colorBlack = rgb(0.05, 0.05, 0.05);
+  const colorRed   = rgb(0.75, 0.10, 0.10);
+
+  for(const day of schedule){
+    const y = dayY(day.diaN);
+    if(y === null) continue;
+
+    if(day.obs){
+      // Dia especial — só escreve FALTA/ATESTADO na coluna de assinatura
+      // DSR, COMPENSADO, FERIADO, LICENÇA já estão impressos no PDF original
+      if(day.obs === 'FALTA' || day.obs === 'ATESTADO'){
+        page.drawText(day.obs, {
+          x: colX('assinatura'), y,
+          size: FONT_SIZE_OBS, font: fontB, color: colorRed
+        });
+      }
+      continue;
+    }
+
+    if(!day.e1) continue;
+
+    // 1º Turno
+    page.drawText(day.e1, {x: colX('e1'), y, size: FONT_SIZE_HORA, font, color: colorBlack});
+    page.drawText(day.s1, {x: colX('s1'), y, size: FONT_SIZE_HORA, font, color: colorBlack});
+
+    // 2º Turno (só se tiver)
+    if(day.e2){
+      page.drawText(day.e2, {x: colX('e2'), y, size: FONT_SIZE_HORA, font, color: colorBlack});
+      page.drawText(day.s2, {x: colX('s2'), y, size: FONT_SIZE_HORA, font, color: colorBlack});
+    }
+  }
+
+  return await pdfDoc.save();
+}
+
+// ================================================================
+// PDF NOVO (fallback quando não há PDF original)
+// ================================================================
+async function buildPDFNovo(schedule,func,empresa){
   const{PDFDocument,rgb,StandardFonts}=PDFLib;
   const doc=await PDFDocument.create();
   const font=await doc.embedFont(StandardFonts.Helvetica);
   const bold=await doc.embedFont(StandardFonts.HelveticaBold);
   const W=595.28,H=841.89,M=28;
-  // Colunas: Data, Dia, 1T-Ent, 1T-Saí, 2T-Ent, 2T-Saí, Extra, Assinatura
-  const COLS=[55,36,50,50,50,50,40,105];
-  const HEADS=['Data','Dia','Ent. 1','Saí. 1','Ent. 2','Saí. 2','Extra','Assinatura'];
+  const COLS=[46,34,50,50,50,50,38,100];
+  const HEADS=['Dia','Dia S.','Ent. 1','Saí. 1','Ent. 2','Saí. 2','Extra','Assinatura'];
   const DN=['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
-  const RH=21,HDR=100,RPP=20;
-
+  const RH=19,HDR=95,RPP=22;
   const cFor=d=>{
     if(d.isSun||d.isSat)return rgb(.42,.46,.56);
-    if(d.obs==='FALTA')return rgb(.9,.25,.3);
+    if(d.obs==='FALTA')return rgb(.9,.2,.25);
     if(d.obs==='ATESTADO')return rgb(.9,.6,.1);
+    if(d.obs)return rgb(.45,.5,.6);
     return rgb(.84,.87,.92);
   };
-
   for(let p=0;p<Math.ceil(schedule.length/RPP);p++){
-    const page=doc.addPage([W,H]);
-    let y=H-M;
-
-    // Header
+    const page=doc.addPage([W,H]);let y=H-M;
     page.drawRectangle({x:M,y:y-HDR,width:W-M*2,height:HDR,color:rgb(.06,.07,.1),borderColor:rgb(.18,.2,.26),borderWidth:1});
-    page.drawText('REGISTRO DE FREQUÊNCIA',{x:M+10,y:y-20,size:12,font:bold,color:rgb(.91,1,.28)});
-    page.drawText(empresa.nome||'',{x:M+10,y:y-36,size:9.5,font:bold,color:rgb(.9,.9,.9)});
-    if(empresa.cnpj)page.drawText('CNPJ: '+empresa.cnpj,{x:M+10,y:y-50,size:8,font,color:rgb(.55,.58,.65)});
-    page.drawText('Funcionário: '+(func.nome||''),{x:M+10,y:y-64,size:9,font:bold,color:rgb(.9,.9,.9)});
-    page.drawText('Período: '+(func.periodo||''),{x:M+10,y:y-78,size:8,font,color:rgb(.55,.58,.65)});
-    if(func.horario)page.drawText('Horário: '+func.horario.slice(0,80),{x:M+10,y:y-90,size:7.5,font,color:rgb(.48,.52,.62)});
-    page.drawText('Pág '+(p+1),{x:W-M-35,y:y-20,size:7,font,color:rgb(.4,.4,.4)});
-    y-=HDR+12;
-
-    // Cabeçalho das colunas
+    page.drawText('REGISTRO DE FREQUÊNCIA',{x:M+10,y:y-20,size:11,font:bold,color:rgb(.91,1,.28)});
+    page.drawText(empresa.nome||'',{x:M+10,y:y-35,size:9,font:bold,color:rgb(.9,.9,.9)});
+    if(empresa.cnpj)page.drawText('CNPJ: '+empresa.cnpj,{x:M+10,y:y-48,size:7.5,font,color:rgb(.55,.58,.65)});
+    page.drawText('Funcionário: '+(func.nome||''),{x:M+10,y:y-61,size:8.5,font:bold,color:rgb(.9,.9,.9)});
+    page.drawText('Período: '+(func.periodo||''),{x:M+10,y:y-74,size:7.5,font,color:rgb(.55,.58,.65)});
+    if(func.horario)page.drawText('Horário: '+func.horario.slice(0,90),{x:M+10,y:y-86,size:7,font,color:rgb(.48,.52,.62)});
+    page.drawText('Pág '+(p+1),{x:W-M-32,y:y-20,size:6.5,font,color:rgb(.4,.4,.4)});
+    y-=HDR+10;
     page.drawRectangle({x:M,y:y-RH,width:W-M*2,height:RH,color:rgb(.1,.11,.15)});
     let cx=M;
-    for(let i=0;i<HEADS.length;i++){
-      page.drawText(HEADS[i],{x:cx+3,y:y-RH+7,size:6.8,font:bold,color:rgb(.48,.52,.62)});
-      cx+=COLS[i];
-    }
+    for(let i=0;i<HEADS.length;i++){page.drawText(HEADS[i],{x:cx+3,y:y-RH+6,size:6.5,font:bold,color:rgb(.48,.52,.62)});cx+=COLS[i];}
     y-=RH;
-
-    // Linhas
     const slice=schedule.slice(p*RPP,(p+1)*RPP);
     for(const[ri,d]of slice.entries()){
       const bg=ri%2===0?rgb(.08,.09,.12):rgb(.065,.075,.095);
       page.drawRectangle({x:M,y:y-RH,width:W-M*2,height:RH,color:bg});
       const tc=cFor(d);
-
-      // Assinatura: se falta/atestado/compensado/DSR coloca o texto, senão linha
       let assinCol='';
       if(d.obs==='FALTA')assinCol='FALTA';
       else if(d.obs==='ATESTADO')assinCol='ATESTADO';
-      else if(d.obs==='COMPENSADO')assinCol='Compensado';
-      else if(d.obs==='DSR')assinCol='DSR';
-      else assinCol=''; // linha em branco para assinar
-
+      else if(d.obs)assinCol=d.obs;
       const vals=[d.display,DN[d.dow],d.e1,d.s1,d.e2,d.s2,'',assinCol];
       cx=M;
       for(let i=0;i<vals.length;i++){
         const v=vals[i]||'';
-        if(i===7&&!assinCol){
-          // Linha de assinatura
-          page.drawLine({start:{x:cx+4,y:y-RH+8},end:{x:cx+COLS[i]-6,y:y-RH+8},thickness:.5,color:rgb(.35,.38,.45)});
-        }else if(v){
-          page.drawText(v,{x:cx+3,y:y-RH+7,size:7.5,font:(i===7&&assinCol)||i===0?bold:font,color:tc});
-        }
+        if(i===7&&!assinCol){page.drawLine({start:{x:cx+4,y:y-RH+7},end:{x:cx+COLS[i]-6,y:y-RH+7},thickness:.4,color:rgb(.3,.33,.4)});}
+        else if(v){page.drawText(v,{x:cx+3,y:y-RH+6,size:7,font:i===7&&assinCol?bold:font,color:tc});}
         cx+=COLS[i];
       }
-      // Linhas verticais divisórias
-      cx=M;
-      for(let i=0;i<COLS.length-1;i++){
-        cx+=COLS[i];
-        page.drawLine({start:{x:cx,y:y},end:{x:cx,y:y-RH},thickness:.3,color:rgb(.15,.16,.2)});
-      }
-      page.drawLine({start:{x:M,y:y-RH},end:{x:W-M,y:y-RH},thickness:.3,color:rgb(.12,.13,.17)});
+      cx=M;for(let i=0;i<COLS.length-1;i++){cx+=COLS[i];page.drawLine({start:{x:cx,y},end:{x:cx,y:y-RH},thickness:.25,color:rgb(.15,.16,.2)});}
+      page.drawLine({start:{x:M,y:y-RH},end:{x:W-M,y:y-RH},thickness:.25,color:rgb(.12,.13,.17)});
       y-=RH;
     }
-
-    // Rodapé
-    y-=22;
+    y-=20;
     page.drawLine({start:{x:M,y},end:{x:W-M,y},thickness:.5,color:rgb(.18,.2,.26)});
-    page.drawText('Declaro que as informações acima são corretas.',{x:M,y:y-13,size:7.5,font,color:rgb(.5,.53,.6)});
-    page.drawText('Assinatura: ___________________________________',{x:M,y:y-27,size:7.5,font,color:rgb(.5,.53,.6)});
-    page.drawText('Data: ______/______/______',{x:W-M-130,y:y-27,size:7.5,font,color:rgb(.5,.53,.6)});
-    // Rodapé VISTO
-    page.drawText('VISTO: _______________',{x:W/2-50,y:y-13,size:7.5,font,color:rgb(.5,.53,.6)});
+    page.drawText('Assinatura: ___________________________________   Data: ______/______/______',{x:M,y:y-13,size:7,font,color:rgb(.5,.53,.6)});
+    page.drawText('VISTO: _______________',{x:W/2-40,y:y-13,size:7,font,color:rgb(.5,.53,.6)});
   }
   return await doc.save();
 }
 
-// ============================================================
+// ================================================================
 // ARQUIVOS
-// ============================================================
+// ================================================================
 async function loadArquivos(){
   const el=document.getElementById('arq-list');
   if(!checkFirebase())return;
@@ -1079,65 +1276,36 @@ async function loadArquivos(){
       const fs=await db.collection('empresas').doc(ed.id).collection('funcionarios').get();
       fs.forEach(fd=>rows.push({emp,func:fd.data(),eId:ed.id,fId:fd.id}));
     }
-    if(rows.length===0){el.innerHTML='<div class="empty"><div class="empty-icon">📂</div>Nenhum registro</div>';return;}
-    el.innerHTML='<div class="table-wrap"><table><thead><tr><th>Empresa</th><th>Funcionário</th><th>Horário</th><th>Período</th><th>Gerar PDF</th><th>Excluir</th></tr></thead><tbody id="arq-tbody"></tbody></table></div>';
+    if(!rows.length){el.innerHTML='<div class="empty"><div class="empty-icon">📂</div>Nenhum registro</div>';return;}
+    el.innerHTML='<div class="table-wrap"><table><thead><tr><th>Empresa</th><th>Funcionário</th><th>Período</th><th>Horário</th><th>PDF</th><th>Gerar</th><th>Excluir</th></tr></thead><tbody id="arq-tbody"></tbody></table></div>';
     const tbody=document.getElementById('arq-tbody');
     for(const r of rows){
       const tr=document.createElement('tr');
+      const hasPDF=r.func.pdfTotalChunks&&r.func.pdfTotalChunks>0;
       tr.innerHTML=`
-        <td>
-          <div style="font-size:.8rem;font-weight:600;">${r.emp.nome}</div>
-          <div style="font-size:.68rem;color:var(--muted);">${r.emp.cnpj||''}</div>
-        </td>
+        <td><div style="font-size:.8rem;font-weight:600;">${r.emp.nome}</div><div style="font-size:.67rem;color:var(--muted)">${r.emp.cnpj||''}</div></td>
         <td>${r.func.nome}</td>
-        <td style="font-size:.72rem;color:var(--accent2)">${r.func.horarioEntrada||'?'}–${r.func.horarioSaida||'?'}</td>
-        <td style="font-size:.72rem;color:var(--muted)">${r.func.periodo||'—'}</td>
-        <td><button class="btn ok" style="font-size:.7rem;padding:.28rem .75rem" onclick="gerarPDFDireto('${r.eId}','${r.fId}',this)">⚡ Gerar</button></td>
-        <td><button class="btn danger" style="font-size:.7rem;padding:.28rem .65rem" onclick="excluir('${r.eId}','${r.fId}')">🗑</button></td>
+        <td style="font-size:.7rem;color:var(--muted)">${r.func.periodo||'—'}</td>
+        <td style="font-size:.7rem;color:var(--accent2)">${r.func.horarioEntrada||'?'}–${r.func.horarioSaida||'?'}</td>
+        <td>${hasPDF?'<span class="badge bs">✓ Salvo</span>':'<span class="badge bd">Sem PDF</span>'}</td>
+        <td><button class="btn ok" style="font-size:.68rem;padding:.22rem .6rem" onclick="gerarRapido('${r.eId}','${r.fId}',this)">⚡ Gerar</button></td>
+        <td><button class="btn danger" style="font-size:.68rem;padding:.22rem .55rem" onclick="excluir('${r.eId}','${r.fId}')">🗑</button></td>
       `;
       tbody.appendChild(tr);
     }
   }catch(e){el.innerHTML=`<div class="empty">Erro: ${e.message}</div>`;}
 }
 
-// Gera e baixa PDF direto da lista de arquivos
-async function gerarPDFDireto(eId, fId, btn){
-  const orig=btn.innerHTML;
-  btn.disabled=true;btn.innerHTML='<span class="spin"></span>';
-  try{
-    const fDoc=await db.collection('empresas').doc(eId).collection('funcionarios').doc(fId).get();
-    const func=fDoc.data();
-    const eDoc=await db.collection('empresas').doc(eId).get();
-    const empresa=eDoc.data();
-    const cSnap=await db.collection('chamadas').doc(eId).collection(fId).get();
-    const chamadas={};
-    cSnap.forEach(d=>{chamadas[d.id]=d.data();});
-    const period=parsePeriod(func.periodo);
-    const schedule=buildSchedule(period,chamadas,func);
-    const pdfBytes=await buildPDF(schedule,func,empresa);
-    const blob=new Blob([pdfBytes],{type:'application/pdf'});
-    const url=URL.createObjectURL(blob);
-    const a=document.createElement('a');
-    a.href=url;
-    a.download='folha_'+(func.nome||'func').replace(/\s+/g,'_')+'.pdf';
-    a.click();
-    setTimeout(()=>URL.revokeObjectURL(url),5000);
-    toast('PDF gerado e baixado!','success');
-  }catch(e){
-    toast('Erro: '+e.message,'error');
-  }
-  btn.disabled=false;btn.innerHTML=orig;
-}
-
 async function excluir(eId,fId){
   if(!confirm('Excluir este funcionário e todos os seus dados?'))return;
   try{
-    // Sem Storage — nada para deletar de lá
-    try{
-      const cs=await db.collection('chamadas').doc(eId).collection(fId).get();
-      for(const d of cs.docs)await d.ref.delete();
-    }catch(_){}
+    // Deleta chunks do PDF
+    try{const cs=await db.collection('empresas').doc(eId).collection('funcionarios').doc(fId).collection('pdfChunks').get();for(const d of cs.docs)await d.ref.delete();}catch(_){}
+    // Deleta chamadas
+    try{const cs=await db.collection('chamadas').doc(eId).collection(fId).get();for(const d of cs.docs)await d.ref.delete();}catch(_){}
+    // Deleta funcionário
     await db.collection('empresas').doc(eId).collection('funcionarios').doc(fId).delete();
+    // Se empresa ficou vazia, deleta
     const fs=await db.collection('empresas').doc(eId).collection('funcionarios').get();
     if(fs.empty)await db.collection('empresas').doc(eId).delete();
     toast('Excluído!','success');
@@ -1145,14 +1313,18 @@ async function excluir(eId,fId){
   }catch(e){toast('Erro: '+e.message,'error');}
 }
 
-// ============================================================
+// ================================================================
 // TOAST
-// ============================================================
+// ================================================================
 function toast(msg,type='info'){
   const c=document.getElementById('toast-wrap');
-  const el=document.createElement('div');
-  el.className=`toast ${type}`;el.textContent=msg;
+  const el=document.createElement('div');el.className=`toast ${type}`;el.textContent=msg;
   c.appendChild(el);setTimeout(()=>el.remove(),4500);
+}
+
+function logM(el,msg,cls){
+  const d=document.createElement('div');d.className=cls;d.textContent=msg;
+  el.appendChild(d);el.scrollTop=el.scrollHeight;
 }
 </script>
 </body>
