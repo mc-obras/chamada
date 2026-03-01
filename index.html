@@ -8,14 +8,12 @@
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
 <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
-
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@400;600;700;800&display=swap');
-:root {
-  --bg:#0d0f14; --surface:#161920; --border:#252933;
-  --accent:#e8ff47; --accent2:#47c8ff; --danger:#ff4757;
-  --success:#2ed573; --warn:#ffa502; --text:#e8eaf0;
-  --muted:#6b7280; --radius:10px;
+:root{
+  --bg:#0d0f14;--surface:#161920;--border:#252933;
+  --accent:#e8ff47;--accent2:#47c8ff;--danger:#ff4757;
+  --success:#2ed573;--warn:#ffa502;--text:#e8eaf0;--muted:#6b7280;--radius:10px;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 body{background:var(--bg);color:var(--text);font-family:'DM Mono',monospace;min-height:100vh;}
@@ -48,7 +46,6 @@ label{display:block;font-size:.72rem;color:var(--muted);margin-bottom:.3rem;lett
 .btn.danger{background:rgba(255,71,87,.12);color:var(--danger);border:1px solid rgba(255,71,87,.3);}
 .btn.danger:hover{background:rgba(255,71,87,.22);}
 .btn.ok{background:var(--success);color:#0d0f14;}
-.btn.blue{background:var(--accent2);color:#0d0f14;}
 .btn:disabled{opacity:.4;cursor:not-allowed;transform:none;}
 .upload-zone{border:2px dashed var(--border);border-radius:var(--radius);padding:2.5rem 2rem;text-align:center;cursor:pointer;transition:all .2s;position:relative;}
 .upload-zone:hover,.upload-zone.drag-over{border-color:var(--accent);background:rgba(232,255,71,.03);}
@@ -56,8 +53,8 @@ label{display:block;font-size:.72rem;color:var(--muted);margin-bottom:.3rem;lett
 .upload-icon{font-size:2.2rem;margin-bottom:.6rem;}
 .upload-text{color:var(--muted);font-size:.83rem;}
 .upload-text strong{color:var(--accent);}
-.log{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:.9rem;font-size:.73rem;max-height:220px;overflow-y:auto;line-height:1.7;}
-.lok{color:var(--success);} .lerr{color:var(--danger);} .linfo{color:var(--accent2);} .lwarn{color:var(--warn);}
+.log{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:.9rem;font-size:.73rem;max-height:240px;overflow-y:auto;line-height:1.8;}
+.lok{color:var(--success);}.lerr{color:var(--danger);}.linfo{color:var(--accent2);}.lwarn{color:var(--warn);}
 .table-wrap{overflow-x:auto;}
 table{width:100%;border-collapse:collapse;font-size:.78rem;}
 th{text-align:left;padding:.55rem .75rem;color:var(--muted);font-size:.68rem;letter-spacing:.8px;text-transform:uppercase;border-bottom:1px solid var(--border);}
@@ -81,24 +78,30 @@ tr:hover td{background:rgba(255,255,255,.02);}
 @keyframes spin{to{transform:rotate(360deg);}}
 .spin{width:16px;height:16px;border:2px solid transparent;border-top-color:currentColor;border-radius:50%;animation:spin .6s linear infinite;display:inline-block;}
 #toast-wrap{position:fixed;bottom:1.2rem;right:1.2rem;z-index:9999;display:flex;flex-direction:column;gap:.5rem;}
-.toast{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:.7rem 1.1rem;font-size:.78rem;max-width:300px;}
+.toast{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:.7rem 1.1rem;font-size:.78rem;max-width:320px;line-height:1.5;}
 .toast.success{border-color:var(--success);color:var(--success);}
 .toast.error{border-color:var(--danger);color:var(--danger);}
 .toast.info{border-color:var(--accent2);color:var(--accent2);}
-.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:500;display:none;align-items:center;justify-content:center;}
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:500;display:none;align-items:center;justify-content:center;}
 .modal-bg.open{display:flex;}
-.modal{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.8rem;width:min(540px,95vw);max-height:90vh;overflow-y:auto;}
-.modal h3{font-family:'Syne',sans-serif;font-size:1rem;margin-bottom:.4rem;color:var(--accent);}
-.modal-sub{font-size:.73rem;color:var(--muted);margin-bottom:.9rem;line-height:1.5;}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.8rem;width:min(580px,96vw);max-height:92vh;overflow-y:auto;}
+.modal h3{font-family:'Syne',sans-serif;font-size:1.05rem;margin-bottom:.35rem;color:var(--accent);}
+.modal-sub{font-size:.73rem;color:var(--muted);margin-bottom:1rem;line-height:1.55;}
 .modal-footer{display:flex;gap:.6rem;justify-content:flex-end;margin-top:1.2rem;}
-.ocr-raw{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:.75rem;font-size:.68rem;max-height:130px;overflow-y:auto;white-space:pre-wrap;color:var(--muted);margin-bottom:1rem;line-height:1.5;}
+.ocr-raw{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:.75rem;font-size:.67rem;max-height:140px;overflow-y:auto;white-space:pre-wrap;color:var(--muted);margin-bottom:1rem;line-height:1.5;}
 .flex-bar{display:flex;gap:.7rem;align-items:flex-end;flex-wrap:wrap;margin-bottom:1.3rem;}
 .flex-bar .field{margin-bottom:0;min-width:180px;}
 .notice{background:rgba(71,200,255,.07);border:1px solid rgba(71,200,255,.2);border-radius:8px;padding:.85rem 1rem;font-size:.77rem;color:var(--accent2);margin-bottom:1rem;line-height:1.6;}
+.parsed-preview{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:1rem;margin-bottom:1rem;}
+.parsed-preview .row{display:flex;gap:.5rem;margin-bottom:.4rem;font-size:.78rem;}
+.parsed-preview .lbl{color:var(--muted);min-width:110px;font-size:.7rem;}
+.parsed-preview .val{color:var(--accent);font-weight:500;}
+.parsed-preview .val.ok{color:var(--success);}
+.parsed-preview .val.err{color:var(--danger);}
 @media(max-width:680px){
   .row2,.row3,.row4{grid-template-columns:1fr;}
   .flex-bar{flex-direction:column;align-items:stretch;}
-  nav{gap:0;} .nav-btn{font-size:.68rem;padding:.32rem .55rem;}
+  nav{gap:0;}.nav-btn{font-size:.68rem;padding:.32rem .55rem;}
   .page{padding:1rem;}
 }
 </style>
@@ -122,22 +125,30 @@ tr:hover td{background:rgba(255,255,255,.02);}
 <!-- MODAL REVISÃO -->
 <div class="modal-bg" id="modal-bg">
   <div class="modal">
-    <h3>📋 Revisar / Corrigir dados lidos pelo OCR</h3>
-    <p class="modal-sub">O OCR pode cometer erros. <strong>Confira e corrija</strong> antes de salvar. Campos com * são obrigatórios.</p>
+    <h3>📋 Confirmar dados lidos pelo OCR</h3>
+    <p class="modal-sub">Verifique os dados abaixo. Corrija qualquer campo errado antes de salvar. Campos marcados com <span style="color:var(--danger)">✗</span> precisam de atenção.</p>
+
+    <!-- Preview do que foi lido -->
+    <div class="parsed-preview" id="modal-parsed-preview"></div>
+
     <div id="modal-ocr-raw" class="ocr-raw" style="display:none;"></div>
+
     <div class="row2">
       <div class="field"><label>Nome da Empresa *</label><input type="text" id="m-empresa"></div>
       <div class="field"><label>CNPJ</label><input type="text" id="m-cnpj"></div>
     </div>
     <div class="field"><label>Nome do Funcionário *</label><input type="text" id="m-func"></div>
-    <div class="field"><label>Período (ex: 26/01/2026 à 25/02/2026)</label><input type="text" id="m-periodo" placeholder="dd/mm/aaaa à dd/mm/aaaa"></div>
+    <div class="row2">
+      <div class="field"><label>Período (ex: 26/01/2026 à 25/02/2026)</label><input type="text" id="m-periodo" placeholder="dd/mm/aaaa à dd/mm/aaaa"></div>
+      <div class="field"><label>Horário base (ex: 08:00 às 14:00)</label><input type="text" id="m-horario" placeholder="08:00 às 17:00"></div>
+    </div>
     <div class="field" id="m-file-field" style="display:none;">
       <label>PDF Original (opcional)</label>
       <input type="file" id="m-file" accept=".pdf" style="background:var(--bg);border:1px solid var(--border);padding:.4rem;border-radius:6px;color:var(--text);">
     </div>
     <div class="modal-footer">
       <button class="btn sec" onclick="closeModal()">Cancelar</button>
-      <button class="btn" onclick="saveModal()">💾 Salvar</button>
+      <button class="btn" onclick="saveModal()">💾 Confirmar e Salvar</button>
     </div>
   </div>
 </div>
@@ -147,7 +158,7 @@ tr:hover td{background:rgba(255,255,255,.02);}
   <div class="section-title">⚙️ <span>Configurações</span></div>
   <div class="card">
     <div class="card-title">Firebase</div>
-    <div class="notice">Suas credenciais já estão pré-configuradas no sistema. Só altere se precisar mudar de projeto.</div>
+    <div class="notice">Credenciais já pré-configuradas. Só altere se precisar trocar de projeto Firebase.</div>
     <div class="row2">
       <div class="field"><label>API Key</label><input type="password" id="cfg-apiKey"></div>
       <div class="field"><label>Auth Domain</label><input type="text" id="cfg-authDomain"></div>
@@ -165,26 +176,24 @@ tr:hover td{background:rgba(255,255,255,.02);}
   <div class="card">
     <div class="card-title">OCR.space</div>
     <div class="row2">
-      <div class="field">
-        <label>API Key <span style="color:var(--muted)">(gratuita em ocr.space/ocrapi)</span></label>
-        <input type="password" id="cfg-ocrKey" placeholder="helloworld">
-      </div>
+      <div class="field"><label>API Key <span style="color:var(--muted)">(gratuita em ocr.space/ocrapi)</span></label>
+        <input type="password" id="cfg-ocrKey" placeholder="helloworld"></div>
       <div class="field"><label>Idioma</label>
-        <select id="cfg-ocrLang"><option value="por">Português</option><option value="eng">English</option></select>
-      </div>
+        <select id="cfg-ocrLang"><option value="por">Português</option><option value="eng">English</option></select></div>
     </div>
     <button class="btn sec" onclick="saveOcr()">💾 Salvar OCR</button>
   </div>
   <div class="card">
     <div class="card-title">Horários Padrão (variação ±5 min automática)</div>
+    <p style="font-size:.77rem;color:var(--muted);margin-bottom:.9rem;">Estes são os horários padrão globais. Cada funcionário pode ter horário próprio definido no momento do upload.</p>
     <div class="row4">
-      <div class="field"><label>Seg–Qui Entrada 1</label><input type="text" id="ht-e1" value="07:00"></div>
-      <div class="field"><label>Seg–Qui Saída 1</label><input type="text" id="ht-s1" value="12:00"></div>
-      <div class="field"><label>Seg–Qui Entrada 2</label><input type="text" id="ht-e2" value="13:00"></div>
-      <div class="field"><label>Seg–Qui Saída 2</label><input type="text" id="ht-s2" value="17:00"></div>
+      <div class="field"><label>Entrada 1</label><input type="text" id="ht-e1" value="07:00"></div>
+      <div class="field"><label>Saída 1</label><input type="text" id="ht-s1" value="12:00"></div>
+      <div class="field"><label>Entrada 2</label><input type="text" id="ht-e2" value="13:00"></div>
+      <div class="field"><label>Saída 2</label><input type="text" id="ht-s2" value="17:00"></div>
     </div>
     <div class="row4">
-      <div class="field"><label>Sexta Saída 2</label><input type="text" id="ht-sf" value="16:00"></div>
+      <div class="field"><label>Sexta — Saída 2</label><input type="text" id="ht-sf" value="16:00"></div>
     </div>
     <button class="btn sec" onclick="saveHorarios()">💾 Salvar Horários</button>
   </div>
@@ -194,18 +203,21 @@ tr:hover td{background:rgba(255,255,255,.02);}
 <div id="page-upload" class="page active">
   <div class="section-title">📁 <span>Upload de Folhas</span></div>
   <div class="card">
-    <div class="card-title">Enviar PDFs (OCR automático + revisão)</div>
-    <div class="notice">Após o OCR, um <strong>modal de revisão</strong> será aberto para você confirmar ou corrigir os dados antes de salvar.</div>
+    <div class="card-title">Enviar PDFs</div>
+    <div class="notice">
+      ✓ O sistema lê: <strong>Empresa, CNPJ, nome do funcionário, período e horário base</strong> do PDF.<br>
+      ✓ Após leitura, abre <strong>tela de revisão</strong> para você confirmar ou corrigir antes de salvar.
+    </div>
     <div class="upload-zone" id="upload-zone">
       <input type="file" id="file-input" multiple accept=".pdf" onchange="handleFiles(this.files)">
       <div class="upload-icon">📄</div>
-      <div class="upload-text"><strong>Clique ou arraste</strong> os PDFs aqui</div>
+      <div class="upload-text"><strong>Clique ou arraste</strong> os PDFs aqui — múltiplos arquivos permitidos</div>
     </div>
     <div id="upload-log" class="log" style="margin-top:1rem;display:none;"></div>
   </div>
   <div class="card">
-    <div class="card-title">Cadastro Manual (sem PDF ou OCR falhou)</div>
-    <p style="font-size:.77rem;color:var(--muted);margin-bottom:.9rem;">Cadastre empresa e funcionário digitando manualmente, sem precisar de PDF.</p>
+    <div class="card-title">Cadastro Manual</div>
+    <p style="font-size:.77rem;color:var(--muted);margin-bottom:.9rem;">Se o OCR falhar ou quiser cadastrar sem PDF, use este botão.</p>
     <button class="btn sec" onclick="openManualModal()">➕ Cadastrar Manualmente</button>
   </div>
   <div class="card">
@@ -220,8 +232,7 @@ tr:hover td{background:rgba(255,255,255,.02);}
   <div class="card">
     <div class="flex-bar">
       <div class="field"><label>Empresa</label>
-        <select id="ch-emp" onchange="loadFuncChamada()"><option value="">Selecione...</option></select>
-      </div>
+        <select id="ch-emp" onchange="loadFuncChamada()"><option value="">Selecione...</option></select></div>
       <div class="field"><label>Data</label><input type="date" id="ch-data" style="max-width:185px;"></div>
       <button class="btn sec" onclick="loadFuncChamada()">🔄 Carregar</button>
     </div>
@@ -241,11 +252,9 @@ tr:hover td{background:rgba(255,255,255,.02);}
   <div class="card">
     <div class="flex-bar">
       <div class="field"><label>Empresa</label>
-        <select id="ger-emp" onchange="loadFuncGerar()"><option value="">Selecione...</option></select>
-      </div>
+        <select id="ger-emp" onchange="loadFuncGerar()"><option value="">Selecione...</option></select></div>
       <div class="field"><label>Funcionário</label>
-        <select id="ger-func"><option value="">Selecione...</option></select>
-      </div>
+        <select id="ger-func"><option value="">Selecione...</option></select></div>
       <button class="btn" id="ger-btn" onclick="gerarPDF()">⚡ Gerar PDF</button>
     </div>
   </div>
@@ -272,416 +281,401 @@ tr:hover td{background:rgba(255,255,255,.02);}
 
 <script>
 // ============================================================
-// FIREBASE CONFIG — credenciais embutidas
+// FIREBASE — suas credenciais
 // ============================================================
 const FIREBASE_DEFAULT = {
-  apiKey: "AIzaSyASPAnm7GUm0EQzBpewZJg-PL8rd5coWuA",
-  authDomain: "chamada-teste.firebaseapp.com",
-  projectId: "chamada-teste",
-  storageBucket: "chamada-teste.firebasestorage.app",
-  messagingSenderId: "649390161434",
-  appId: "1:649390161434:web:cf1bfb5a15c3a5f2d49ba3"
+  apiKey:"AIzaSyASPAnm7GUm0EQzBpewZJg-PL8rd5coWuA",
+  authDomain:"chamada-teste.firebaseapp.com",
+  projectId:"chamada-teste",
+  storageBucket:"chamada-teste.firebasestorage.app",
+  messagingSenderId:"649390161434",
+  appId:"1:649390161434:web:cf1bfb5a15c3a5f2d49ba3"
 };
 
-// ============================================================
-// STATE
-// ============================================================
-let db = null, storage = null, fbApp = null;
-let chamadaState = {};
-let modalPendingFile = null;
-// Fila de arquivos aguardando processamento (um por vez para o modal)
-let fileQueue = [];
+let db=null, storage=null, fbApp=null;
+let chamadaState={};
+let modalPendingFile=null;
+let fileQueue=[];
+let _modalLog=null;
 
 // ============================================================
 // INIT
 // ============================================================
-window.addEventListener('load', () => {
-  const saved = getSavedConfig();
-  const cfg = (saved && saved.apiKey) ? saved : FIREBASE_DEFAULT;
-  initFirebase(cfg);
-  loadConfigUI(cfg);
+window.addEventListener('load',()=>{
+  const saved=getSavedConfig();
+  initFirebase((saved&&saved.apiKey)?saved:FIREBASE_DEFAULT);
+  loadConfigUI();
   loadEmpresasList();
   setDefaultDate();
 });
 
-function initFirebase(cfg) {
-  try {
-    if (fbApp) { try { fbApp.delete(); } catch(_){} }
-    fbApp = firebase.initializeApp(cfg, 'app-' + Date.now());
-    db = firebase.firestore(fbApp);
-    storage = firebase.storage(fbApp);
-    const badge = document.getElementById('cfg-badge');
-    badge.textContent = '✓ Firebase OK';
-    badge.className = 'ok';
-  } catch(e) {
-    document.getElementById('cfg-badge').textContent = '⚠ Firebase';
-    document.getElementById('cfg-badge').className = '';
-    toast('Firebase: ' + e.message, 'error');
+function initFirebase(cfg){
+  try{
+    if(fbApp){try{fbApp.delete();}catch(_){}}
+    fbApp=firebase.initializeApp(cfg,'app-'+Date.now());
+    db=firebase.firestore(fbApp);
+    storage=firebase.storage(fbApp);
+    const b=document.getElementById('cfg-badge');
+    b.textContent='✓ Firebase OK';b.className='ok';
+  }catch(e){
+    document.getElementById('cfg-badge').textContent='⚠ Firebase';
+    document.getElementById('cfg-badge').className='';
+    toast('Firebase: '+e.message,'error');
   }
 }
-
-function checkFirebase() {
-  if (!db) { toast('Firebase não conectado — vá em Config', 'error'); return false; }
+function checkFirebase(){
+  if(!db){toast('Firebase não conectado — vá em Config','error');return false;}
   return true;
 }
 
 // ============================================================
-// NAVIGATION
+// NAV
 // ============================================================
-function nav(page, btn) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('page-' + page).classList.add('active');
+function nav(page,btn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('page-'+page).classList.add('active');
   btn.classList.add('active');
-  if (page === 'upload')   loadEmpresasList();
-  if (page === 'chamada')  { fillEmpSel('ch-emp'); setDefaultDate(); }
-  if (page === 'gerar')    fillEmpSel('ger-emp');
-  if (page === 'arquivos') loadArquivos();
-  if (page === 'config')   loadConfigUI(getSavedConfig() || FIREBASE_DEFAULT);
+  if(page==='upload')   loadEmpresasList();
+  if(page==='chamada')  {fillEmpSel('ch-emp');setDefaultDate();}
+  if(page==='gerar')    fillEmpSel('ger-emp');
+  if(page==='arquivos') loadArquivos();
+  if(page==='config')   loadConfigUI();
 }
 
 // ============================================================
 // CONFIG
 // ============================================================
-function getSavedConfig() {
-  try { return JSON.parse(localStorage.getItem('fb_cfg') || 'null'); } catch { return null; }
-}
-function loadConfigUI(cfg) {
-  if (!cfg) cfg = {};
-  ['apiKey','authDomain','projectId','storageBucket','messagingSenderId','appId'].forEach(k => {
-    const el = document.getElementById('cfg-' + k);
-    if (el) el.value = cfg[k] || '';
+function getSavedConfig(){try{return JSON.parse(localStorage.getItem('fb_cfg')||'null');}catch{return null;}}
+function loadConfigUI(){
+  const cfg=getSavedConfig()||FIREBASE_DEFAULT;
+  ['apiKey','authDomain','projectId','storageBucket','messagingSenderId','appId'].forEach(k=>{
+    const el=document.getElementById('cfg-'+k);
+    if(el)el.value=cfg[k]||'';
   });
-  document.getElementById('cfg-ocrKey').value = localStorage.getItem('ocr_key') || 'helloworld';
-  const ht = getHorarios();
-  document.getElementById('ht-e1').value = ht.e1;
-  document.getElementById('ht-s1').value = ht.s1;
-  document.getElementById('ht-e2').value = ht.e2;
-  document.getElementById('ht-s2').value = ht.s2;
-  document.getElementById('ht-sf').value = ht.sf;
+  document.getElementById('cfg-ocrKey').value=localStorage.getItem('ocr_key')||'helloworld';
+  const ht=getHorarios();
+  document.getElementById('ht-e1').value=ht.e1;
+  document.getElementById('ht-s1').value=ht.s1;
+  document.getElementById('ht-e2').value=ht.e2;
+  document.getElementById('ht-s2').value=ht.s2;
+  document.getElementById('ht-sf').value=ht.sf;
 }
-function saveFirebaseConfig() {
-  const cfg = {};
-  ['apiKey','authDomain','projectId','storageBucket','messagingSenderId','appId'].forEach(k => {
-    cfg[k] = document.getElementById('cfg-' + k).value.trim();
-  });
-  if (!cfg.apiKey || !cfg.projectId) { toast('Preencha API Key e Project ID', 'error'); return; }
-  localStorage.setItem('fb_cfg', JSON.stringify(cfg));
+function saveFirebaseConfig(){
+  const cfg={};
+  ['apiKey','authDomain','projectId','storageBucket','messagingSenderId','appId'].forEach(k=>{cfg[k]=document.getElementById('cfg-'+k).value.trim();});
+  if(!cfg.apiKey||!cfg.projectId){toast('Preencha API Key e Project ID','error');return;}
+  localStorage.setItem('fb_cfg',JSON.stringify(cfg));
   initFirebase(cfg);
-  toast('Firebase reconectado!', 'success');
+  toast('Firebase reconectado!','success');
 }
-function saveOcr() {
-  localStorage.setItem('ocr_key', document.getElementById('cfg-ocrKey').value.trim());
-  localStorage.setItem('ocr_lang', document.getElementById('cfg-ocrLang').value);
-  toast('OCR salvo!', 'success');
+function saveOcr(){
+  localStorage.setItem('ocr_key',document.getElementById('cfg-ocrKey').value.trim());
+  localStorage.setItem('ocr_lang',document.getElementById('cfg-ocrLang').value);
+  toast('OCR salvo!','success');
 }
-function saveHorarios() {
-  const ht = {
-    e1: document.getElementById('ht-e1').value,
-    s1: document.getElementById('ht-s1').value,
-    e2: document.getElementById('ht-e2').value,
-    s2: document.getElementById('ht-s2').value,
-    sf: document.getElementById('ht-sf').value,
-  };
-  localStorage.setItem('horarios', JSON.stringify(ht));
-  toast('Horários salvos!', 'success');
+function saveHorarios(){
+  const ht={e1:document.getElementById('ht-e1').value,s1:document.getElementById('ht-s1').value,e2:document.getElementById('ht-e2').value,s2:document.getElementById('ht-s2').value,sf:document.getElementById('ht-sf').value};
+  localStorage.setItem('horarios',JSON.stringify(ht));
+  toast('Horários salvos!','success');
 }
-function getHorarios() {
-  try {
-    const h = JSON.parse(localStorage.getItem('horarios') || '{}');
-    return { e1:h.e1||'07:00', s1:h.s1||'12:00', e2:h.e2||'13:00', s2:h.s2||'17:00', sf:h.sf||'16:00' };
-  } catch { return { e1:'07:00', s1:'12:00', e2:'13:00', s2:'17:00', sf:'16:00' }; }
+function getHorarios(){
+  try{const h=JSON.parse(localStorage.getItem('horarios')||'{}');return{e1:h.e1||'07:00',s1:h.s1||'12:00',e2:h.e2||'13:00',s2:h.s2||'17:00',sf:h.sf||'16:00'};}
+  catch{return{e1:'07:00',s1:'12:00',e2:'13:00',s2:'17:00',sf:'16:00'};}
 }
 
 // ============================================================
 // DRAG & DROP
 // ============================================================
-const zone = document.getElementById('upload-zone');
-zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('drag-over'); });
-zone.addEventListener('dragleave', () => zone.classList.remove('drag-over'));
-zone.addEventListener('drop', e => { e.preventDefault(); zone.classList.remove('drag-over'); handleFiles(e.dataTransfer.files); });
+const zone=document.getElementById('upload-zone');
+zone.addEventListener('dragover',e=>{e.preventDefault();zone.classList.add('drag-over');});
+zone.addEventListener('dragleave',()=>zone.classList.remove('drag-over'));
+zone.addEventListener('drop',e=>{e.preventDefault();zone.classList.remove('drag-over');handleFiles(e.dataTransfer.files);});
 
 // ============================================================
-// FILE HANDLING
+// HANDLE FILES
 // ============================================================
-async function handleFiles(files) {
-  if (!checkFirebase()) return;
-  const log = document.getElementById('upload-log');
-  log.style.display = 'block';
-
-  // Adiciona todos à fila
-  fileQueue = [...files].filter(f => f.type === 'application/pdf');
-  const skipped = files.length - fileQueue.length;
-  if (skipped > 0) logM(log, `⚠ ${skipped} arquivo(s) ignorado(s) — não são PDF`, 'lwarn');
-
-  if (fileQueue.length === 0) return;
+async function handleFiles(files){
+  if(!checkFirebase())return;
+  const log=document.getElementById('upload-log');
+  log.style.display='block';
+  fileQueue=[...files].filter(f=>f.type==='application/pdf');
+  const skipped=files.length-fileQueue.length;
+  if(skipped>0)logM(log,`⚠ ${skipped} arquivo(s) ignorado(s) — não são PDF`,'lwarn');
+  if(fileQueue.length===0)return;
   processNextFile(log);
 }
 
-async function processNextFile(log) {
-  if (fileQueue.length === 0) { logM(log, '✅ Todos os arquivos processados!', 'lok'); return; }
-  const file = fileQueue.shift();
-  logM(log, `📄 Lendo: ${file.name}...`, 'linfo');
-  try {
-    const raw = await runOCR(file);
-    logM(log, `✓ OCR concluído — ${raw.length} chars`, 'lok');
-    const parsed = parseOCR(raw);
-    logM(log, `🏢 Empresa detectada: "${parsed.empresa}" | 👤 Funcionário: "${parsed.funcionario}"`, 'linfo');
-    logM(log, `📅 Período: "${parsed.periodo}"`, 'linfo');
-    // Sempre abre modal para revisão
-    openReviewModal(parsed, raw, file, log);
-  } catch(e) {
-    logM(log, `❌ Erro no OCR: ${e.message}. Abra o modal para cadastro manual.`, 'lerr');
-    openReviewModal({ empresa:'', cnpj:'', funcionario:'', periodo:'' }, '', file, log);
+async function processNextFile(log){
+  if(fileQueue.length===0){logM(log,'✅ Todos os arquivos processados!','lok');return;}
+  const file=fileQueue.shift();
+  logM(log,`📄 Lendo: ${file.name}...`,'linfo');
+  try{
+    const raw=await runOCR(file);
+    logM(log,`✓ OCR concluído — ${raw.length} caracteres lidos`,'lok');
+    const parsed=parseOCR(raw);
+    logM(log,`🏢 Empresa: "${parsed.empresa}"`,'linfo');
+    logM(log,`👤 Funcionário: "${parsed.funcionario}"`,'linfo');
+    logM(log,`📅 Período: "${parsed.periodo}" | ⏰ Horário: "${parsed.horario}"`,'linfo');
+    openReviewModal(parsed,raw,file,log);
+  }catch(e){
+    logM(log,`❌ Erro OCR: ${e.message}`,'lerr');
+    openReviewModal({empresa:'',cnpj:'',funcionario:'',periodo:'',horario:''},'',file,log);
   }
 }
 
-function logM(el, msg, cls) {
-  const d = document.createElement('div');
-  d.className = cls; d.textContent = msg;
-  el.appendChild(d); el.scrollTop = el.scrollHeight;
+function logM(el,msg,cls){
+  const d=document.createElement('div');d.className=cls;d.textContent=msg;
+  el.appendChild(d);el.scrollTop=el.scrollHeight;
 }
 
 // ============================================================
 // OCR.space
 // ============================================================
-async function runOCR(file) {
-  const key = localStorage.getItem('ocr_key') || 'helloworld';
-  const lang = localStorage.getItem('ocr_lang') || 'por';
-  const fd = new FormData();
-  fd.append('file', file);
-  fd.append('apikey', key);
-  fd.append('language', lang);
-  fd.append('isOverlayRequired', 'false');
-  fd.append('filetype', 'PDF');
-  fd.append('OCREngine', '2');
-  fd.append('scale', 'true');
-  fd.append('isTable', 'true');
-
-  const r = await fetch('https://api.ocr.space/parse/image', { method:'POST', body:fd });
-  if (!r.ok) throw new Error('HTTP ' + r.status);
-  const data = await r.json();
-  if (data.IsErroredOnProcessing) throw new Error(data.ErrorMessage?.[0] || 'OCR falhou');
-  return data.ParsedResults?.map(x => x.ParsedText).join('\n') || '';
+async function runOCR(file){
+  const key=localStorage.getItem('ocr_key')||'helloworld';
+  const lang=localStorage.getItem('ocr_lang')||'por';
+  const fd=new FormData();
+  fd.append('file',file);
+  fd.append('apikey',key);
+  fd.append('language',lang);
+  fd.append('isOverlayRequired','false');
+  fd.append('filetype','PDF');
+  fd.append('OCREngine','2');
+  fd.append('scale','true');
+  fd.append('isTable','true');
+  const r=await fetch('https://api.ocr.space/parse/image',{method:'POST',body:fd});
+  if(!r.ok)throw new Error('HTTP '+r.status);
+  const data=await r.json();
+  if(data.IsErroredOnProcessing)throw new Error(data.ErrorMessage?.[0]||'OCR falhou');
+  return data.ParsedResults?.map(x=>x.ParsedText).join('\n')||'';
 }
 
 // ============================================================
-// PARSER OCR ROBUSTO
+// PARSER OCR — ESPECÍFICO PARA O FORMATO DA FOLHA
 // ============================================================
-function parseOCR(text) {
-  const result = { empresa:'', cnpj:'', funcionario:'', periodo:'' };
-  const norm = text.replace(/\r/g,'').replace(/\t/g,' ');
-  const lines = norm.split('\n').map(l => l.trim()).filter(l => l.length > 1);
+/*
+  Formato real identificado no PDF:
+  
+  Linha 1: "Registro de Frequência De:26/01/2026 à 25/02/2026"
+  Linha 2: "Empresa: 3 CONSTRUTORA FERREIRA SANTOS LTDA CNPJ: 24.439.931/0001-59"
+  Linha 3: "Endereço: ..."
+  Linha 4: "Contrato do Empregado: 231 DIEGO ALMEIDA DA SILVA CTPS: 1244052 - 0780 ES"
+  Linha 5: "Horário: segunda-feira à sexta-feira das 08:00 às 14:00 e sábado compensado."
+*/
+function parseOCR(text){
+  const result={empresa:'',cnpj:'',funcionario:'',periodo:'',horario:''};
+  const norm=text.replace(/\r/g,'').replace(/\t/g,' ');
+  const lines=norm.split('\n').map(l=>l.trim()).filter(l=>l.length>1);
 
-  // ── CNPJ ────────────────────────────────────────────────
-  const cnpjM = norm.match(/\d{2}[\.\-]?\d{3}[\.\-]?\d{3}[\s\/\-]?\d{4}[\s\-\.]?\d{2}/);
-  if (cnpjM) result.cnpj = cnpjM[0].replace(/\s/g,'');
-
-  // ── PERÍODO ─────────────────────────────────────────────
-  const perM = norm.match(/(\d{2}[\/\-]\d{2}[\/\-]\d{4})\s*[àaA\-–\/]\s*(\d{2}[\/\-]\d{2}[\/\-]\d{4})/);
-  if (perM) result.periodo = `${perM[1]} à ${perM[2]}`;
-
-  // Palavras-chave a ignorar ao identificar empresa/funcionário
-  const SKIP = /^(folha|ponto|registro|cartão|cart|data|período|periodo|mês|mes|dia|semana|cargo|função|funcao|matri|admiss|demisc|férias|salário|salario|setor|depart|hora|horas|total|assin)/i;
-  const SKIP_CHARS = /^[\d\s\-\/\.]+$/;
-
-  // ── EMPRESA ─────────────────────────────────────────────
-  // Tenta label explícito
-  for (const line of lines) {
-    const m = line.match(/^(?:empresa|razão\s*social|razao\s*social|empregador)[:\s]+(.+)/i);
-    if (m && m[1].trim().length > 2) { result.empresa = m[1].trim(); break; }
-  }
-  // Tenta linha acima do CNPJ
-  if (!result.empresa && result.cnpj) {
-    const idx = lines.findIndex(l => l.replace(/\s/g,'').includes(result.cnpj.slice(0,8).replace(/\D/g,'')));
-    if (idx > 0) {
-      for (let i = idx-1; i >= Math.max(0,idx-4); i--) {
-        const c = cleanLead(lines[i]);
-        if (c.length > 4 && !SKIP.test(c) && !SKIP_CHARS.test(c)) { result.empresa = c; break; }
-      }
-    }
-  }
-  // Fallback: primeira linha razoável
-  if (!result.empresa) {
-    for (const line of lines.slice(0, 10)) {
-      const c = cleanLead(line);
-      if (c.length > 5 && c.length < 80 && !SKIP.test(c) && !SKIP_CHARS.test(c)) { result.empresa = c; break; }
-    }
+  // ── CNPJ ────────────────────────────────────────────────────────
+  // Formato: XX.XXX.XXX/XXXX-XX
+  const cnpjRx=/\d{2}[\.\s]?\d{3}[\.\s]?\d{3}[\s\/]\d{4}[\-\s]\d{2}/g;
+  const cnpjMatches=norm.match(cnpjRx);
+  if(cnpjMatches&&cnpjMatches.length>0){
+    result.cnpj=cnpjMatches[0].replace(/\s/g,'');
   }
 
-  // ── FUNCIONÁRIO ─────────────────────────────────────────
-  // Label explícito
-  for (const line of lines) {
-    const m = line.match(/^(?:funcion[aá]rio|colaborador|empregado|nome\s+do\s+funcion[aá]rio|nome)[:\s]+(.+)/i);
-    if (m && m[1].trim().length > 2) { result.funcionario = m[1].trim(); break; }
+  // ── PERÍODO ─────────────────────────────────────────────────────
+  // "De:26/01/2026 à 25/02/2026" ou "De: 26/01/2026 à 25/02/2026"
+  const perRx=/(?:de:|de\s+)?(\d{2}[\/\-]\d{2}[\/\-]\d{4})\s*[àaA\-–]\s*(\d{2}[\/\-]\d{2}[\/\-]\d{4})/i;
+  const perM=norm.match(perRx);
+  if(perM)result.periodo=`${perM[1]} à ${perM[2]}`;
+
+  // ── EMPRESA ─────────────────────────────────────────────────────
+  // "Empresa: 3 CONSTRUTORA FERREIRA SANTOS LTDA CNPJ: ..."
+  // → Captura tudo entre "Empresa:" e "CNPJ:" (ou fim da linha)
+  const empRx=/empresa[:\s]+(.+?)(?:\s+cnpj[\s:]+|\s+\d{2}[\.\s]\d{3}|$)/i;
+  const empM=norm.match(empRx);
+  if(empM){
+    // Remove número do início: "3 CONSTRUTORA..." → "CONSTRUTORA..."
+    result.empresa=empM[1].trim().replace(/^\d+\s+/,'').trim();
   }
-  // Busca em texto corrido após "Funcionário:"
-  if (!result.funcionario) {
-    const fullText = lines.join('\n');
-    const m = fullText.match(/funcion[aá]rio[:\s]+([A-ZÀ-Úa-zà-ú][A-Za-zÀ-úç\s]{3,60})/i);
-    if (m) result.funcionario = m[1].trim();
+
+  // ── FUNCIONÁRIO ─────────────────────────────────────────────────
+  // "Contrato do Empregado: 231 DIEGO ALMEIDA DA SILVA CTPS: ..."
+  // → Captura tudo entre o número e "CTPS:" (ou "MATRICULA:" ou "CPF:")
+  const funcRx=/(?:contrato\s+do\s+empregado|empregado|funcionário|colaborador|nome)[:\s]+(?:\d+\s+)?(.+?)(?:\s+ctps[\s:]+|\s+cpf[\s:]+|\s+matric|\s+\d{4,}|$)/i;
+  const funcM=norm.match(funcRx);
+  if(funcM){
+    result.funcionario=funcM[1].trim().replace(/^\d+\s+/,'').trim();
   }
-  // Linha em maiúsculas que parece nome (mín 2 palavras, diferente da empresa)
-  if (!result.funcionario) {
-    for (const line of lines) {
-      const c = cleanLead(line);
-      if (c.length > 6 && c.length < 60
-        && /^[A-ZÀ-Úa-zà-ú]/.test(c)
-        && c.split(/\s+/).length >= 2
-        && !SKIP.test(c)
-        && !SKIP_CHARS.test(c)
-        && c.toUpperCase() !== result.empresa.toUpperCase()) {
-        // Prefere linhas em maiúsculas (típico de nomes em formulários)
-        if (/^[A-ZÀ-Ú\s]{6,}$/.test(c)) { result.funcionario = c; break; }
-      }
-    }
+  // Fallback: regex mais amplo — captura nome em maiúsculas após número de contrato
+  if(!result.funcionario||result.funcionario.length<4){
+    const funcFallback=norm.match(/contrato\s+do\s+empregado[:\s]+\d+\s+([A-ZÀ-Ú][A-ZÀ-Úa-zà-ú\s]{5,60}?)(?:\s+CTPS|\s+CPF|\s*\n)/i);
+    if(funcFallback)result.funcionario=funcFallback[1].trim();
   }
-  // Segundo fallback: qualquer linha distinta da empresa
-  if (!result.funcionario) {
-    for (const line of lines.slice(0, 15)) {
-      const c = cleanLead(line);
-      if (c.length > 6 && c.length < 60
-        && !SKIP.test(c) && !SKIP_CHARS.test(c)
-        && c !== result.empresa) {
-        result.funcionario = c; break;
-      }
+
+  // ── HORÁRIO ─────────────────────────────────────────────────────
+  // "Horário: segunda-feira à sexta-feira das 08:00 às 14:00 e sábado compensado."
+  const horRx=/horário[:\s]+(.+?)(?:\.|$)/i;
+  const horM=norm.match(horRx);
+  if(horM)result.horario=horM[1].trim().slice(0,120);
+
+  // ── EXTRAIR HORÁRIOS DO TEXTO DO HORÁRIO ─────────────────────────
+  // "das 08:00 às 14:00" → { e1:"08:00", s2:"14:00" }
+  if(result.horario){
+    const times=result.horario.match(/\d{2}:\d{2}/g);
+    if(times&&times.length>=2){
+      result.horarioEntrada=times[0];
+      result.horarioSaida=times[times.length-1];
     }
   }
 
   return result;
 }
 
-function cleanLead(s) {
-  // Remove dígitos e pontuação do início (ex: "3 CONSTRUTORA" → "CONSTRUTORA")
-  return (s || '').replace(/^[\d\s\-\.\/]+/, '').trim();
-}
-
 // ============================================================
 // MODAL
 // ============================================================
-let _modalLog = null;
+function openReviewModal(parsed,rawOcr,file,log){
+  // Preenche campos
+  document.getElementById('m-empresa').value=parsed.empresa||'';
+  document.getElementById('m-cnpj').value=parsed.cnpj||'';
+  document.getElementById('m-func').value=parsed.funcionario||'';
+  document.getElementById('m-periodo').value=parsed.periodo||'';
+  document.getElementById('m-horario').value=parsed.horario||'';
+  document.getElementById('m-file-field').style.display='none';
 
-function openReviewModal(parsed, rawOcr, file, log) {
-  document.getElementById('m-empresa').value = parsed.empresa || '';
-  document.getElementById('m-cnpj').value = parsed.cnpj || '';
-  document.getElementById('m-func').value = parsed.funcionario || '';
-  document.getElementById('m-periodo').value = parsed.periodo || '';
-  document.getElementById('m-file-field').style.display = 'none';
+  // Preview do que foi lido
+  const preview=document.getElementById('modal-parsed-preview');
+  const check=v=>v&&v.length>2
+    ?`<span class="val ok">✓ ${v}</span>`
+    :`<span class="val err">✗ Não detectado — preencha manualmente</span>`;
+  preview.innerHTML=`
+    <div class="row"><span class="lbl">Empresa:</span>${check(parsed.empresa)}</div>
+    <div class="row"><span class="lbl">CNPJ:</span>${check(parsed.cnpj)}</div>
+    <div class="row"><span class="lbl">Funcionário:</span>${check(parsed.funcionario)}</div>
+    <div class="row"><span class="lbl">Período:</span>${check(parsed.periodo)}</div>
+    <div class="row"><span class="lbl">Horário lido:</span>${check(parsed.horario)}</div>
+  `;
 
-  const rawDiv = document.getElementById('modal-ocr-raw');
-  if (rawOcr && rawOcr.length > 0) {
-    rawDiv.style.display = 'block';
-    rawDiv.textContent = '── Texto bruto lido pelo OCR (primeiros 600 chars) ──\n' + rawOcr.slice(0,600) + (rawOcr.length>600?'\n...(truncado)':'');
-  } else {
-    rawDiv.style.display = 'none';
+  // Texto bruto OCR (colapsado)
+  const rawDiv=document.getElementById('modal-ocr-raw');
+  if(rawOcr&&rawOcr.length>0){
+    rawDiv.style.display='block';
+    rawDiv.textContent='── Texto lido pelo OCR (primeiros 700 chars) ──\n'+rawOcr.slice(0,700)+(rawOcr.length>700?'\n...(truncado)':'');
+  }else{
+    rawDiv.style.display='none';
   }
-  modalPendingFile = file || null;
-  _modalLog = log || null;
+
+  modalPendingFile=file||null;
+  _modalLog=log||null;
   document.getElementById('modal-bg').classList.add('open');
 }
 
-function openManualModal() {
-  document.getElementById('m-empresa').value = '';
-  document.getElementById('m-cnpj').value = '';
-  document.getElementById('m-func').value = '';
-  document.getElementById('m-periodo').value = '';
-  document.getElementById('modal-ocr-raw').style.display = 'none';
-  document.getElementById('m-file-field').style.display = 'block';
-  document.getElementById('m-file').value = '';
-  modalPendingFile = null;
-  _modalLog = null;
+function openManualModal(){
+  document.getElementById('m-empresa').value='';
+  document.getElementById('m-cnpj').value='';
+  document.getElementById('m-func').value='';
+  document.getElementById('m-periodo').value='';
+  document.getElementById('m-horario').value='';
+  document.getElementById('modal-ocr-raw').style.display='none';
+  document.getElementById('modal-parsed-preview').innerHTML='<span style="color:var(--muted);font-size:.75rem;">Preencha os campos abaixo.</span>';
+  document.getElementById('m-file-field').style.display='block';
+  document.getElementById('m-file').value='';
+  modalPendingFile=null;_modalLog=null;
   document.getElementById('modal-bg').classList.add('open');
 }
 
-function closeModal() {
+function closeModal(){
   document.getElementById('modal-bg').classList.remove('open');
-  modalPendingFile = null;
-  // Se há mais arquivos na fila, processa o próximo
-  if (_modalLog && fileQueue.length > 0) processNextFile(_modalLog);
+  modalPendingFile=null;
+  if(_modalLog&&fileQueue.length>0)processNextFile(_modalLog);
+  _modalLog=null;
 }
 
-async function saveModal() {
-  const empresa = document.getElementById('m-empresa').value.trim();
-  const cnpj = document.getElementById('m-cnpj').value.trim();
-  const func = document.getElementById('m-func').value.trim();
-  const periodo = document.getElementById('m-periodo').value.trim();
+async function saveModal(){
+  const empresa=document.getElementById('m-empresa').value.trim();
+  const cnpj=document.getElementById('m-cnpj').value.trim();
+  const func=document.getElementById('m-func').value.trim();
+  const periodo=document.getElementById('m-periodo').value.trim();
+  const horario=document.getElementById('m-horario').value.trim();
 
-  if (!empresa) { toast('Nome da empresa é obrigatório', 'error'); return; }
-  if (!func)    { toast('Nome do funcionário é obrigatório', 'error'); return; }
-  if (!checkFirebase()) return;
+  if(!empresa){toast('Nome da empresa é obrigatório','error');return;}
+  if(!func){toast('Nome do funcionário é obrigatório','error');return;}
+  if(!checkFirebase())return;
 
-  let file = modalPendingFile;
-  if (!file) {
-    const inp = document.getElementById('m-file');
-    if (inp.files && inp.files.length > 0) file = inp.files[0];
+  let file=modalPendingFile;
+  if(!file){
+    const inp=document.getElementById('m-file');
+    if(inp.files&&inp.files.length>0)file=inp.files[0];
   }
 
-  try {
-    let pdfURL = '';
-    if (file) {
-      const path = `originais/${slugify(empresa)}/${slugify(func)}_${Date.now()}.pdf`;
-      pdfURL = await uploadPDF(file, path);
+  // Extrai horários do campo texto
+  let horarioEntrada='',horarioSaida='';
+  if(horario){
+    const times=horario.match(/\d{2}:\d{2}/g);
+    if(times&&times.length>=2){horarioEntrada=times[0];horarioSaida=times[times.length-1];}
+  }
+
+  try{
+    let pdfURL='';
+    if(file){
+      const path=`originais/${slugify(empresa)}/${slugify(func)}_${Date.now()}.pdf`;
+      pdfURL=await uploadPDF(file,path);
     }
-    await saveFuncionario({ empresa, cnpj, funcionario: func, periodo }, pdfURL);
-    toast(`✅ ${func} salvo com sucesso!`, 'success');
+    await saveFuncionario({empresa,cnpj,funcionario:func,periodo,horario,horarioEntrada,horarioSaida},pdfURL);
+    toast(`✅ ${func} salvo!`,'success');
     document.getElementById('modal-bg').classList.remove('open');
     loadEmpresasList();
-    if (_modalLog && fileQueue.length > 0) processNextFile(_modalLog);
-    modalPendingFile = null;
-  } catch(e) {
-    toast('Erro ao salvar: ' + e.message, 'error');
+    const nextLog=_modalLog;
+    modalPendingFile=null;_modalLog=null;
+    if(nextLog&&fileQueue.length>0)processNextFile(nextLog);
+  }catch(e){
+    toast('Erro ao salvar: '+e.message,'error');
   }
 }
 
 // ============================================================
 // FIREBASE CRUD
 // ============================================================
-function slugify(str) {
-  return (str||'sem-nome')
+function slugify(str){
+  return(str||'item')
     .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
     .toLowerCase().replace(/[^a-z0-9]+/g,'-')
-    .replace(/^-|-$/g,'').slice(0,80) || 'item';
+    .replace(/^-|-$/g,'').slice(0,80)||'item';
 }
-async function uploadPDF(file, path) {
-  const ref = storage.ref(path);
+async function uploadPDF(file,path){
+  const ref=storage.ref(path);
   await ref.put(file);
   return await ref.getDownloadURL();
 }
-async function saveFuncionario(parsed, pdfURL) {
-  const eId = slugify(parsed.empresa);
-  const fId = slugify(parsed.funcionario);
+async function saveFuncionario(data,pdfURL){
+  const eId=slugify(data.empresa);
+  const fId=slugify(data.funcionario);
   await db.collection('empresas').doc(eId).set(
-    { nome:parsed.empresa, cnpj:parsed.cnpj||'', id:eId }, { merge:true }
+    {nome:data.empresa,cnpj:data.cnpj||'',id:eId},{merge:true}
   );
   await db.collection('empresas').doc(eId).collection('funcionarios').doc(fId).set({
-    id:fId, nome:parsed.funcionario, periodo:parsed.periodo||'',
-    pdfOriginalURL:pdfURL, empresaId:eId,
+    id:fId,nome:data.funcionario,periodo:data.periodo||'',
+    horario:data.horario||'',
+    horarioEntrada:data.horarioEntrada||'',
+    horarioSaida:data.horarioSaida||'',
+    pdfOriginalURL:pdfURL,empresaId:eId,
     criadoEm:firebase.firestore.FieldValue.serverTimestamp(),
-  }, { merge:true });
+  },{merge:true});
 }
 
 // ============================================================
-// LISTA DE EMPRESAS
+// LISTA EMPRESAS
 // ============================================================
-async function loadEmpresasList() {
-  const el = document.getElementById('empresas-list');
-  if (!db) return;
-  el.innerHTML = '<div class="empty"><span class="spin"></span></div>';
-  try {
-    const snap = await db.collection('empresas').get();
-    if (snap.empty) {
-      el.innerHTML = '<div class="empty"><div class="empty-icon">🏢</div>Nenhuma empresa cadastrada</div>';
-      return;
-    }
-    el.innerHTML = '';
-    for (const doc of snap.docs) {
-      const emp = doc.data();
-      const fs = await db.collection('empresas').doc(doc.id).collection('funcionarios').get();
-      const wrap = document.createElement('div');
-      wrap.style.cssText = 'margin-bottom:.5rem;';
-      const card = document.createElement('div');
-      card.style.cssText = 'background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:.85rem 1.1rem;display:flex;align-items:center;justify-content:space-between;';
-      card.innerHTML = `
+async function loadEmpresasList(){
+  const el=document.getElementById('empresas-list');
+  if(!db)return;
+  el.innerHTML='<div class="empty"><span class="spin"></span></div>';
+  try{
+    const snap=await db.collection('empresas').get();
+    if(snap.empty){el.innerHTML='<div class="empty"><div class="empty-icon">🏢</div>Nenhuma empresa cadastrada</div>';return;}
+    el.innerHTML='';
+    for(const doc of snap.docs){
+      const emp=doc.data();
+      const fs=await db.collection('empresas').doc(doc.id).collection('funcionarios').get();
+      const wrap=document.createElement('div');
+      wrap.style.cssText='margin-bottom:.6rem;';
+      const card=document.createElement('div');
+      card.style.cssText='background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:.85rem 1.1rem;display:flex;align-items:center;justify-content:space-between;';
+      card.innerHTML=`
         <div>
           <div style="font-family:Syne,sans-serif;font-weight:600;font-size:.88rem;">${emp.nome}</div>
           <div style="color:var(--muted);font-size:.7rem;margin-top:.1rem;">${emp.cnpj||'CNPJ não informado'}</div>
@@ -689,81 +683,73 @@ async function loadEmpresasList() {
         <span style="font-size:.72rem;color:var(--accent2);">${fs.size} func.</span>
       `;
       wrap.appendChild(card);
-      if (fs.size > 0) {
-        fs.forEach(fd => {
-          const f = fd.data();
-          const row = document.createElement('div');
-          row.style.cssText = 'padding:.35rem 1.1rem .35rem 2rem;font-size:.76rem;display:flex;gap:.5rem;align-items:center;color:var(--muted);';
-          row.innerHTML = `<span>👤</span><span style="color:var(--text);">${f.nome}</span><span style="font-size:.67rem;">${f.periodo||''}</span>`;
-          wrap.appendChild(row);
-        });
-      }
+      fs.forEach(fd=>{
+        const f=fd.data();
+        const row=document.createElement('div');
+        row.style.cssText='padding:.35rem 1.1rem .35rem 2rem;font-size:.76rem;display:flex;gap:.6rem;align-items:center;color:var(--muted);';
+        row.innerHTML=`<span>👤</span><span style="color:var(--text);">${f.nome}</span><span style="font-size:.67rem;">${f.periodo||''}</span>${f.horario?`<span style="font-size:.65rem;color:var(--accent2);">⏰ ${f.horario.slice(0,40)}</span>`:''}`;
+        wrap.appendChild(row);
+      });
       el.appendChild(wrap);
     }
-  } catch(e) {
-    el.innerHTML = `<div class="empty">Erro: ${e.message}</div>`;
-  }
+  }catch(e){el.innerHTML=`<div class="empty">Erro: ${e.message}</div>`;}
 }
 
-async function fillEmpSel(selId) {
-  const sel = document.getElementById(selId);
-  sel.innerHTML = '<option value="">Selecione...</option>';
-  if (!db) return;
-  try {
-    const snap = await db.collection('empresas').get();
-    snap.forEach(doc => {
-      const o = document.createElement('option');
-      o.value = doc.id; o.textContent = doc.data().nome;
-      sel.appendChild(o);
+async function fillEmpSel(selId){
+  const sel=document.getElementById(selId);
+  sel.innerHTML='<option value="">Selecione...</option>';
+  if(!db)return;
+  try{
+    const snap=await db.collection('empresas').get();
+    snap.forEach(doc=>{
+      const o=document.createElement('option');o.value=doc.id;o.textContent=doc.data().nome;sel.appendChild(o);
     });
-  } catch(_) {}
+  }catch(_){}
 }
 
 // ============================================================
 // CHAMADA
 // ============================================================
-function setDefaultDate() {
-  const el = document.getElementById('ch-data');
-  if (el && !el.value) el.value = new Date().toISOString().split('T')[0];
+function setDefaultDate(){
+  const el=document.getElementById('ch-data');
+  if(el&&!el.value)el.value=new Date().toISOString().split('T')[0];
 }
 
-async function loadFuncChamada() {
-  const eId = document.getElementById('ch-emp').value;
-  const data = document.getElementById('ch-data').value;
-  const el = document.getElementById('chamada-list');
-  chamadaState = {};
-  if (!eId || !data) {
-    el.innerHTML = '<div class="empty"><div class="empty-icon">👥</div>Selecione empresa e data</div>';
-    document.getElementById('ch-save-bar').style.display = 'none';
+async function loadFuncChamada(){
+  const eId=document.getElementById('ch-emp').value;
+  const data=document.getElementById('ch-data').value;
+  const el=document.getElementById('chamada-list');
+  chamadaState={};
+  if(!eId||!data){
+    el.innerHTML='<div class="empty"><div class="empty-icon">👥</div>Selecione empresa e data</div>';
+    document.getElementById('ch-save-bar').style.display='none';
     return;
   }
-  el.innerHTML = '<div class="empty"><span class="spin"></span> Carregando...</div>';
-  try {
-    const fs = await db.collection('empresas').doc(eId).collection('funcionarios').get();
-    if (fs.empty) { el.innerHTML='<div class="empty">Nenhum funcionário nesta empresa</div>'; return; }
-
-    const existing = {};
-    for (const fd of fs.docs) {
-      try {
-        const cs = await db.collection('chamadas').doc(eId).collection(fd.id).doc(data).get();
-        if (cs.exists) existing[fd.id] = cs.data();
-      } catch(_) {}
+  el.innerHTML='<div class="empty"><span class="spin"></span> Carregando...</div>';
+  try{
+    const fs=await db.collection('empresas').doc(eId).collection('funcionarios').get();
+    if(fs.empty){el.innerHTML='<div class="empty">Nenhum funcionário</div>';return;}
+    const existing={};
+    for(const fd of fs.docs){
+      try{
+        const cs=await db.collection('chamadas').doc(eId).collection(fd.id).doc(data).get();
+        if(cs.exists)existing[fd.id]=cs.data();
+      }catch(_){}
     }
-
-    el.innerHTML = '';
-    const table = document.createElement('table');
-    table.innerHTML = `<thead><tr><th>Funcionário</th><th>Status</th><th>Atraso</th></tr></thead><tbody id="ch-tbody"></tbody>`;
+    el.innerHTML='';
+    const table=document.createElement('table');
+    table.innerHTML='<thead><tr><th>Funcionário</th><th>Horário</th><th>Status</th><th>Atraso</th></tr></thead><tbody id="ch-tbody"></tbody>';
     el.appendChild(table);
-    const tbody = document.getElementById('ch-tbody');
-
-    fs.forEach(fd => {
-      const f = fd.data();
-      const sv = existing[fd.id] || { status:'presente', atrasado:false };
-      chamadaState[fd.id] = { status:sv.status, atrasado:sv.atrasado };
-      const st = chamadaState[fd.id].status;
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
+    const tbody=document.getElementById('ch-tbody');
+    fs.forEach(fd=>{
+      const f=fd.data();
+      const sv=existing[fd.id]||{status:'presente',atrasado:false};
+      chamadaState[fd.id]={status:sv.status,atrasado:sv.atrasado};
+      const st=chamadaState[fd.id].status;
+      const tr=document.createElement('tr');
+      tr.innerHTML=`
         <td><strong>${f.nome}</strong></td>
+        <td style="font-size:.7rem;color:var(--muted)">${f.horarioEntrada||'?'}–${f.horarioSaida||'?'}</td>
         <td><div class="s-btns">
           <button class="s-btn ${st==='presente'?'ap':''}" onclick="setStatus('${fd.id}','presente',this)">✓ Presente</button>
           <button class="s-btn ${st==='falta'?'af':''}" onclick="setStatus('${fd.id}','falta',this)">✗ Falta</button>
@@ -773,155 +759,193 @@ async function loadFuncChamada() {
       `;
       tbody.appendChild(tr);
     });
-    document.getElementById('ch-save-bar').style.display = 'block';
-  } catch(e) {
-    el.innerHTML = `<div class="empty">Erro: ${e.message}</div>`;
-  }
+    document.getElementById('ch-save-bar').style.display='block';
+  }catch(e){el.innerHTML=`<div class="empty">Erro: ${e.message}</div>`;}
 }
 
-function setStatus(fId, status, btn) {
-  chamadaState[fId].status = status;
-  btn.closest('tr').querySelectorAll('.s-btn').forEach(b => b.className='s-btn');
+function setStatus(fId,status,btn){
+  chamadaState[fId].status=status;
+  btn.closest('tr').querySelectorAll('.s-btn').forEach(b=>b.className='s-btn');
   btn.classList.add(status==='presente'?'ap':status==='falta'?'af':'aa');
 }
 
-async function salvarChamada() {
-  const eId = document.getElementById('ch-emp').value;
-  const data = document.getElementById('ch-data').value;
-  if (!eId||!data) return;
-  try {
-    for (const [fId,state] of Object.entries(chamadaState)) {
+async function salvarChamada(){
+  const eId=document.getElementById('ch-emp').value;
+  const data=document.getElementById('ch-data').value;
+  if(!eId||!data)return;
+  try{
+    for(const[fId,state]of Object.entries(chamadaState)){
       await db.collection('chamadas').doc(eId).collection(fId).doc(data).set(state);
     }
     toast('✅ Chamada salva!','success');
-  } catch(e) { toast('Erro: '+e.message,'error'); }
+  }catch(e){toast('Erro: '+e.message,'error');}
 }
 
 // ============================================================
 // GERAR PDF
 // ============================================================
-async function loadFuncGerar() {
-  const eId = document.getElementById('ger-emp').value;
-  const sel = document.getElementById('ger-func');
-  sel.innerHTML = '<option value="">Selecione...</option>';
-  if (!eId||!db) return;
-  try {
-    const fs = await db.collection('empresas').doc(eId).collection('funcionarios').get();
-    fs.forEach(doc => {
-      const o=document.createElement('option'); o.value=doc.id; o.textContent=doc.data().nome; sel.appendChild(o);
+async function loadFuncGerar(){
+  const eId=document.getElementById('ger-emp').value;
+  const sel=document.getElementById('ger-func');
+  sel.innerHTML='<option value="">Selecione...</option>';
+  if(!eId||!db)return;
+  try{
+    const fs=await db.collection('empresas').doc(eId).collection('funcionarios').get();
+    fs.forEach(doc=>{
+      const o=document.createElement('option');o.value=doc.id;o.textContent=doc.data().nome;sel.appendChild(o);
     });
-  } catch(_) {}
+  }catch(_){}
 }
 
-async function gerarPDF() {
-  const eId = document.getElementById('ger-emp').value;
-  const fId = document.getElementById('ger-func').value;
-  if (!eId||!fId) { toast('Selecione empresa e funcionário','error'); return; }
-  if (!checkFirebase()) return;
+async function gerarPDF(){
+  const eId=document.getElementById('ger-emp').value;
+  const fId=document.getElementById('ger-func').value;
+  if(!eId||!fId){toast('Selecione empresa e funcionário','error');return;}
+  if(!checkFirebase())return;
 
-  const btn = document.getElementById('ger-btn');
-  btn.disabled=true; btn.innerHTML='<span class="spin"></span> Gerando...';
-  const pCard = document.getElementById('ger-preview');
-  const pContent = document.getElementById('ger-preview-content');
-  const dlDiv = document.getElementById('ger-download');
+  const btn=document.getElementById('ger-btn');
+  btn.disabled=true;btn.innerHTML='<span class="spin"></span> Gerando...';
+  const pCard=document.getElementById('ger-preview');
+  const pContent=document.getElementById('ger-preview-content');
+  const dlDiv=document.getElementById('ger-download');
   pCard.style.display='block';
   pContent.innerHTML='<div class="empty"><span class="spin"></span> Calculando marcações...</div>';
   dlDiv.style.display='none';
 
-  try {
-    const fDoc = await db.collection('empresas').doc(eId).collection('funcionarios').doc(fId).get();
-    const func = fDoc.data();
-    const eDoc = await db.collection('empresas').doc(eId).get();
-    const empresa = eDoc.data();
-    const cSnap = await db.collection('chamadas').doc(eId).collection(fId).get();
-    const chamadas = {};
-    cSnap.forEach(d => { chamadas[d.id] = d.data(); });
+  try{
+    const fDoc=await db.collection('empresas').doc(eId).collection('funcionarios').doc(fId).get();
+    const func=fDoc.data();
+    const eDoc=await db.collection('empresas').doc(eId).get();
+    const empresa=eDoc.data();
+    const cSnap=await db.collection('chamadas').doc(eId).collection(fId).get();
+    const chamadas={};
+    cSnap.forEach(d=>{chamadas[d.id]=d.data();});
 
-    const period = parsePeriod(func.periodo);
-    const schedule = buildSchedule(period, chamadas);
-    pContent.innerHTML = renderPreview(schedule, func, empresa);
+    const period=parsePeriod(func.periodo);
+    const schedule=buildSchedule(period,chamadas,func);
+    pContent.innerHTML=renderPreview(schedule,func,empresa);
 
-    const pdfBytes = await buildPDF(schedule, func, empresa);
-    const blob = new Blob([pdfBytes], { type:'application/pdf' });
-    const url = URL.createObjectURL(blob);
+    const pdfBytes=await buildPDF(schedule,func,empresa);
+    const blob=new Blob([pdfBytes],{type:'application/pdf'});
+    const url=URL.createObjectURL(blob);
 
-    // Tenta salvar no Storage
-    try {
-      const spath = `preenchidos/${eId}/${fId}_${Date.now()}.pdf`;
-      const sRef = storage.ref(spath);
+    try{
+      const spath=`preenchidos/${eId}/${fId}_${Date.now()}.pdf`;
+      const sRef=storage.ref(spath);
       await sRef.put(blob);
-      const dlURL = await sRef.getDownloadURL();
+      const dlURL=await sRef.getDownloadURL();
       await db.collection('empresas').doc(eId).collection('funcionarios').doc(fId).update({
-        pdfPreenchidoURL: dlURL,
-        pdfPreenchidoEm: firebase.firestore.FieldValue.serverTimestamp(),
+        pdfPreenchidoURL:dlURL,
+        pdfPreenchidoEm:firebase.firestore.FieldValue.serverTimestamp(),
       });
-    } catch(e) { /* Storage opcional — download local ainda funciona */ }
+    }catch(e){}
 
-    const link = document.getElementById('ger-link');
-    link.href = url;
-    link.download = `folha_${func.nome||'funcionario'}_${Date.now()}.pdf`;
-    dlDiv.style.display = 'block';
+    const link=document.getElementById('ger-link');
+    link.href=url;
+    link.download=`folha_${(func.nome||'func').replace(/\s+/g,'_')}.pdf`;
+    dlDiv.style.display='block';
     toast('PDF gerado!','success');
-  } catch(e) {
-    pContent.innerHTML = `<div class="empty">❌ Erro: ${e.message}</div>`;
+  }catch(e){
+    pContent.innerHTML=`<div class="empty">❌ Erro: ${e.message}</div>`;
     toast('Erro: '+e.message,'error');
   }
-  btn.disabled=false; btn.textContent='⚡ Gerar PDF';
+  btn.disabled=false;btn.textContent='⚡ Gerar PDF';
 }
 
-function parsePeriod(periodo) {
-  if (!periodo) {
-    const now = new Date();
-    return { start:new Date(now.getFullYear(),now.getMonth(),1), end:new Date(now.getFullYear(),now.getMonth()+1,0) };
+function parsePeriod(periodo){
+  if(!periodo){
+    const now=new Date();
+    return{start:new Date(now.getFullYear(),now.getMonth(),1),end:new Date(now.getFullYear(),now.getMonth()+1,0)};
   }
-  const ms = [...(periodo.match(/(\d{2})[\/\-](\d{2})[\/\-](\d{4})/g)||[])];
-  if (ms.length >= 2) {
-    const toD = s => { const p=s.replace(/-/g,'/').split('/'); return new Date(+p[2],+p[1]-1,+p[0]); };
-    return { start:toD(ms[0]), end:toD(ms[1]) };
+  const ms=[...(periodo.match(/(\d{2})[\/\-](\d{2})[\/\-](\d{4})/g)||[])];
+  if(ms.length>=2){
+    const toD=s=>{const p=s.replace(/-/g,'/').split('/');return new Date(+p[2],+p[1]-1,+p[0]);};
+    return{start:toD(ms[0]),end:toD(ms[1])};
   }
   const now=new Date();
-  return { start:new Date(now.getFullYear(),now.getMonth(),1), end:new Date(now.getFullYear(),now.getMonth()+1,0) };
+  return{start:new Date(now.getFullYear(),now.getMonth(),1),end:new Date(now.getFullYear(),now.getMonth()+1,0)};
 }
 
-function buildSchedule(period, chamadas) {
-  const ht = getHorarios();
-  const days = [];
-  const cur = new Date(period.start);
-  const parseMin = s => { const [h,m]=(s||'00:00').split(':').map(Number); return h*60+m; };
-  const fmtTime = mins => {
-    const mm=((mins%60)+60)%60, hh=Math.floor(((mins+1440)%1440)/60);
-    return `${String(hh).padStart(2,'0')}:${String(mm).padStart(2,'0')}`;
-  };
-  const rand = () => Math.floor(Math.random()*11)-5;
+// ============================================================
+// BUILD SCHEDULE — Respeita horários do funcionário
+// ============================================================
+function buildSchedule(period, chamadas, func){
+  // Horário do funcionário (lido do PDF) ou global
+  const globalHt=getHorarios();
 
-  while (cur <= period.end) {
-    const dow = cur.getDay();
-    const dateStr = cur.toISOString().split('T')[0];
-    const ch = chamadas[dateStr] || { status:'presente', atrasado:false };
-    const day = {
-      date:dateStr, display:cur.toLocaleDateString('pt-BR'), dow,
-      isSat:dow===6, isSun:dow===0,
-      status:ch.status, atrasado:ch.atrasado,
-      e1:'', s1:'', e2:'', s2:'', obs:''
+  // Se o funcionário tem horário próprio (ex: 08:00 às 14:00 = turno único)
+  // Detecta se é turno único ou duplo
+  const entStr=func.horarioEntrada||'';
+  const saiStr=func.horarioSaida||'';
+  const hasFuncHorario=entStr&&saiStr;
+
+  let E1='',S1='',E2='',S2='';
+  if(hasFuncHorario){
+    // Turno único: entrada X, saída Y, sem almoço registrado
+    // mas pode ter pausa — definimos pausa de 1h no meio
+    const eMin=parseMin(entStr);
+    const sMin=parseMin(saiStr);
+    const durMin=sMin-eMin;
+    if(durMin<=360){
+      // 6h ou menos = turno único sem intervalo registrado
+      E1=entStr; S1=saiStr; E2=''; S2='';
+    }else{
+      // Mais de 6h = tem intervalo
+      E1=entStr;
+      S1=fmtTime(eMin+Math.round(durMin/2)-30);
+      E2=fmtTime(eMin+Math.round(durMin/2)+30);
+      S2=saiStr;
+    }
+  }else{
+    E1=globalHt.e1;S1=globalHt.s1;E2=globalHt.e2;S2=globalHt.s2;
+  }
+
+  const days=[];
+  const cur=new Date(period.start);
+
+  while(cur<=period.end){
+    const dow=cur.getDay();
+    const dateStr=cur.toISOString().split('T')[0];
+    const ch=chamadas[dateStr]||{status:'presente',atrasado:false};
+    const day={
+      date:dateStr,
+      display:cur.toLocaleDateString('pt-BR'),
+      dow,isSat:dow===6,isSun:dow===0,
+      status:ch.status,atrasado:ch.atrasado,
+      e1:'',s1:'',e2:'',s2:'',obs:''
     };
 
-    if (day.isSun)              { day.obs='DSR'; }
-    else if (day.isSat)         { day.obs='COMPENSADO'; }
-    else if (ch.status==='falta')    { day.obs='FALTA'; }
-    else if (ch.status==='atestado') { day.obs='ATESTADO'; }
-    else {
-      const isFri = dow===5;
-      let e1m = parseMin(ht.e1)+rand();
-      if (ch.atrasado) e1m += Math.floor(Math.random()*6)+3;
-      let s1m = parseMin(ht.s1)+rand();
-      let e2m = parseMin(ht.e2)+rand();
-      let s2m = parseMin(isFri ? ht.sf : ht.s2)+rand();
-      // Coerência
-      if (s1m <= e1m+30)  s1m = e1m+230+Math.abs(rand());
-      if (e2m <= s1m+10)  e2m = s1m+55+Math.abs(rand());
-      if (s2m <= e2m+60)  s2m = e2m+175+Math.abs(rand());
-      day.e1=fmtTime(e1m); day.s1=fmtTime(s1m);
-      day.e2=fmtTime(e2m); day.s2=fmtTime(s2m);
+    if(day.isSun)             {day.obs='DSR';}
+    else if(day.isSat)        {day.obs='COMPENSADO';}
+    else if(ch.status==='falta')    {day.obs='FALTA';}
+    else if(ch.status==='atestado') {day.obs='ATESTADO';}
+    else{
+      const isFri=dow===5;
+      const rand=()=>Math.floor(Math.random()*11)-5;
+
+      let e1m=parseMin(E1)+rand();
+      if(ch.atrasado)e1m+=Math.floor(Math.random()*6)+3;
+
+      if(E2){
+        // Duplo turno
+        let s1m=parseMin(S1)+rand();
+        let e2m=parseMin(E2)+rand();
+        // Sexta: saída mais cedo se horário padrão
+        const s2base=(!hasFuncHorario&&isFri)?globalHt.sf:S2;
+        let s2m=parseMin(s2base)+rand();
+        // Coerência
+        if(s1m<=e1m+60)s1m=e1m+230+Math.abs(rand());
+        if(e2m<=s1m)e2m=s1m+55+Math.abs(rand());
+        if(s2m<=e2m+60)s2m=e2m+160+Math.abs(rand());
+        day.e1=fmtTime(e1m);day.s1=fmtTime(s1m);
+        day.e2=fmtTime(e2m);day.s2=fmtTime(s2m);
+      }else{
+        // Turno único
+        let s2m=parseMin(S1)+rand();
+        if(s2m<=e1m+60)s2m=e1m+300+Math.abs(rand());
+        day.e1=fmtTime(e1m);day.s1=fmtTime(s2m);
+        day.e2='';day.s2='';
+      }
     }
     days.push(day);
     cur.setDate(cur.getDate()+1);
@@ -929,11 +953,21 @@ function buildSchedule(period, chamadas) {
   return days;
 }
 
-function renderPreview(schedule, func, empresa) {
+function parseMin(s){const[h,m]=(s||'00:00').split(':').map(Number);return h*60+m;}
+function fmtTime(mins){
+  const mm=((mins%60)+60)%60,hh=Math.floor(((mins+1440)%1440)/60);
+  return`${String(hh).padStart(2,'0')}:${String(mm).padStart(2,'0')}`;
+}
+
+function renderPreview(schedule,func,empresa){
   const DN=['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
-  let h=`<div style="margin-bottom:.9rem;font-size:.83rem;"><strong>${func.nome}</strong> — ${empresa.nome}<br><span style="color:var(--muted)">Período: ${func.periodo||'não informado'}</span></div>
-  <div class="table-wrap"><table><thead><tr><th>Data</th><th>Dia</th><th>Ent 1</th><th>Saí 1</th><th>Ent 2</th><th>Saí 2</th><th>Status</th></tr></thead><tbody>`;
-  for (const d of schedule) {
+  let h=`<div style="margin-bottom:.9rem;font-size:.83rem;">
+    <strong>${func.nome}</strong> — ${empresa.nome}<br>
+    <span style="color:var(--muted)">Período: ${func.periodo||'não informado'}</span><br>
+    <span style="color:var(--accent2);font-size:.75rem;">⏰ ${func.horario||'horário padrão'}</span>
+  </div><div class="table-wrap"><table>
+  <thead><tr><th>Data</th><th>Dia</th><th>Ent 1</th><th>Saí 1</th><th>Ent 2</th><th>Saí 2</th><th>Status</th></tr></thead><tbody>`;
+  for(const d of schedule){
     const obs=d.obs;
     const badge=obs?`<span class="badge ${obs==='FALTA'?'bd':obs==='ATESTADO'?'bw':'bi'}">${obs}</span>`:'<span class="badge bs">✓</span>';
     h+=`<tr><td>${d.display}</td><td>${DN[d.dow]}</td><td>${d.e1||'—'}</td><td>${d.s1||'—'}</td><td>${d.e2||'—'}</td><td>${d.s2||'—'}</td><td>${badge}</td></tr>`;
@@ -944,57 +978,94 @@ function renderPreview(schedule, func, empresa) {
 // ============================================================
 // PDF BUILD (pdf-lib)
 // ============================================================
-async function buildPDF(schedule, func, empresa) {
-  const { PDFDocument, rgb, StandardFonts } = PDFLib;
-  const doc = await PDFDocument.create();
-  const font = await doc.embedFont(StandardFonts.Helvetica);
-  const bold = await doc.embedFont(StandardFonts.HelveticaBold);
-  const W=595.28, H=841.89, M=28;
-  const COLS=[58,38,52,52,52,52,52,70];
-  const HEADS=['Data','Dia','Ent. 1','Saí. 1','Ent. 2','Saí. 2','Extra','Observ.'];
+async function buildPDF(schedule,func,empresa){
+  const{PDFDocument,rgb,StandardFonts}=PDFLib;
+  const doc=await PDFDocument.create();
+  const font=await doc.embedFont(StandardFonts.Helvetica);
+  const bold=await doc.embedFont(StandardFonts.HelveticaBold);
+  const W=595.28,H=841.89,M=28;
+  // Colunas: Data, Dia, 1T-Ent, 1T-Saí, 2T-Ent, 2T-Saí, Extra, Assinatura
+  const COLS=[55,36,50,50,50,50,40,105];
+  const HEADS=['Data','Dia','Ent. 1','Saí. 1','Ent. 2','Saí. 2','Extra','Assinatura'];
   const DN=['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
-  const RH=20, HDR=95, RPP=22;
+  const RH=21,HDR=100,RPP=20;
+
   const cFor=d=>{
-    if(d.isSun||d.isSat) return rgb(.42,.46,.56);
-    if(d.obs==='FALTA') return rgb(.95,.28,.32);
-    if(d.obs==='ATESTADO') return rgb(.95,.62,.1);
+    if(d.isSun||d.isSat)return rgb(.42,.46,.56);
+    if(d.obs==='FALTA')return rgb(.9,.25,.3);
+    if(d.obs==='ATESTADO')return rgb(.9,.6,.1);
     return rgb(.84,.87,.92);
   };
-  for (let p=0; p<Math.ceil(schedule.length/RPP); p++) {
+
+  for(let p=0;p<Math.ceil(schedule.length/RPP);p++){
     const page=doc.addPage([W,H]);
     let y=H-M;
+
+    // Header
     page.drawRectangle({x:M,y:y-HDR,width:W-M*2,height:HDR,color:rgb(.06,.07,.1),borderColor:rgb(.18,.2,.26),borderWidth:1});
-    page.drawText('FOLHA DE PONTO',{x:M+10,y:y-20,size:13,font:bold,color:rgb(.91,1,.28)});
-    page.drawText(empresa.nome||'',{x:M+10,y:y-37,size:9.5,font:bold,color:rgb(.9,.9,.9)});
-    if(empresa.cnpj) page.drawText('CNPJ: '+empresa.cnpj,{x:M+10,y:y-51,size:8,font,color:rgb(.55,.58,.65)});
+    page.drawText('REGISTRO DE FREQUÊNCIA',{x:M+10,y:y-20,size:12,font:bold,color:rgb(.91,1,.28)});
+    page.drawText(empresa.nome||'',{x:M+10,y:y-36,size:9.5,font:bold,color:rgb(.9,.9,.9)});
+    if(empresa.cnpj)page.drawText('CNPJ: '+empresa.cnpj,{x:M+10,y:y-50,size:8,font,color:rgb(.55,.58,.65)});
     page.drawText('Funcionário: '+(func.nome||''),{x:M+10,y:y-64,size:9,font:bold,color:rgb(.9,.9,.9)});
     page.drawText('Período: '+(func.periodo||''),{x:M+10,y:y-78,size:8,font,color:rgb(.55,.58,.65)});
-    page.drawText('Pág. '+(p+1),{x:W-M-40,y:y-78,size:7,font,color:rgb(.4,.4,.4)});
+    if(func.horario)page.drawText('Horário: '+func.horario.slice(0,80),{x:M+10,y:y-90,size:7.5,font,color:rgb(.48,.52,.62)});
+    page.drawText('Pág '+(p+1),{x:W-M-35,y:y-20,size:7,font,color:rgb(.4,.4,.4)});
     y-=HDR+12;
+
+    // Cabeçalho das colunas
     page.drawRectangle({x:M,y:y-RH,width:W-M*2,height:RH,color:rgb(.1,.11,.15)});
     let cx=M;
     for(let i=0;i<HEADS.length;i++){
-      page.drawText(HEADS[i],{x:cx+3,y:y-RH+6,size:7,font:bold,color:rgb(.48,.52,.62)});
+      page.drawText(HEADS[i],{x:cx+3,y:y-RH+7,size:6.8,font:bold,color:rgb(.48,.52,.62)});
       cx+=COLS[i];
     }
     y-=RH;
+
+    // Linhas
     const slice=schedule.slice(p*RPP,(p+1)*RPP);
-    for(const [ri,d] of slice.entries()){
-      const bg=ri%2===0?rgb(.08,.09,.12):rgb(.06,.07,.09);
+    for(const[ri,d]of slice.entries()){
+      const bg=ri%2===0?rgb(.08,.09,.12):rgb(.065,.075,.095);
       page.drawRectangle({x:M,y:y-RH,width:W-M*2,height:RH,color:bg});
-      const vals=[d.display,DN[d.dow],d.e1,d.s1,d.e2,d.s2,'',d.obs];
-      const tc=cFor(d); cx=M;
+      const tc=cFor(d);
+
+      // Assinatura: se falta/atestado/compensado/DSR coloca o texto, senão linha
+      let assinCol='';
+      if(d.obs==='FALTA')assinCol='FALTA';
+      else if(d.obs==='ATESTADO')assinCol='ATESTADO';
+      else if(d.obs==='COMPENSADO')assinCol='Compensado';
+      else if(d.obs==='DSR')assinCol='DSR';
+      else assinCol=''; // linha em branco para assinar
+
+      const vals=[d.display,DN[d.dow],d.e1,d.s1,d.e2,d.s2,'',assinCol];
+      cx=M;
       for(let i=0;i<vals.length;i++){
         const v=vals[i]||'';
-        page.drawText(v,{x:cx+3,y:y-RH+6,size:7.5,font:(i===7&&d.obs)?bold:font,color:tc});
+        if(i===7&&!assinCol){
+          // Linha de assinatura
+          page.drawLine({start:{x:cx+4,y:y-RH+8},end:{x:cx+COLS[i]-6,y:y-RH+8},thickness:.5,color:rgb(.35,.38,.45)});
+        }else if(v){
+          page.drawText(v,{x:cx+3,y:y-RH+7,size:7.5,font:(i===7&&assinCol)||i===0?bold:font,color:tc});
+        }
         cx+=COLS[i];
+      }
+      // Linhas verticais divisórias
+      cx=M;
+      for(let i=0;i<COLS.length-1;i++){
+        cx+=COLS[i];
+        page.drawLine({start:{x:cx,y:y},end:{x:cx,y:y-RH},thickness:.3,color:rgb(.15,.16,.2)});
       }
       page.drawLine({start:{x:M,y:y-RH},end:{x:W-M,y:y-RH},thickness:.3,color:rgb(.12,.13,.17)});
       y-=RH;
     }
-    y-=18;
+
+    // Rodapé
+    y-=22;
     page.drawLine({start:{x:M,y},end:{x:W-M,y},thickness:.5,color:rgb(.18,.2,.26)});
-    page.drawText('Assinatura: ___________________________ Data: ______/______/______',{x:M,y:y-14,size:7.5,font,color:rgb(.55,.58,.65)});
+    page.drawText('Declaro que as informações acima são corretas.',{x:M,y:y-13,size:7.5,font,color:rgb(.5,.53,.6)});
+    page.drawText('Assinatura: ___________________________________',{x:M,y:y-27,size:7.5,font,color:rgb(.5,.53,.6)});
+    page.drawText('Data: ______/______/______',{x:W-M-130,y:y-27,size:7.5,font,color:rgb(.5,.53,.6)});
+    // Rodapé VISTO
+    page.drawText('VISTO: _______________',{x:W/2-50,y:y-13,size:7.5,font,color:rgb(.5,.53,.6)});
   }
   return await doc.save();
 }
@@ -1002,11 +1073,11 @@ async function buildPDF(schedule, func, empresa) {
 // ============================================================
 // ARQUIVOS
 // ============================================================
-async function loadArquivos() {
+async function loadArquivos(){
   const el=document.getElementById('arq-list');
-  if(!checkFirebase()) return;
+  if(!checkFirebase())return;
   el.innerHTML='<div class="empty"><span class="spin"></span> Carregando...</div>';
-  try {
+  try{
     const es=await db.collection('empresas').get();
     const rows=[];
     for(const ed of es.docs){
@@ -1025,29 +1096,29 @@ async function loadArquivos() {
         <td style="font-size:.72rem;color:var(--muted)">${r.func.periodo||'—'}</td>
         <td>${r.func.pdfOriginalURL?`<a class="btn sec" style="font-size:.7rem;padding:.28rem .65rem" href="${r.func.pdfOriginalURL}" target="_blank">📄 Ver</a>`:'—'}</td>
         <td>${r.func.pdfPreenchidoURL?`<a class="btn ok" style="font-size:.7rem;padding:.28rem .65rem" href="${r.func.pdfPreenchidoURL}" target="_blank">⬇️ Baixar</a>`:'—'}</td>
-        <td><button class="btn danger" style="font-size:.7rem;padding:.28rem .65rem" onclick="excluir('${r.eId}','${r.fId}')">🗑</button></td>
+        <td><button class="btn danger" style="font-size:.7rem;padding:.28rem .65rem" onclick="excluir('${r.eId}','${r.fId}')">🗑 Excluir</button></td>
       `;
       tbody.appendChild(tr);
     }
-  } catch(e){el.innerHTML=`<div class="empty">Erro: ${e.message}</div>`;}
+  }catch(e){el.innerHTML=`<div class="empty">Erro: ${e.message}</div>`;}
 }
 
-async function excluir(eId,fId) {
-  if(!confirm('Excluir este funcionário e todos os seus dados?')) return;
-  try {
+async function excluir(eId,fId){
+  if(!confirm('Excluir este funcionário e todos os seus dados?'))return;
+  try{
     try{
       const fd=await db.collection('empresas').doc(eId).collection('funcionarios').doc(fId).get();
       const f=fd.data();
-      if(f.pdfOriginalURL) await storage.refFromURL(f.pdfOriginalURL).delete().catch(()=>{});
-      if(f.pdfPreenchidoURL) await storage.refFromURL(f.pdfPreenchidoURL).delete().catch(()=>{});
+      if(f.pdfOriginalURL)await storage.refFromURL(f.pdfOriginalURL).delete().catch(()=>{});
+      if(f.pdfPreenchidoURL)await storage.refFromURL(f.pdfPreenchidoURL).delete().catch(()=>{});
     }catch(_){}
     try{
       const cs=await db.collection('chamadas').doc(eId).collection(fId).get();
-      for(const d of cs.docs) await d.ref.delete();
+      for(const d of cs.docs)await d.ref.delete();
     }catch(_){}
     await db.collection('empresas').doc(eId).collection('funcionarios').doc(fId).delete();
     const fs=await db.collection('empresas').doc(eId).collection('funcionarios').get();
-    if(fs.empty) await db.collection('empresas').doc(eId).delete();
+    if(fs.empty)await db.collection('empresas').doc(eId).delete();
     toast('Excluído!','success');
     loadArquivos();
   }catch(e){toast('Erro: '+e.message,'error');}
@@ -1059,9 +1130,8 @@ async function excluir(eId,fId) {
 function toast(msg,type='info'){
   const c=document.getElementById('toast-wrap');
   const el=document.createElement('div');
-  el.className=`toast ${type}`; el.textContent=msg;
-  c.appendChild(el);
-  setTimeout(()=>el.remove(),4000);
+  el.className=`toast ${type}`;el.textContent=msg;
+  c.appendChild(el);setTimeout(()=>el.remove(),4500);
 }
 </script>
 </body>
