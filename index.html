@@ -7,6 +7,7 @@
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js"></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@400;600;700;800&display=swap');
 :root{
@@ -513,18 +514,16 @@ async function runOCRMultiPage(file,b64,log){
 }
 
 // Extrai posições Y de cada número de dia a partir do overlay do OCR.space
-// OCR.space retorna: Lines[].Words[].{WordText, Left, Top, Width, Height}
-// As coordenadas são em pixels (imagem) — precisamos converter para coordenadas pdf-lib
+// Filtra apenas números que estão na coluna do "Dia" (x < 45pt)
+// e que NÃO têm dois-pontos próximos (para não confundir com horários como 08:00)
 function extrairDayYMapDoOCR(parsedResult){
   const dayYMap = {};
+  const entradaYData = {};
   try{
     const lines = parsedResult.TextOverlay?.Lines || [];
     if(!lines.length) return dayYMap;
 
-    // Descobre a largura e altura da imagem OCR para normalizar
-    // OCR.space usa imagem de ~300dpi — A4 = 2480x3508px
-    // pdf-lib usa pontos: A4 = 595x842pt
-    // Fator de conversão: 595/2480 = 0.24 (pt por pixel)
+    // Dimensões da imagem OCR
     let maxLeft=0, maxTop=0;
     for(const line of lines){
       for(const word of (line.Words||[])){
@@ -532,33 +531,59 @@ function extrairDayYMapDoOCR(parsedResult){
         if(word.Top+word.Height > maxTop) maxTop=word.Top+word.Height;
       }
     }
-    // Usa dimensões detectadas ou assume A4 300dpi
     const imgW = maxLeft > 100 ? maxLeft*1.05 : 2480;
     const imgH = maxTop  > 100 ? maxTop*1.05  : 3508;
     const scaleX = 595 / imgW;
     const scaleY = 842 / imgH;
 
+    // Coleta TODOS os textos com posição para análise de contexto
+    const allWords = [];
     for(const line of lines){
       for(const word of (line.Words||[])){
-        const txt = (word.WordText||'').trim();
-        if(/^\d{1,2}$/.test(txt)){
-          const num = parseInt(txt);
-          if(num >= 1 && num <= 31){
-            // Posição X em pontos — deve estar na coluna do Dia (x < 45pt)
-            const xPt = word.Left * scaleX;
-            if(xPt < 45){
-              // Top em pixels → y_pdflib (invertido: origem base)
-              const yTopPt  = word.Top * scaleY;
-              const yBotPt  = (word.Top + word.Height) * scaleY;
-              const yCenterPdfLib = 842 - (yTopPt + (yBotPt - yTopPt)/2);
-              dayYMap[num] = Math.round(yCenterPdfLib * 10) / 10;
-            }
-          }
-        }
+        allWords.push({
+          txt: (word.WordText||'').trim(),
+          xPt: word.Left * scaleX,
+          yTopPt: word.Top * scaleY,
+          yBotPt: (word.Top + word.Height) * scaleY
+        });
       }
     }
+
+    // Detecta y do header "Entrada" (último "Entrada" antes da tabela)
+    const entradas = allWords.filter(w => w.txt === 'Entrada' || w.txt.toLowerCase() === 'entrada');
+    if(entradas.length > 0){
+      // Pega o último "Entrada" (que é o header da tabela de dados)
+      const lastEntrada = entradas[entradas.length-1];
+      const entradaYMup = (lastEntrada.yTopPt + lastEntrada.yBotPt) / 2;
+      entradaYData.entradaY = Math.round((842 - entradaYMup) * 10) / 10;
+    }
+
+    // Detecta números de dia: apenas na coluna x < 45pt
+    // E verifica que na mesma linha NÃO há texto com ":" (que seria um horário)
+    for(const word of allWords){
+      if(!/^\d{1,2}$/.test(word.txt)) continue;
+      const num = parseInt(word.txt);
+      if(num < 1 || num > 31) continue;
+      if(word.xPt >= 45) continue; // fora da coluna do dia
+
+      // Verifica se há horário (texto com ":") na mesma linha Y ±10pt
+      const yCenterMup = (word.yTopPt + word.yBotPt) / 2;
+      const hasTimeNearby = allWords.some(w => {
+        if(!w.txt.includes(':')) return false;
+        const wyCenterMup = (w.yTopPt + w.yBotPt) / 2;
+        return Math.abs(wyCenterMup - yCenterMup) < 10 && w.xPt > 45;
+      });
+
+      if(!hasTimeNearby){
+        const yCenterPdfLib = 842 - yCenterMup;
+        dayYMap[num] = Math.round(yCenterPdfLib * 10) / 10;
+      }
+    }
+
     if(Object.keys(dayYMap).length > 0){
-      console.log('dayYMap extraído do OCR:', dayYMap);
+      console.log('dayYMap extraído do OCR:', Object.keys(dayYMap).length, 'dias');
+      // Salva entradaY para uso como fallback
+      if(entradaYData.entradaY) dayYMap._entradaY = entradaYData.entradaY;
     }
   }catch(e){
     console.warn('Erro ao extrair dayYMap do OCR:', e.message);
@@ -1167,48 +1192,111 @@ function renderPreview(schedule,func,empresa){
 }
 
 // ================================================================
-// PREENCHER PDF ORIGINAL — detecção dinâmica de posições
-// Funciona para qualquer período (26→25, 11→25, 01→31, etc.)
+// PREENCHER PDF ORIGINAL — lê coordenadas do próprio stream do PDF
+// Funciona para qualquer período (11→25, 26→25, etc.)
+// Usa pako.js para descomprimir o FlateDecode stream
 // ================================================================
 
-// X das colunas — fixo para este layout (medido dos vetores do PDF)
-// Células: Dia(21-44) | Especial(44-93) | E1(93-143) | S1(143-194) | E2(194-244) | S2(244-296) | ExtraE(296-350) | ExtraS/Assin(350-562)
+// X fixo de cada coluna (medido dos vetores do PDF, calibrado uma vez)
 const COL_X = {
-  e1:   58,   // 1º Turno Entrada  (centro entre x=44 e x=93, ajuste -5 pelo offset do "Entrada" header)
-  s1:  108,   // 1º Turno Saída    (centro entre x=93 e x=143)
-  e2:  158,   // 2º Turno Entrada  (centro entre x=143 e x=194)
-  s2:  209,   // 2º Turno Saída    (centro entre x=194 e x=244)
-  extra_e: 260,
-  extra_s: 313,
+  e1:   58,   // 1º Turno Entrada  (entre x=44 e x=93)
+  s1:  108,   // 1º Turno Saída    (entre x=93 e x=143)
+  e2:  158,   // 2º Turno Entrada  (entre x=143 e x=194)
+  s2:  209,   // 2º Turno Saída    (entre x=194 e x=244)
   assinatura: 356
 };
 
-const FONT_SIZE_HORA = 8.5;
-const FONT_SIZE_OBS  = 7.5;
+const FONT_SIZE_HORA = 9;
+const FONT_SIZE_OBS  = 8;
 
-// Detecta posições Y de cada dia lendo o texto do próprio PDF
-// Retorna um mapa { dia: y_em_coordenadas_pdflib }
-async function detectarDiasNoPDF(pdfBytes, pageHeight){
-  // Usa pdf-lib para extrair texto com posições
-  // Como pdf-lib não tem extração de texto, usamos uma abordagem heurística:
-  // lemos o stream de conteúdo do PDF para encontrar os números dos dias
+// Extrai do stream de conteúdo do PDF as posições Y exatas de cada dia
+// Retorna { dia: y_em_pontos_pdflib }
+async function extrairDayYMapDoPDF(pdfDoc, page){
+  const {PDFName, PDFRef, PDFArray} = PDFLib;
+  const dayYMap = {};
 
-  // Estratégia: usa o padrão de espaçamento constante entre linhas (~15.9pt)
-  // e a posição do primeiro dia para calcular todos os outros dinamicamente.
-  
-  // Para detectar o primeiro dia e sua posição Y, parseamos o stream do PDF.
-  // O layout SEMPRE tem:
-  //   - Primeira linha da tabela em torno de y_mup=185–200 (dependendo do período)
-  //   - Espaçamento de ~15.9pt entre linhas
-  //   - Os números dos dias na coluna x=21–44
-  
-  return null; // sinal para usar detecção por heurística abaixo
+  try{
+    // Acessa o content stream da página
+    const pageNode = pdfDoc.context.lookup(page.ref);
+    const contentsVal = pageNode.get(PDFName.of('Contents'));
+    
+    let rawBytes = null;
+
+    if(contentsVal instanceof PDFRef){
+      const stream = pdfDoc.context.lookup(contentsVal);
+      if(stream && stream.getContents) rawBytes = stream.getContents();
+    } else if(contentsVal instanceof PDFArray){
+      const parts = [];
+      for(const item of contentsVal.asArray()){
+        const ref = item instanceof PDFRef ? item : null;
+        if(ref){
+          const stream = pdfDoc.context.lookup(ref);
+          if(stream && stream.getContents){
+            const b = stream.getContents();
+            parts.push(b);
+          }
+        }
+      }
+      if(parts.length > 0){
+        let total = parts.reduce((s,b)=>s+b.length, 0);
+        rawBytes = new Uint8Array(total);
+        let offset = 0;
+        for(const b of parts){ rawBytes.set(b, offset); offset+=b.length; }
+      }
+    }
+
+    if(!rawBytes || rawBytes.length === 0){
+      console.warn('Nenhum content stream encontrado');
+      return dayYMap;
+    }
+
+    // Descomprime (FlateDecode = zlib/deflate)
+    let streamText;
+    try{
+      const decompressed = pako.inflate(rawBytes);
+      streamText = new TextDecoder('latin1').decode(decompressed);
+    }catch(e){
+      // Tenta sem descomprimir (caso o stream não esteja comprimido)
+      try{ streamText = new TextDecoder('latin1').decode(rawBytes); }
+      catch(_){ console.warn('Falha ao ler stream:', e.message); return dayYMap; }
+    }
+
+    // Regex para Tm: "a 0 0 b X Y Tm" onde a=escala, X=posX, Y=posY
+    // Formato real do PDF: "0.999465 0 0 1 29.04 659.12 Tm"
+    const tmRx = /[\d.]+\s+0\s+0\s+[\d.]+\s+([\d.]+)\s+([\d.]+)\s+Tm([\s\S]{0,60})/g;
+    let m;
+    while((m = tmRx.exec(streamText)) !== null){
+      const x = parseFloat(m[1]);
+      const y = parseFloat(m[2]);
+      const after = m[3];
+      
+      // Só coluna do dia (x < 50) e dentro da tabela (100 < y < 720)
+      if(x < 50 && y > 100 && y < 720){
+        // Extrai número do dia do texto que segue o Tm
+        // Formato: "[(2)-7.53(6)500]TJ" (dia 26) ou "[(0)-7.53(1)500]TJ" (dia 01)
+        // Simplificado: extrai todos os dígitos dos parênteses
+        const digits = [...after.matchAll(/\((\d)\)/g)].map(d=>d[1]).join('');
+        if(digits.length >= 1){
+          const num = parseInt(digits.slice(0,2));
+          if(num >= 1 && num <= 31){
+            if(!dayYMap[num]){ // pega só a primeira ocorrência
+              dayYMap[num] = y;
+            }
+          }
+        }
+      }
+    }
+
+    console.log('dayYMap extraído do PDF:', Object.keys(dayYMap).sort((a,b)=>a-b).map(k=>`${k}:${dayYMap[k]}`).join(', '));
+  }catch(e){
+    console.error('Erro ao extrair dayYMap:', e);
+  }
+  return dayYMap;
 }
 
 async function preencherPDFOriginal(pdfB64, schedule, func){
   const {PDFDocument, rgb, StandardFonts} = PDFLib;
 
-  // Decodifica base64
   const binary = atob(pdfB64);
   const bytes = new Uint8Array(binary.length);
   for(let i=0;i<binary.length;i++) bytes[i] = binary.charCodeAt(i);
@@ -1218,25 +1306,26 @@ async function preencherPDFOriginal(pdfB64, schedule, func){
   const fontB  = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
   const pages  = pdfDoc.getPages();
   const page   = pages[0];
-
   const {width, height} = page.getSize();
 
-  // Escala para PDFs com dimensões diferentes de 595x842
+  // Escala para PDFs com tamanho diferente de 595x842
   const scaleX = width  / 595.0;
   const scaleY = height / 842.0;
 
-  // ── DETECÇÃO DINÂMICA DAS LINHAS DA TABELA ──────────────────────────
-  // Lê o stream bruto do PDF para encontrar posições Y dos números dos dias
-  // Formato PDF: "BT ... Td (texto) Tj ET" ou similar
-  // Extraímos via regex no stream de bytes
-  // Usa dayYMap salvo no Firestore (extraído no momento do OCR)
-  // Se não tiver, usa fallback heurístico
-  const savedDayYMap = func.dayYMap || {};
-  const dayYMap = Object.keys(savedDayYMap).length > 0
-    ? Object.fromEntries(Object.entries(savedDayYMap).map(([k,v])=>[parseInt(k), v * scaleY]))
-    : await fallbackDayPositions(schedule, height);
+  // Extrai posições Y dos dias diretamente do stream do PDF
+  let dayYMap = await extrairDayYMapDoPDF(pdfDoc, page);
 
-  function colX(name){ return COL_X[name] * scaleX; }
+  // Se não encontrou nada, usa tabela de fallback calibrada
+  if(Object.keys(dayYMap).length < 3){
+    console.warn('Usando tabela fallback calibrada (período 26→25)');
+    dayYMap = {
+      26:659.1, 27:643.2, 28:627.3, 29:611.4, 30:595.5, 31:581.1,
+       1:564.4,  2:546.1,  3:530.2,  4:514.3,  5:498.4,  6:482.5,
+       7:468.2,  8:451.4,  9:433.2, 10:417.2, 11:401.2, 12:385.4,
+      13:369.4, 14:355.2, 15:338.5, 16:320.1, 17:305.8, 18:287.5,
+      19:271.6, 20:255.7, 21:241.4, 22:224.6, 23:206.4, 24:190.4, 25:174.6
+    };
+  }
 
   const colorBlack = rgb(0.05, 0.05, 0.05);
   const colorRed   = rgb(0.75, 0.10, 0.10);
@@ -1245,11 +1334,14 @@ async function preencherPDFOriginal(pdfB64, schedule, func){
     const y = dayYMap[day.diaN];
     if(y == null) continue;
 
+    const yScaled = y * scaleY;
+    const xScale  = (name) => COL_X[name] * scaleX;
+
     if(day.obs){
       if(day.obs === 'FALTA' || day.obs === 'ATESTADO'){
         page.drawText(day.obs, {
-          x: colX('assinatura'), y,
-          size: FONT_SIZE_OBS, font: fontB, color: colorRed
+          x: xScale('assinatura'), y: yScaled,
+          size: FONT_SIZE_OBS * scaleY, font: fontB, color: colorRed
         });
       }
       continue;
@@ -1257,114 +1349,15 @@ async function preencherPDFOriginal(pdfB64, schedule, func){
 
     if(!day.e1) continue;
 
-    page.drawText(day.e1, {x: colX('e1'), y, size: FONT_SIZE_HORA, font: fontB, color: colorBlack});
-    page.drawText(day.s1, {x: colX('s1'), y, size: FONT_SIZE_HORA, font: fontB, color: colorBlack});
-
+    page.drawText(day.e1, {x:xScale('e1'), y:yScaled, size:FONT_SIZE_HORA*scaleY, font:fontB, color:colorBlack});
+    page.drawText(day.s1, {x:xScale('s1'), y:yScaled, size:FONT_SIZE_HORA*scaleY, font:fontB, color:colorBlack});
     if(day.e2){
-      page.drawText(day.e2, {x: colX('e2'), y, size: FONT_SIZE_HORA, font: fontB, color: colorBlack});
-      page.drawText(day.s2, {x: colX('s2'), y, size: FONT_SIZE_HORA, font: fontB, color: colorBlack});
+      page.drawText(day.e2, {x:xScale('e2'), y:yScaled, size:FONT_SIZE_HORA*scaleY, font:fontB, color:colorBlack});
+      page.drawText(day.s2, {x:xScale('s2'), y:yScaled, size:FONT_SIZE_HORA*scaleY, font:fontB, color:colorBlack});
     }
   }
 
   return await pdfDoc.save();
-}
-
-// ── EXTRAI POSIÇÕES Y DOS DIAS DO STREAM DO PDF ──────────────────────
-// Parseia o stream de conteúdo para encontrar onde cada número de dia
-// está posicionado na página, usando o padrão do layout.
-async function extrairPosicoesDias(pdfBytes, pageHeight, schedule){
-  const dayYMap = {};
-
-  try{
-    // Converte bytes para string para parsear o stream PDF
-    // Procura por padrões de posicionamento de texto: "Td" e "Tm" operators
-    const decoder = new TextDecoder('latin1');
-    const pdfStr = decoder.decode(pdfBytes);
-
-    // Regex para encontrar sequências: número_x número_y Td (texto)
-    // Formato típico: "29.0 648.3 Td (26) Tj"
-    // ou via matriz: "1 0 0 1 29.0 648.3 Tm (26) Tj"
-    const tdPattern = /([\d.]+)\s+([\d.]+)\s+Td\s*\((\d{1,2})\)/g;
-    const tmPattern = /1\s+0\s+0\s+1\s+([\d.]+)\s+([\d.]+)\s+Tm\s*\((\d{1,2})\)/g;
-
-    const found = {};
-
-    let m;
-    while((m = tdPattern.exec(pdfStr)) !== null){
-      const x = parseFloat(m[1]);
-      const y = parseFloat(m[2]);
-      const num = parseInt(m[3]);
-      if(num >= 1 && num <= 31 && x < 50){
-        found[num] = y; // y já é coordenada pdf (origem base)
-      }
-    }
-    while((m = tmPattern.exec(pdfStr)) !== null){
-      const x = parseFloat(m[1]);
-      const y = parseFloat(m[2]);
-      const num = parseInt(m[3]);
-      if(num >= 1 && num <= 31 && x < 50){
-        found[num] = y;
-      }
-    }
-
-    if(Object.keys(found).length > 0){
-      console.log('Dias detectados no PDF:', Object.keys(found).sort((a,b)=>a-b));
-      for(const [dia, y] of Object.entries(found)){
-        // y do PDF stream = coordenada pdf-lib diretamente
-        // Adiciona offset de +5pt para centralizar na linha
-        dayYMap[parseInt(dia)] = y + 5;
-      }
-      return dayYMap;
-    }
-  }catch(e){
-    console.warn('Falha ao parsear stream PDF:', e.message);
-  }
-
-  // FALLBACK — usa tabela calibrada + detecção do primeiro dia
-  console.warn('Usando fallback heurístico para posições dos dias');
-  return fallbackDayPositions(schedule, pageHeight);
-}
-
-// Fallback: calcula posições baseado no período e espaçamento padrão calibrado
-// Funciona para períodos que começam no dia 26 (o mais comum)
-// Para outros períodos, o OCR overlay é o método principal
-function fallbackDayPositions(schedule, pageHeight){
-  const dayYMap = {};
-  if(!schedule || schedule.length === 0) return dayYMap;
-
-  // Tabela calibrada para período 26→25 (padrão desta empresa)
-  const CALIBRATED = {
-     1:555.1,  2:537.7,  3:521.7,  4:505.9,  5:489.9,
-     6:474.5,  7:459.4,  8:442.1,  9:424.7, 10:408.8,
-    11:392.8, 12:376.9, 13:361.6, 14:346.4, 15:329.1,
-    16:312.2, 17:296.5, 18:279.1, 19:263.1, 20:247.7,
-    21:232.6, 22:215.3, 23:197.9, 24:182.0, 25:166.0,
-    26:650.6, 27:634.7, 28:618.8, 29:602.9, 30:587.6, 31:572.7
-  };
-
-  // Usa tabela calibrada para os dias que existem nela
-  for(const day of schedule){
-    if(CALIBRATED[day.diaN] !== undefined){
-      const scale = pageHeight / 842.0;
-      dayYMap[day.diaN] = CALIBRATED[day.diaN] * scale;
-    }
-  }
-
-  // Para dias não cobertos pela tabela, usa interpolação linear
-  const LINE_H = 15.9;
-  const knownDays = Object.keys(dayYMap).map(Number).sort((a,b)=>a-b);
-  if(knownDays.length > 0){
-    const firstKnown = knownDays[0];
-    const firstY = dayYMap[firstKnown];
-    for(const day of schedule){
-      if(dayYMap[day.diaN] === undefined){
-        const offset = day.diaN - firstKnown;
-        dayYMap[day.diaN] = firstY - (offset * LINE_H);
-      }
-    }
-  }
-
-  return dayYMap;
 }
 
 // ================================================================
